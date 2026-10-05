@@ -14,6 +14,12 @@
 - Целевые Chromium DOM/runtime и static проверки этого прохода: **PASS**. Полный master regression — **25/25 PASS**, normative acceptance — **102/102 PASS**, standalone release integrity — **PASS**. Финальный source ZIP — **PASS**: все 105 member paths и file bytes сверены после генерации статуса `ZIP=PASS`.
 - Кандидат не развёрнут и не опубликован; независимое QA, Android/iOS и WebView не заявляются.
 
+## Дополнение от 5 октября 2026 — P0 TIME baseline
+
+- TIME `target=0` сохраняется при подготовке runtime-сессии, восстановлении активной сессии и нормализации записи истории; для ROUNDS/COMBINED прежние ограничения целей сохранены. Fidelity-пороги и нормативный spec не менялись.
+- Обычный UI/runtime регрессионный тест проходит baseline entry, старт, восстановление, один явно синтетический test-only UI круг и штатное завершение таймером; запись сохраняет `plannedSeconds=600`, состав 5/10/15, фактические круги и `endedBy=time`, provenance `EXACT`, reconciliation устанавливает `baselineRecordId`.
+- Candidate не развёрнут и не опубликован. Целевой тест, CoachCore/runtime проверки, standalone release-integrity test и author-run byte-for-byte ZIP comparison — PASS. Полный 26-gate master regression, нормативный acceptance и независимое exact-hash QA остаются отдельными pending gates; кандидат не объявляется готовым к релизу.
+
 Все разделы ниже описывают предыдущую проверку от 29 сентября 2026 года, а не текущий статус кандидата.
 
 **Дата:** 29 сентября 2026  

@@ -23,8 +23,8 @@
   const V3_CORE_VERSION = CORE.CORE_VERSION;
   const V3_SOURCE_HASH = '024608c9a30091d1d85105fea25dc28444f8b171fce890d313924b07f0a6f046';
   const V3_BUILD_HASH = 'ef69c3217fb2b123cfc631483f3bc331df145a7eed5e9feeb1ec3c9734c49a04';
-  const V3_RELEASE_SOURCE_HASH = '8c06d5449d28c11bd9e7a375e60e9bf09db28a18a7802b2f5983ebe96deb46e5';
-  const V3_RELEASE_BUILD_HASH = 'dce275a395704281f360dbb61e0a383ded1d35d47371e876251716f52c0f218f';
+  const V3_RELEASE_SOURCE_HASH = '83ea6829ca6bd899d2f098bb3e6203113989e3123d90a2bb3a42a23d658fd7cd';
+  const V3_RELEASE_BUILD_HASH = '5542bcb39215c510445e46716bd7e0f009aca298249e4fb867479a6bc46af6a8';
 
   const clone = value => {
     if (value == null) return value;
@@ -42,7 +42,7 @@
     fixtureCorpusVersion: V3_FIXTURES_VERSION,
     exerciseMatrixVersion: CORE.MATRIX_VERSION,
     compatibilityVersion: CORE.COMPATIBILITY_VERSION,
-    releaseCandidateId: 'CINDY_V3_ADAPTIVE_COACH_IMPLEMENTATION_20261004',
+    releaseCandidateId: 'CINDY_V3_P0_TIME_BASELINE_FIX_20261005',
     integrityVersion: 'CINDY_RELEASE_HASH_V1',
     releaseSourceHash: V3_RELEASE_SOURCE_HASH,
     releaseBuildHash: V3_RELEASE_BUILD_HASH

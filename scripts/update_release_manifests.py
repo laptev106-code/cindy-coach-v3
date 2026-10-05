@@ -21,7 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 INTEGRITY_VERSION = "CINDY_RELEASE_HASH_V1"
-MASTER_GATES = 25
+MASTER_GATES = 26
 ADAPTER = "coach_core_v3/coach_integration_v3.js"
 RUNTIME_SOURCE_PATHS = sorted(
     path.relative_to(ROOT).as_posix()
@@ -155,9 +155,9 @@ self.addEventListener('fetch', (event) => {
     release = json.loads(release_path.read_text(encoding="utf-8"))
     acceptance_status = "PASS (102/102); pinned core fixtureCorpusVersion remains v3.0.0-100." if regression_status == "PASS" else "PENDING — run the 102-case normative acceptance corpus on this exact candidate."
     release.update({
-        "releaseCandidateId": "CINDY_V3_ADAPTIVE_COACH_IMPLEMENTATION_20261004",
+        "releaseCandidateId": "CINDY_V3_P0_TIME_BASELINE_FIX_20261005",
         "releaseTrack": "cindy-v3-adaptive-coach",
-        "hardeningDate": "2026-10-04",
+        "hardeningDate": "2026-10-05",
         "hardeningStatus": "Implementation candidate; not deployed or published.",
         "integrityVersion": INTEGRITY_VERSION,
         "integrityProcedure": {
@@ -201,7 +201,7 @@ self.addEventListener('fetch', (event) => {
         "masterRegressionStatus": f"PASS ({MASTER_GATES}/{MASTER_GATES})" if regression_status == "PASS" else f"PENDING — run the {MASTER_GATES}-gate master regression on this exact candidate.",
         "v3AcceptanceStatus": acceptance_status,
         "v3AcceptanceFixtureCount": 102,
-        "realBrowserVerification": "Author-run Chromium DOM interactions on localhost with a disposable profile: PASS; Plan verifies one shared exercise surface, nested direction-labelled arrows and disabled boundaries. This is not independent QA; WebView, Android and iOS NOT_VERIFIED.",
+        "realBrowserVerification": "Author-run Chromium: P0 TIME baseline ordinary UI/runtime route PASS with a disposable candidate-local profile, including planned/frozen/recovered target=0, standard 5/10/15 composition, scheduled time finish and exact provenance. Prior UX browser checks remain author-run only. Full master regression and independent QA are PENDING; WebView, Android and iOS NOT_VERIFIED.",
         "finalZipVerification": "PASS — final source ZIP members verified byte-for-byte against the project tree." if zip_status == "PASS" else "PENDING — build the final source ZIP and compare every member byte-for-byte with the project tree.",
         "coachEnabledDefault": True,
         "coachColdStartStatus": "ACTIVE — fresh default ON; baseline authority requires a fresh explicit user request.",
@@ -220,7 +220,7 @@ self.addEventListener('fetch', (event) => {
             "Plan paceGuidance is passed through CoachInput.config and frozen as combined-mode session runtime metadata; explicit false and manual behavior are regression-checked, with no new WorkoutSpec field or CoachCore adaptation rule.",
             "Canonical baseline validity is rechecked before public derive/start; an invalid same-ID BASELINE History row is excluded before CoachCore and stale baseline ID/authority are cleared.",
         ],
-        "notes": "Implementation candidate for CINDY Adaptive Coach V3; no deployment/publication performed. See CINDY_V30_CONFIRMED_UX_IMPLEMENTATION_REPORT_20261004.md and CINDY_V30_CONFIRMED_UX_DIFF_INVENTORY_20261004.md for this UX pass, exact file scope, outcomes, limits, and independent-QA handoff.",
+        "notes": "Dated P0 TIME baseline candidate for CINDY Adaptive Coach V3; no deployment/publication performed. Only TIME target normalization changes; fidelity rules and normative semantics remain unchanged. See the candidate-local P0 handoff evidence and the 2026-10-04 UX implementation report/inventory for prior scope. Full master regression and independent exact-hash QA remain separate pending gates.",
     })
     # Core identity remains pinned to the exact V3 normative engine contract; project hashes are separate.
     release["manifestHash"] = ""
@@ -263,7 +263,7 @@ self.addEventListener('fetch', (event) => {
             "masterRegression": status,
             "v3Acceptance": acceptance_status,
             "releaseIntegrity": "PASS — deterministic generator/test verifies exact artifact hashes and both normalized manifest self-hashes." if regression_status == "PASS" else "PENDING",
-            "realBrowser": "PASS — author-run Chromium DOM interactions on localhost with a disposable profile; independent QA and WebView/Android/iOS NOT_VERIFIED.",
+            "realBrowser": "PASS — author-run Chromium normal UI/runtime test for P0 TIME baseline with a disposable candidate-local profile; independent QA and WebView/Android/iOS NOT_VERIFIED.",
             "zipExtraction": "PASS — source ZIP member bytes match the project tree." if zip_status == "PASS" else "PENDING — final ZIP member-by-member comparison remains.",
         },
     })
@@ -281,6 +281,7 @@ self.addEventListener('fetch', (event) => {
         "Deterministic SHA-256 release process with service-worker cache identity and per-artifact regression assertions.",
         "Plan paceGuidance is frozen as combined-mode session runtime metadata from CoachInput.config, without changing CoachCore adaptation or WorkoutSpec schema.",
         "Public derive/start revalidate canonical baseline records; invalid same-ID BASELINE History is excluded before CoachCore and stale authority/ID are cleared.",
+        "P0 TIME baseline runtime normalization preserves normative target=0 through fresh sessions, active-session recovery and History records; the ordinary timer finish reconciles exact provenance without relaxing fidelity.",
     ]
     existing_gaps = [item for item in decomp.get("remainingKnownGaps", []) if not item.startswith("No real Chromium/WebView") and not item.startswith("No ZIP package/extracted candidate") and not item.startswith("The final source ZIP remains PENDING")]
     zip_gap = [] if zip_status == "PASS" else [

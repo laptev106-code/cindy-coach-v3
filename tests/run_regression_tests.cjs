@@ -10,6 +10,7 @@ const checks=[
   ['Stage 4 Coach boundary','run_stage4_coach_boundary_tests.cjs','DECOMPOSITION_STAGE4_COACH_BOUNDARY_PASS'],
   ['Stage 5 presentation','run_stage5_presentation_tests.cjs','DECOMPOSITION_STAGE5_PRESENTATION_PASS'],
   ['Confirmed UX browser interactions','run_confirmed_ux_dom_tests.cjs','CONFIRMED_UX_DOM_TESTS_PASS'],
+  ['P0 TIME baseline UI/runtime','run_time_baseline_ui_runtime_tests.cjs','TIME_BASELINE_UI_RUNTIME_PASS'],
   ['Plan pace-guidance DOM/runtime','run_pace_guidance_dom_runtime_tests.cjs','PACE_GUIDANCE_DOM_RUNTIME_PASS'],
   ['Coach pace-guidance frozen session/reload','run_pace_guidance_coach_freeze_tests.cjs','PACE_GUIDANCE_COACH_FREEZE_TESTS_PASS'],
   ['Stage 6 legacy retirement','run_stage6_legacy_retirement_tests.cjs','DECOMPOSITION_STAGE6_LEGACY_RETIREMENT_PASS'],

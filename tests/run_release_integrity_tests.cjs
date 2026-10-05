@@ -106,7 +106,7 @@ T('decomposition manifest exact references and self-hash verify',()=>{
   assert.strictEqual(decomp.coachApplicationServiceHash,release.coachApplicationServiceHash);
   assert.strictEqual(decomp.coachStateRepositoryHash,release.coachStateRepositoryHash);
   assert.strictEqual(decomp.historyProvenanceHash,release.historyProvenanceHash);
-  assert.strictEqual(decomp.masterRegressionGates,25);
+  assert.strictEqual(decomp.masterRegressionGates,26);
 });
 T('release procedure documents schema blockers and distinguishes tested UX, independent QA and ZIP coverage',()=>{
   assert.strictEqual(release.integrityVersion,'CINDY_RELEASE_HASH_V1');

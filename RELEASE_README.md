@@ -1,6 +1,6 @@
 # CINDY V3.0 Corrective / Hardening Release
 
-**Candidate date:** 2026-10-04  
+**Candidate date:** 2026-10-05  
 **Application entry:** `index.html`  
 **Coach specification:** CINDY Adaptive Coach V3.0.0  
 **Program Pack:** `cindy-program-v3.0.0-four-day-canonical-r1`  
@@ -22,7 +22,7 @@
 - Stage 5 presentation checks: **19/19 PASS**.
 - Existing pace-guidance Chromium DOM/runtime check: **PASS**.
 - Inline JavaScript syntax: **PASS** (five inline script blocks).
-- Full master regression: **25/25 PASS**, including the pinned normative acceptance corpus (**102/102 PASS**); standalone release integrity: **PASS**. Final source ZIP: **PASS**, with all 105 members and every packaged file byte compared against the frozen project tree after `--zip-status PASS` generation.
+- The **2026-10-04 frozen base** previously passed its 25-gate master, 102-case acceptance, integrity and ZIP checks; those results are historical and do not qualify this P0 candidate. For the **2026-10-05 P0 candidate**, the ordinary-UI TIME baseline regression, targeted checks, standalone release-integrity test and final author-run ZIP member/byte comparison pass. The full 26-gate master and normative 102-case acceptance were not run; independent exact-hash QA remains pending. This candidate is not release-ready.
 - This author-run browser test is not independent QA. Android/iOS/WebView and production-like-origin behavior remain **NOT VERIFIED**.
 
 The V3.0 normative acceptance corpus remains pinned as `v3.0.0-100` (102 cases). Core/session contracts and Coach scoring are unchanged by this UX pass. See `CINDY_V30_CONFIRMED_UX_IMPLEMENTATION_REPORT_20261004.md`, `CINDY_V30_CONFIRMED_UX_DIFF_INVENTORY_20261004.md`, `RELEASE_NOTES.md` and `RELEASE_INTEGRITY.md` for scope and process.
