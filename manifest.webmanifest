@@ -1,0 +1,14 @@
+{
+  "id": "/",
+  "name": "CINDY / LITE",
+  "short_name": "CINDY Lite",
+  "description": "CINDY workout timer and round tracking.",
+  "lang": "ru",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#211b19",
+  "background_color": "#f8f3ee"
+}
