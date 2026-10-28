@@ -23,8 +23,8 @@
   const V3_CORE_VERSION = CORE.CORE_VERSION;
   const V3_SOURCE_HASH = '024608c9a30091d1d85105fea25dc28444f8b171fce890d313924b07f0a6f046';
   const V3_BUILD_HASH = 'ef69c3217fb2b123cfc631483f3bc331df145a7eed5e9feeb1ec3c9734c49a04';
-  const V3_RELEASE_SOURCE_HASH = '83ea6829ca6bd899d2f098bb3e6203113989e3123d90a2bb3a42a23d658fd7cd';
-  const V3_RELEASE_BUILD_HASH = '5542bcb39215c510445e46716bd7e0f009aca298249e4fb867479a6bc46af6a8';
+  const V3_RELEASE_SOURCE_HASH = '95ca4c4b558362f7d3933eeb138bb8faa8e51b32d812c936fdef0981370a0e3b';
+  const V3_RELEASE_BUILD_HASH = 'dec2b335bc3064dbc37e31e96b11d442233bee4cc7a46b8299e73302cc0c138d';
 
   const clone = value => {
     if (value == null) return value;
@@ -49,7 +49,7 @@
   });
 
   const clockPort = Object.freeze({
-    now: () => new Date().toISOString(),
+    now: () => (runtime && typeof runtime.now === 'function' ? runtime.now() : new Date().toISOString()),
     timezone: () => Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
   });
 
@@ -250,12 +250,12 @@
     if (!isCoachEnabled()) return true;
     try {
       const snapshot = service.state();
-      const fingerprint = service.fingerprint();
+      const currentConfigFp = typeof service.configFingerprint === 'function' ? service.configFingerprint() : null;
       // A pending baseline is a dedicated Coach protocol and is intentionally
       // independent from the user's editable Builder configuration. Changing
       // the Builder config must not cancel the pending baseline test.
       if (snapshot.baselineAuthority) return true;
-      if (snapshot.ownership === 'COACH' && snapshot.appliedConfigFingerprint && fingerprint !== snapshot.appliedConfigFingerprint) {
+      if (snapshot.ownership === 'COACH' && snapshot.appliedConfigFingerprint && currentConfigFp && currentConfigFp !== snapshot.appliedConfigFingerprint) {
         service.onBuilderMutation();
       }
       return true;
@@ -307,6 +307,7 @@
     ownership: () => isCoachEnabled() ? service.currentOwnership() : 'BUILDER',
     state: () => isCoachEnabled() ? service.state() : null,
     readiness: () => isCoachEnabled() ? service.readiness() : null,
+    configFingerprint: () => isCoachEnabled() && typeof service.configFingerprint === 'function' ? service.configFingerprint() : null,
     isEnabled: isCoachEnabled,
     requestBaseline: minutes => isCoachEnabled() ? service.requestBaseline(minutes) : false,
     baselineTestDefinition: () => isCoachEnabled() ? service.baselineTestDefinition() : null,

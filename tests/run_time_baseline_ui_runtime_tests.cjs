@@ -68,7 +68,7 @@ function connectCdp(targetUrl){
 }
 
 (async()=>{
-  const profile=fs.mkdtempSync(path.join(root,'evidence','.disposable-time-baseline-chromium-'));
+  const profile=fs.mkdtempSync(path.join(require('os').tmpdir(),'cindy-time-baseline-chromium-'));
   const server=makeServer();let browser,cdp,browserLog='';
   try{
     await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolve)});

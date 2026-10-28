@@ -3,16 +3,16 @@
   "baseRelease": "CINDY_V30_FINAL_DECOMPOSED_20260928",
   "specVersion": "3.0.0",
   "preservedCoreHash": "731cd20834b4a94bc14491daaea37858df04975216d3431bb99ea4457c941201",
-  "currentIntegrationHash": "8ad7b60b6929caae21346f564cadba061fe1faa6e02c925df522d7341edee46d",
-  "coachApplicationServiceHash": "6acc127a4751811fa668139eabd7adc05560707f4b1e490c328142c1fb211f63",
+  "currentIntegrationHash": "5b318cb1157d101a6340a51d3eb1c0f393d4b7715fdc663d0aa2dff6ff8350aa",
+  "coachApplicationServiceHash": "ae876bd5bb30760bbe5be99c90269ef5251d3bf9046274115524297261bc9252",
   "programPackHash": "d01c0b2d7850eb18534218b446430432c01f0249800baee7487a7c0ce28d1d84",
   "programServiceHash": "71338d971e0896e33bbf84005bacca6ea84a7bc24cf2c58ff7a8ff2e4f0abaa9",
   "programMetaRepositoryHash": "00d932b4f0231dbb00a134d320eba77733c17d9ed581b34b9c9630691f68ea6b",
   "bootstrapHash": "a6dfd9378a99650bb28c250c1c3d357b2ee1e0024ea31cce6d205a68bbf5a42a",
-  "indexHash": "317af1362774c576d4d3fab5c077f4bd3c4423236d22366c5ac384c7a884328b",
-  "manifestHash": "c35e6ef306383561f2e77041bc50cc05c3a98a7271aa15357920189ab96b630e",
-  "serviceWorkerHash": "35a4d2b5be53df6b36fbcd35b74dfc95822deb5c2b5a80a2293cd79f452604e8",
-  "releaseManifestHash": "507a2c34ba047e89b10b26a0a08755df5bf48673bd9c357d891e057730440543",
+  "indexHash": "f09a4b421fc08763b67e614e4a45de84df30c2ccb7a26304ced7a078e8522fdc",
+  "manifestHash": "36b78fe05e6b6d78be43293c59da2e4d5454bf7859282a3fa6c3e5d2e39fceac",
+  "serviceWorkerHash": "b06b4cc2e8a4051f71a1195e895f7f1c888bd4e45ac8e801320bc7229403e009",
+  "releaseManifestHash": "094da5b118fe4fa359d589a49d82f5360bf79dd9f656bf551d05eeb59263787c",
   "stage7Changes": [
     "removed dead legacyAdaptiveCoachStage2 code and unused legacy adaptive helpers",
     "extracted ProgramService as the owner of program day advancement",
@@ -55,8 +55,8 @@
   ],
   "stage7Tests": {
     "hardening": "12/12 scenario PASS",
-    "masterRegression": "PENDING (26 gates)",
-    "v3Acceptance": "PENDING — run the 102-case normative acceptance corpus on this exact candidate.",
+    "masterRegression": "PASS (26/26)",
+    "v3Acceptance": "PASS (102/102); pinned core fixtureCorpusVersion remains v3.0.0-100.",
     "integrationE2E": "PASS",
     "programRotation": "PASS",
     "stage1To6": "PASS",
@@ -69,8 +69,8 @@
     "coachColdStart": "PASS — fixed 5/10/20-minute time-only test, measured lap timing, qualifying evidence, adaptive exercise-variant E2E",
     "programDefinition": "PASS — 4 canonical days, exact duration/round targets/compositions, returns to Day 1 after Day 4",
     "postTestStarterLifecycle": "PASS — completed test immediately exits test-pending state and produces first ADAPT recommendation",
-    "paceGuidanceCoachFreeze": "PENDING",
-    "directDeriveBaselineValidity": "PENDING"
+    "paceGuidanceCoachFreeze": "PASS — true/false Coach prepareForStart→commitStart freeze and persisted reload; manual path unchanged.",
+    "directDeriveBaselineValidity": "PASS — OFF→same-ID invalid baseline import→ON; direct derive is first, invalid BASELINE row is excluded before core, stale ID/authority cleared."
   },
   "newModules": [
     "src/application/program/program_service_v3.js",
@@ -92,11 +92,12 @@
     "external context/data-quality pipeline is not yet a dedicated application-owned adapter module",
     "multiple-tab locking/ownership remains unsupported/unknown",
     "V2.8 migration is intentionally limited to the one evidenced boolean field calibrationRequested; any other legacy key is a specific non-destructive blocker until its schema is substantiated.",
-    "Independent QA and Android/iOS/WebView validation remain outstanding; the author-run Chromium suite covers only the confirmed UX scope."
+    "Independent QA and Android/iOS/WebView validation remain outstanding; the author-run Chromium suite covers only the confirmed UX scope.",
+    "The final source ZIP remains PENDING until --zip-status PASS is generated after the member-by-member comparison."
   ],
   "coachStateRepositoryHash": "bc973a392873b5a5360f4c1748da1c99fb36f2b41d63f57f0f9d9db96cd9ab2d",
-  "currentCoreHash": "1576640e802e887918676e5d23573c76d1f47740e76d04d2895a5ef4b4f25b46",
-  "coachCoreHash": "1576640e802e887918676e5d23573c76d1f47740e76d04d2895a5ef4b4f25b46",
+  "currentCoreHash": "59bb24721787417a2df8c8892faf17ed2b999255db27b4d337d70062ab36fbaa",
+  "coachCoreHash": "59bb24721787417a2df8c8892faf17ed2b999255db27b4d337d70062ab36fbaa",
   "coachCoreChange": {
     "reason": "Added a bounded first post-test personalization branch and preserved deterministic V3 decision architecture.",
     "previousHash": "731cd20834b4a94bc14491daaea37858df04975216d3431bb99ea4457c941201",
@@ -105,15 +106,15 @@
   },
   "masterRegressionGates": 26,
   "historyProvenanceHash": "eaabd3e29b42d778b21ea828e4a7707a996a88849cd21fa6057631c06af4966d",
-  "releaseArtifactSetHash": "0fcb504b1c0209b8e7e6221c478a0bb2f2450d3e39cc54374f035cfcf4d1481b",
-  "releaseBuildHash": "5542bcb39215c510445e46716bd7e0f009aca298249e4fb867479a6bc46af6a8",
-  "releaseSourceHash": "83ea6829ca6bd899d2f098bb3e6203113989e3123d90a2bb3a42a23d658fd7cd",
+  "releaseArtifactSetHash": "2f2760f5be65c79ada96a28513b2d4fc6247279f85b8a831008ad1b3d9a74375",
+  "releaseBuildHash": "dec2b335bc3064dbc37e31e96b11d442233bee4cc7a46b8299e73302cc0c138d",
+  "releaseSourceHash": "95ca4c4b558362f7d3933eeb138bb8faa8e51b32d812c936fdef0981370a0e3b",
   "currentCandidateVerification": {
-    "masterRegression": "PENDING (26 gates)",
-    "v3Acceptance": "PENDING — run the 102-case normative acceptance corpus on this exact candidate.",
-    "releaseIntegrity": "PENDING",
+    "masterRegression": "PASS (26/26)",
+    "v3Acceptance": "PASS (102/102); pinned core fixtureCorpusVersion remains v3.0.0-100.",
+    "releaseIntegrity": "PASS — deterministic generator/test verifies exact artifact hashes and both normalized manifest self-hashes.",
     "realBrowser": "PASS — author-run Chromium normal UI/runtime test for P0 TIME baseline with a disposable candidate-local profile; independent QA and WebView/Android/iOS NOT_VERIFIED.",
-    "zipExtraction": "PASS — source ZIP member bytes match the project tree."
+    "zipExtraction": "PENDING — final ZIP member-by-member comparison remains."
   },
   "implementationChanges": [
     "Coach defaults ON; only explicit user preference persists as an override; unmarked legacy false is treated as default ON.",
@@ -130,6 +131,6 @@
     "Public derive/start revalidate canonical baseline records; invalid same-ID BASELINE History is excluded before CoachCore and stale authority/ID are cleared.",
     "P0 TIME baseline runtime normalization preserves normative target=0 through fresh sessions, active-session recovery and History records; the ordinary timer finish reconciles exact provenance without relaxing fidelity."
   ],
-  "v3AcceptanceStatus": "PENDING — run the 102-case normative acceptance corpus on this exact candidate.",
+  "v3AcceptanceStatus": "PASS (102/102); pinned core fixtureCorpusVersion remains v3.0.0-100.",
   "v3AcceptanceFixtureCount": 102
 }

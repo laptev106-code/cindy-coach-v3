@@ -1,0 +1,1386 @@
+{
+  "schema": 3,
+  "updatedAt": 1793064728390,
+  "config": {
+    "version": 8,
+    "mode": "time",
+    "minutes": 30,
+    "target": 20,
+    "longGoal": 20,
+    "theme": "dark",
+    "colorTheme": "cyber",
+    "language": "ru",
+    "sound": true,
+    "hapticMode": 2,
+    "cueInterval": 0,
+    "cueTone": "soft",
+    "composition": [
+      {
+        "id": "pull",
+        "count": 5
+      },
+      {
+        "id": "push",
+        "count": 10
+      },
+      {
+        "id": "squat",
+        "count": 15
+      }
+    ],
+    "proWorkout": null,
+    "paceGuidance": false,
+    "templates": [
+      {
+        "id": "cindy-classic",
+        "name": "Cindy — классика",
+        "builtIn": true,
+        "mode": "combined",
+        "minutes": 20,
+        "target": 10,
+        "paceGuidance": false,
+        "composition": [
+          {
+            "id": "pull",
+            "count": 5
+          },
+          {
+            "id": "push",
+            "count": 10
+          },
+          {
+            "id": "squat",
+            "count": 15
+          }
+        ],
+        "createdAt": null,
+        "updatedAt": null
+      },
+      {
+        "id": "cindy-classic-10",
+        "name": "Cindy — классика 10",
+        "builtIn": true,
+        "mode": "combined",
+        "minutes": 10,
+        "target": 7,
+        "paceGuidance": false,
+        "composition": [
+          {
+            "id": "pull",
+            "count": 5
+          },
+          {
+            "id": "push",
+            "count": 10
+          },
+          {
+            "id": "squat",
+            "count": 15
+          }
+        ],
+        "createdAt": null,
+        "updatedAt": null
+      },
+      {
+        "id": "cindy-variant",
+        "name": "Cindy — вариант",
+        "builtIn": true,
+        "mode": "combined",
+        "minutes": 20,
+        "target": 15,
+        "paceGuidance": false,
+        "composition": [
+          {
+            "id": "pull",
+            "count": 5,
+            "variantId": "pull_supinated"
+          },
+          {
+            "id": "push",
+            "count": 10,
+            "variantId": "push_knee"
+          },
+          {
+            "id": "squat",
+            "count": 15,
+            "variantId": "squat_classic"
+          }
+        ],
+        "createdAt": null,
+        "updatedAt": null
+      },
+      {
+        "id": "cindy-mixed-15",
+        "name": "Cindy — смешанная 15",
+        "builtIn": true,
+        "mode": "time",
+        "minutes": 15,
+        "target": 0,
+        "paceGuidance": false,
+        "composition": [
+          {
+            "id": "pull",
+            "count": 5,
+            "variantId": "pull_narrow_pronated"
+          },
+          {
+            "id": "push",
+            "count": 10,
+            "variantId": "push_classic"
+          },
+          {
+            "id": "squat",
+            "count": 15,
+            "variantId": "squat_classic"
+          },
+          {
+            "id": "push",
+            "count": 10,
+            "variantId": "push_narrow"
+          }
+        ],
+        "createdAt": null,
+        "updatedAt": null
+      }
+    ],
+    "programs": [
+      {
+        "id": "cindy-v3-four-day-rotation",
+        "name": "Cindy — 4-дневная программа",
+        "days": [
+          {
+            "kind": "template",
+            "templateId": "cindy-classic"
+          },
+          {
+            "kind": "template",
+            "templateId": "cindy-classic-10"
+          },
+          {
+            "kind": "template",
+            "templateId": "cindy-variant"
+          },
+          {
+            "kind": "template",
+            "templateId": "cindy-mixed-15"
+          }
+        ],
+        "createdAt": null,
+        "updatedAt": null
+      }
+    ],
+    "programState": {
+      "activeProgramId": "cindy-v3-four-day-rotation",
+      "currentDayIndex": 0,
+      "completedAt": null
+    },
+    "pendingSource": null,
+    "profile": {
+      "name": "Gennady",
+      "age": 39,
+      "heightCm": 169,
+      "weightKg": 65,
+      "goal": "",
+      "avatarTone": "copper",
+      "developmentView": false,
+      "trainingExperience": "",
+      "updatedAt": "2026-10-27T01:29:44.194Z"
+    },
+    "equipment": {
+      "pullupBar": true,
+      "resistanceBand": false,
+      "stableSupport": true,
+      "parallelBars": true,
+      "benchDipComfort": true
+    },
+    "coachExcludedVariantIds": [],
+    "userRestrictions": {
+      "excludedFamilies": []
+    },
+    "excludedExerciseIds": [],
+    "forbiddenCombinations": [],
+    "experienceMode": "simple",
+    "coachEnabledChoice": "user",
+    "coachEnabled": false
+  },
+  "history": [
+    {
+      "id": "0d0476fb51d04d6c",
+      "completedAt": "2026-10-27T01:29:08.500Z",
+      "editedAt": null,
+      "date": "",
+      "time": "",
+      "rounds": 7,
+      "duration": 13,
+      "mode": "time",
+      "plannedSeconds": 1800,
+      "target": 0,
+      "endedBy": "manual",
+      "laps": [
+        {
+          "n": 1,
+          "duration": 1,
+          "total": 1
+        },
+        {
+          "n": 2,
+          "duration": 1,
+          "total": 2
+        },
+        {
+          "n": 3,
+          "duration": 1,
+          "total": 3
+        },
+        {
+          "n": 4,
+          "duration": 1,
+          "total": 4
+        },
+        {
+          "n": 5,
+          "duration": 3,
+          "total": 7
+        },
+        {
+          "n": 6,
+          "duration": 2,
+          "total": 9
+        },
+        {
+          "n": 7,
+          "duration": 1,
+          "total": 10
+        }
+      ],
+      "composition": [
+        {
+          "id": "pull",
+          "count": 5
+        },
+        {
+          "id": "push",
+          "count": 10
+        },
+        {
+          "id": "squat",
+          "count": 15
+        }
+      ],
+      "exerciseTotals": {
+        "pull": 35,
+        "push": 70,
+        "squat": 105
+      },
+      "pull": 35,
+      "push": 70,
+      "squat": 105,
+      "localDayKey": "2026-10-27",
+      "timezoneOffsetMinutesAtCompletion": -180,
+      "source": null,
+      "v3": {
+        "specVersion": "3.0.0",
+        "effectiveTimestamp": "2026-10-27T01:29:08.500Z",
+        "timezone": "Europe/Moscow",
+        "profileSnapshot": {
+          "name": "Gennady",
+          "age": 39,
+          "heightCm": 169,
+          "weightKg": 65,
+          "goal": "",
+          "avatarTone": "copper",
+          "developmentView": true,
+          "trainingExperience": "",
+          "updatedAt": "2026-10-27T00:56:41.575Z",
+          "equipment": {
+            "pullupBar": true,
+            "resistanceBand": false,
+            "stableSupport": true,
+            "parallelBars": true,
+            "benchDipComfort": true
+          },
+          "restrictions": {
+            "excludedFamilies": []
+          },
+          "profileVersion": "cindy-profile-v1-94803cf9230c8e98",
+          "effectiveFrom": "2026-10-27T00:56:41.575Z"
+        },
+        "configSnapshot": {
+          "allowedModes": [
+            "time",
+            "rounds",
+            "combined"
+          ],
+          "coachExcludedVariantIds": [],
+          "composition": [
+            {
+              "count": 5,
+              "id": "pull"
+            },
+            {
+              "count": 10,
+              "id": "push"
+            },
+            {
+              "count": 15,
+              "id": "squat"
+            }
+          ],
+          "equipment": {
+            "benchDipComfort": true,
+            "parallelBars": true,
+            "pullupBar": true,
+            "resistanceBand": false,
+            "stableSupport": true
+          },
+          "excludedExerciseIds": [],
+          "formatPolicy": "fixed",
+          "minutes": 30,
+          "mode": "time",
+          "pendingSource": null,
+          "programContext": null,
+          "restrictions": {
+            "excludedFamilies": []
+          },
+          "target": 20,
+          "paceGuidance": false
+        },
+        "constraintSnapshot": {
+          "minExercises": 3,
+          "maxExercises": 4,
+          "maxDurationSeconds": 1800,
+          "fixedFormat": true,
+          "mode": "time",
+          "equipment": {
+            "pullupBar": true,
+            "resistanceBand": false,
+            "stableSupport": true,
+            "parallelBars": true,
+            "benchDipComfort": true
+          },
+          "restrictions": {
+            "excludedFamilies": []
+          },
+          "exclusions": []
+        },
+        "semanticSnapshotVersion": "cindy-semantic-history-snapshot-v1",
+        "semanticSnapshotHash": "702a0bee5b8a9c6c3576c8964589a4e9c2c6b9c113d4837b341bc4119a3ee425",
+        "snapshotCapturedAt": "2026-10-27T01:28:54.862Z",
+        "semanticSnapshotStatus": "LEGACY_COMPLETION_FALLBACK",
+        "profileVersion": "cindy-profile-v1-94803cf9230c8e98",
+        "profileEffectiveFrom": "2026-10-27T00:56:41.575Z",
+        "exerciseMatrixVersion": "cindy-matrix-v3",
+        "sourceExerciseMatrixVersion": "cindy-matrix-v1",
+        "compatibilityVersion": "cindy-compat-v3",
+        "measurementContractVersion": "cindy-measurement-v3.0",
+        "measurementContract": {
+          "version": "cindy-measurement-v3.0",
+          "mode": "time",
+          "formatPolicy": "fixed",
+          "primaryMetric": "roundCount",
+          "primaryUnit": "rounds",
+          "higherIsBetter": true,
+          "plannedDefinition": "plannedSeconds",
+          "actualDefinition": "completedRounds + actualDurationSeconds",
+          "completedRoundDefinition": "execution_event_round_complete",
+          "earlyStopDefinition": "endedBy=manual/system before planned duration",
+          "segmentBoundaryDefinition": "lap events from execution engine",
+          "lapBoundaryDefinition": "lap events",
+          "requiredMeasurements": [
+            "completedRounds",
+            "actualDurationSeconds"
+          ],
+          "optionalMeasurements": [
+            "laps"
+          ],
+          "missingValueSemantics": "UNKNOWN",
+          "invalidValueSemantics": "UNRESOLVED",
+          "overCompletionSemantics": "roundCount may exceed prior observations; never clipped",
+          "fidelityFields": [
+            "mode",
+            "plannedSeconds",
+            "target",
+            "composition",
+            "order",
+            "variants",
+            "counts",
+            "measurementContractVersion"
+          ],
+          "stabilityTolerance": null
+        },
+        "decisionNow": "2026-10-27T01:28:54.862Z",
+        "decisionTimezone": "Europe/Moscow",
+        "ownership": "BUILDER",
+        "contextFingerprint": null,
+        "plannedSpecSnapshot": {
+          "specVersion": "3.0.0",
+          "decisionMode": "NO_ACTION",
+          "sessionPurpose": "STANDARD",
+          "decisionStatus": "VALID",
+          "mode": "time",
+          "formatPolicy": "fixed",
+          "plannedSeconds": 1800,
+          "target": 0,
+          "targetRounds": null,
+          "composition": [
+            {
+              "slotId": "slot-1",
+              "exerciseId": "pull",
+              "variantId": null,
+              "count": 5,
+              "order": 1
+            },
+            {
+              "slotId": "slot-2",
+              "exerciseId": "push",
+              "variantId": null,
+              "count": 10,
+              "order": 2
+            },
+            {
+              "slotId": "slot-3",
+              "exerciseId": "squat",
+              "variantId": null,
+              "count": 15,
+              "order": 3
+            }
+          ],
+          "sessionType": "standard",
+          "ownership": "BUILDER",
+          "adaptation": {
+            "kind": "NONE",
+            "levers": [],
+            "leverCount": 0,
+            "magnitude": 0,
+            "targetSlot": null,
+            "fromState": null,
+            "toState": null,
+            "authority": "NONE",
+            "reason": "active_workout_lock"
+          },
+          "adaptationMagnitude": 0,
+          "measurementContractVersion": "cindy-measurement-v3.0",
+          "contextFingerprint": "0a477b5892a0dda2",
+          "explanation": {
+            "what": "Coach не авторизует изменение.",
+            "why": "active_workout_lock",
+            "basedOn": "",
+            "limitations": "active_workout_lock",
+            "usedDecisionVariables": [
+              "AuthorityDecision.status"
+            ],
+            "claims": [
+              {
+                "field": "what",
+                "text": "Coach не авторизует изменение.",
+                "decisionVariables": [
+                  "AuthorityDecision.status"
+                ]
+              },
+              {
+                "field": "why",
+                "text": "active_workout_lock",
+                "decisionVariables": [
+                  "AuthorityDecision.status"
+                ]
+              },
+              {
+                "field": "limitations",
+                "text": "active_workout_lock",
+                "decisionVariables": [
+                  "AuthorityDecision.status"
+                ]
+              }
+            ]
+          },
+          "evidenceRefs": [
+            "d8f3d7487992b067",
+            "224f8d724eae69a3"
+          ],
+          "evidenceCohortIds": [],
+          "provenance": {
+            "coachOwned": false,
+            "sourceSpecId": null,
+            "derivedFrom": null,
+            "decisionNow": "2026-10-27T01:28:54.862Z",
+            "decisionTimezone": "Europe/Moscow",
+            "specVersion": "3.0.0",
+            "coreVersion": "cindy-adaptive-coach-v3.0.0",
+            "releaseManifestRef": "f2c593aaf730e208",
+            "exerciseMatrixVersion": "cindy-matrix-v3",
+            "compatibilityVersion": "cindy-compat-v3",
+            "measurementContractVersion": "cindy-measurement-v3.0",
+            "decisionQuestion": "active_workout_lock",
+            "decisionBranch": "NO_ACTION",
+            "evidenceRefs": [
+              "d8f3d7487992b067",
+              "224f8d724eae69a3"
+            ],
+            "appliedLevers": [],
+            "executionAuthority": "NONE",
+            "contextFingerprint": "0a477b5892a0dda2",
+            "usedDecisionVariables": [
+              "AuthorityDecision.status"
+            ]
+          },
+          "specId": "66f4e133988cbb25",
+          "validation": {
+            "valid": true,
+            "errors": []
+          }
+        },
+        "actualExecution": {
+          "durationSeconds": 13,
+          "rounds": 7,
+          "endedBy": "manual",
+          "composition": [
+            {
+              "id": "pull",
+              "count": 5
+            },
+            {
+              "id": "push",
+              "count": 10
+            },
+            {
+              "id": "squat",
+              "count": 15
+            }
+          ],
+          "laps": [
+            {
+              "n": 1,
+              "duration": 1,
+              "total": 1
+            },
+            {
+              "n": 2,
+              "duration": 1,
+              "total": 2
+            },
+            {
+              "n": 3,
+              "duration": 1,
+              "total": 3
+            },
+            {
+              "n": 4,
+              "duration": 1,
+              "total": 4
+            },
+            {
+              "n": 5,
+              "duration": 3,
+              "total": 7
+            },
+            {
+              "n": 6,
+              "duration": 2,
+              "total": 9
+            },
+            {
+              "n": 7,
+              "duration": 1,
+              "total": 10
+            }
+          ]
+        },
+        "executionFidelity": "PARTIAL",
+        "sessionPurpose": "STANDARD",
+        "coachIntervention": null,
+        "provenance": {
+          "coachOwned": false,
+          "specId": "66f4e133988cbb25",
+          "derivedFrom": null,
+          "appliedLevers": [],
+          "releaseManifest": {
+            "specVersion": "3.0.0",
+            "coreVersion": "cindy-adaptive-coach-v3.0.0",
+            "buildHash": "ef69c3217fb2b123cfc631483f3bc331df145a7eed5e9feeb1ec3c9734c49a04",
+            "sourceHash": "024608c9a30091d1d85105fea25dc28444f8b171fce890d313924b07f0a6f046",
+            "fixtureCorpusVersion": "v3.0.0-100",
+            "exerciseMatrixVersion": "cindy-matrix-v3",
+            "compatibilityVersion": "cindy-compat-v3",
+            "releaseCandidateId": "CINDY_V3_P0_TIME_BASELINE_FIX_20261005",
+            "integrityVersion": "CINDY_RELEASE_HASH_V1",
+            "releaseSourceHash": "95ca4c4b558362f7d3933eeb138bb8faa8e51b32d812c936fdef0981370a0e3b",
+            "releaseBuildHash": "dec2b335bc3064dbc37e31e96b11d442233bee4cc7a46b8299e73302cc0c138d"
+          },
+          "decisionQuestion": "active_workout_lock"
+        },
+        "claimConfounders": []
+      }
+    },
+    {
+      "id": "224f8d724eae69a3",
+      "completedAt": "2026-10-27T01:26:59.101Z",
+      "editedAt": null,
+      "date": "",
+      "time": "",
+      "rounds": 5,
+      "duration": 66,
+      "mode": "time",
+      "plannedSeconds": 1800,
+      "target": 0,
+      "endedBy": "manual",
+      "laps": [
+        {
+          "n": 1,
+          "duration": 57,
+          "total": 57
+        },
+        {
+          "n": 2,
+          "duration": 1,
+          "total": 58
+        },
+        {
+          "n": 3,
+          "duration": 1,
+          "total": 59
+        },
+        {
+          "n": 4,
+          "duration": 1,
+          "total": 60
+        },
+        {
+          "n": 5,
+          "duration": 2,
+          "total": 62
+        }
+      ],
+      "composition": [
+        {
+          "id": "pull",
+          "count": 5
+        },
+        {
+          "id": "push",
+          "count": 10
+        },
+        {
+          "id": "squat",
+          "count": 15
+        }
+      ],
+      "exerciseTotals": {
+        "pull": 25,
+        "push": 50,
+        "squat": 75
+      },
+      "pull": 25,
+      "push": 50,
+      "squat": 75,
+      "localDayKey": "2026-10-27",
+      "timezoneOffsetMinutesAtCompletion": -180,
+      "source": null,
+      "v3": {
+        "specVersion": "3.0.0",
+        "effectiveTimestamp": "2026-10-27T01:26:59.101Z",
+        "timezone": "Europe/Moscow",
+        "profileSnapshot": {
+          "name": "Gennady",
+          "age": 39,
+          "heightCm": 169,
+          "weightKg": 65,
+          "goal": "",
+          "avatarTone": "copper",
+          "developmentView": true,
+          "trainingExperience": "",
+          "updatedAt": "2026-10-27T00:56:41.575Z",
+          "equipment": {
+            "pullupBar": true,
+            "resistanceBand": false,
+            "stableSupport": true,
+            "parallelBars": true,
+            "benchDipComfort": true
+          },
+          "restrictions": {
+            "excludedFamilies": []
+          },
+          "profileVersion": "cindy-profile-v1-94803cf9230c8e98",
+          "effectiveFrom": "2026-10-27T00:56:41.575Z"
+        },
+        "configSnapshot": {
+          "allowedModes": [
+            "time",
+            "rounds",
+            "combined"
+          ],
+          "coachExcludedVariantIds": [],
+          "composition": [
+            {
+              "count": 5,
+              "id": "pull"
+            },
+            {
+              "count": 10,
+              "id": "push"
+            },
+            {
+              "count": 15,
+              "id": "squat"
+            }
+          ],
+          "equipment": {
+            "benchDipComfort": true,
+            "parallelBars": true,
+            "pullupBar": true,
+            "resistanceBand": false,
+            "stableSupport": true
+          },
+          "excludedExerciseIds": [],
+          "formatPolicy": "fixed",
+          "minutes": 30,
+          "mode": "time",
+          "pendingSource": null,
+          "programContext": null,
+          "restrictions": {
+            "excludedFamilies": []
+          },
+          "target": 20,
+          "paceGuidance": false
+        },
+        "constraintSnapshot": {
+          "minExercises": 3,
+          "maxExercises": 4,
+          "maxDurationSeconds": 1800,
+          "fixedFormat": true,
+          "mode": "time",
+          "equipment": {
+            "pullupBar": true,
+            "resistanceBand": false,
+            "stableSupport": true,
+            "parallelBars": true,
+            "benchDipComfort": true
+          },
+          "restrictions": {
+            "excludedFamilies": []
+          },
+          "exclusions": []
+        },
+        "semanticSnapshotVersion": "cindy-semantic-history-snapshot-v1",
+        "semanticSnapshotHash": "d862596f2e0163b6f03afd48f53d06d84b064c20e6227967fc0d2bd0691636a9",
+        "snapshotCapturedAt": "2026-10-27T01:26:44.300Z",
+        "semanticSnapshotStatus": "LEGACY_COMPLETION_FALLBACK",
+        "profileVersion": "cindy-profile-v1-94803cf9230c8e98",
+        "profileEffectiveFrom": "2026-10-27T00:56:41.575Z",
+        "exerciseMatrixVersion": "cindy-matrix-v3",
+        "sourceExerciseMatrixVersion": "cindy-matrix-v1",
+        "compatibilityVersion": "cindy-compat-v3",
+        "measurementContractVersion": "cindy-measurement-v3.0",
+        "measurementContract": {
+          "version": "cindy-measurement-v3.0",
+          "mode": "time",
+          "formatPolicy": "fixed",
+          "primaryMetric": "roundCount",
+          "primaryUnit": "rounds",
+          "higherIsBetter": true,
+          "plannedDefinition": "plannedSeconds",
+          "actualDefinition": "completedRounds + actualDurationSeconds",
+          "completedRoundDefinition": "execution_event_round_complete",
+          "earlyStopDefinition": "endedBy=manual/system before planned duration",
+          "segmentBoundaryDefinition": "lap events from execution engine",
+          "lapBoundaryDefinition": "lap events",
+          "requiredMeasurements": [
+            "completedRounds",
+            "actualDurationSeconds"
+          ],
+          "optionalMeasurements": [
+            "laps"
+          ],
+          "missingValueSemantics": "UNKNOWN",
+          "invalidValueSemantics": "UNRESOLVED",
+          "overCompletionSemantics": "roundCount may exceed prior observations; never clipped",
+          "fidelityFields": [
+            "mode",
+            "plannedSeconds",
+            "target",
+            "composition",
+            "order",
+            "variants",
+            "counts",
+            "measurementContractVersion"
+          ],
+          "stabilityTolerance": null
+        },
+        "decisionNow": "2026-10-27T01:26:44.300Z",
+        "decisionTimezone": "Europe/Moscow",
+        "ownership": "BUILDER",
+        "contextFingerprint": null,
+        "plannedSpecSnapshot": {
+          "specVersion": "3.0.0",
+          "decisionMode": "NO_ACTION",
+          "sessionPurpose": "STANDARD",
+          "decisionStatus": "VALID",
+          "mode": "time",
+          "formatPolicy": "fixed",
+          "plannedSeconds": 1800,
+          "target": 0,
+          "targetRounds": null,
+          "composition": [
+            {
+              "slotId": "slot-1",
+              "exerciseId": "pull",
+              "variantId": null,
+              "count": 5,
+              "order": 1
+            },
+            {
+              "slotId": "slot-2",
+              "exerciseId": "push",
+              "variantId": null,
+              "count": 10,
+              "order": 2
+            },
+            {
+              "slotId": "slot-3",
+              "exerciseId": "squat",
+              "variantId": null,
+              "count": 15,
+              "order": 3
+            }
+          ],
+          "sessionType": "standard",
+          "ownership": "BUILDER",
+          "adaptation": {
+            "kind": "NONE",
+            "levers": [],
+            "leverCount": 0,
+            "magnitude": 0,
+            "targetSlot": null,
+            "fromState": null,
+            "toState": null,
+            "authority": "NONE",
+            "reason": "active_workout_lock"
+          },
+          "adaptationMagnitude": 0,
+          "measurementContractVersion": "cindy-measurement-v3.0",
+          "contextFingerprint": "2b41bdaa97f1c4ad",
+          "explanation": {
+            "what": "Coach не авторизует изменение.",
+            "why": "active_workout_lock",
+            "basedOn": "",
+            "limitations": "active_workout_lock",
+            "usedDecisionVariables": [
+              "AuthorityDecision.status"
+            ],
+            "claims": [
+              {
+                "field": "what",
+                "text": "Coach не авторизует изменение.",
+                "decisionVariables": [
+                  "AuthorityDecision.status"
+                ]
+              },
+              {
+                "field": "why",
+                "text": "active_workout_lock",
+                "decisionVariables": [
+                  "AuthorityDecision.status"
+                ]
+              },
+              {
+                "field": "limitations",
+                "text": "active_workout_lock",
+                "decisionVariables": [
+                  "AuthorityDecision.status"
+                ]
+              }
+            ]
+          },
+          "evidenceRefs": [
+            "d8f3d7487992b067"
+          ],
+          "evidenceCohortIds": [],
+          "provenance": {
+            "coachOwned": false,
+            "sourceSpecId": null,
+            "derivedFrom": null,
+            "decisionNow": "2026-10-27T01:26:44.300Z",
+            "decisionTimezone": "Europe/Moscow",
+            "specVersion": "3.0.0",
+            "coreVersion": "cindy-adaptive-coach-v3.0.0",
+            "releaseManifestRef": "f2c593aaf730e208",
+            "exerciseMatrixVersion": "cindy-matrix-v3",
+            "compatibilityVersion": "cindy-compat-v3",
+            "measurementContractVersion": "cindy-measurement-v3.0",
+            "decisionQuestion": "active_workout_lock",
+            "decisionBranch": "NO_ACTION",
+            "evidenceRefs": [
+              "d8f3d7487992b067"
+            ],
+            "appliedLevers": [],
+            "executionAuthority": "NONE",
+            "contextFingerprint": "2b41bdaa97f1c4ad",
+            "usedDecisionVariables": [
+              "AuthorityDecision.status"
+            ]
+          },
+          "specId": "caf4875a5a9d0880",
+          "validation": {
+            "valid": true,
+            "errors": []
+          }
+        },
+        "actualExecution": {
+          "durationSeconds": 66,
+          "rounds": 5,
+          "endedBy": "manual",
+          "composition": [
+            {
+              "id": "pull",
+              "count": 5
+            },
+            {
+              "id": "push",
+              "count": 10
+            },
+            {
+              "id": "squat",
+              "count": 15
+            }
+          ],
+          "laps": [
+            {
+              "n": 1,
+              "duration": 57,
+              "total": 57
+            },
+            {
+              "n": 2,
+              "duration": 1,
+              "total": 58
+            },
+            {
+              "n": 3,
+              "duration": 1,
+              "total": 59
+            },
+            {
+              "n": 4,
+              "duration": 1,
+              "total": 60
+            },
+            {
+              "n": 5,
+              "duration": 2,
+              "total": 62
+            }
+          ]
+        },
+        "executionFidelity": "PARTIAL",
+        "sessionPurpose": "STANDARD",
+        "coachIntervention": null,
+        "provenance": {
+          "coachOwned": false,
+          "specId": "caf4875a5a9d0880",
+          "derivedFrom": null,
+          "appliedLevers": [],
+          "releaseManifest": {
+            "specVersion": "3.0.0",
+            "coreVersion": "cindy-adaptive-coach-v3.0.0",
+            "buildHash": "ef69c3217fb2b123cfc631483f3bc331df145a7eed5e9feeb1ec3c9734c49a04",
+            "sourceHash": "024608c9a30091d1d85105fea25dc28444f8b171fce890d313924b07f0a6f046",
+            "fixtureCorpusVersion": "v3.0.0-100",
+            "exerciseMatrixVersion": "cindy-matrix-v3",
+            "compatibilityVersion": "cindy-compat-v3",
+            "releaseCandidateId": "CINDY_V3_P0_TIME_BASELINE_FIX_20261005",
+            "integrityVersion": "CINDY_RELEASE_HASH_V1",
+            "releaseSourceHash": "95ca4c4b558362f7d3933eeb138bb8faa8e51b32d812c936fdef0981370a0e3b",
+            "releaseBuildHash": "dec2b335bc3064dbc37e31e96b11d442233bee4cc7a46b8299e73302cc0c138d"
+          },
+          "decisionQuestion": "active_workout_lock"
+        },
+        "claimConfounders": []
+      }
+    },
+    {
+      "id": "d8f3d7487992b067",
+      "completedAt": "2026-10-22T01:50:32.261Z",
+      "editedAt": null,
+      "date": "",
+      "time": "",
+      "rounds": 5,
+      "duration": 600,
+      "mode": "time",
+      "plannedSeconds": 600,
+      "target": 0,
+      "endedBy": "time",
+      "laps": [
+        {
+          "n": 1,
+          "duration": 120,
+          "total": 120
+        },
+        {
+          "n": 2,
+          "duration": 120,
+          "total": 240
+        },
+        {
+          "n": 3,
+          "duration": 120,
+          "total": 360
+        },
+        {
+          "n": 4,
+          "duration": 120,
+          "total": 480
+        },
+        {
+          "n": 5,
+          "duration": 120,
+          "total": 600
+        }
+      ],
+      "composition": [
+        {
+          "id": "pull",
+          "count": 5
+        },
+        {
+          "id": "push",
+          "count": 10
+        },
+        {
+          "id": "squat",
+          "count": 15
+        }
+      ],
+      "exerciseTotals": {
+        "pull": 25,
+        "push": 50,
+        "squat": 75
+      },
+      "pull": 25,
+      "push": 50,
+      "squat": 75,
+      "source": null,
+      "v3": {
+        "specVersion": "3.0.0",
+        "effectiveTimestamp": "2026-10-22T01:50:32.261Z",
+        "timezone": "UTC",
+        "profileSnapshot": {
+          "age": 30,
+          "weightKg": 75,
+          "trainingExperience": "",
+          "equipment": {
+            "pullupBar": true,
+            "stableSupport": true,
+            "resistanceBand": true
+          },
+          "restrictions": {},
+          "profileVersion": "cindy-profile-v1-c3f994bda1a04f64",
+          "effectiveFrom": "2026-10-22T01:50:32.261Z"
+        },
+        "configSnapshot": {
+          "coachEnabled": true,
+          "composition": [
+            {
+              "count": 5,
+              "exerciseId": "pull",
+              "order": 1,
+              "slotId": "slot-1"
+            },
+            {
+              "count": 10,
+              "exerciseId": "push",
+              "order": 2,
+              "slotId": "slot-2"
+            },
+            {
+              "count": 15,
+              "exerciseId": "squat",
+              "order": 3,
+              "slotId": "slot-3"
+            }
+          ],
+          "equipment": {
+            "pullupBar": true,
+            "resistanceBand": true,
+            "stableSupport": true
+          },
+          "excludedExerciseIds": [],
+          "minutes": 10,
+          "mode": "time",
+          "ownership": "COACH",
+          "profile": {
+            "age": 30,
+            "weightKg": 75
+          },
+          "sessionType": "STANDARD",
+          "target": 0,
+          "userRestrictions": {},
+          "version": 8,
+          "paceGuidance": false
+        },
+        "constraintSnapshot": {
+          "minExercises": 3,
+          "maxExercises": 4,
+          "maxDurationSeconds": 1800,
+          "fixedFormat": true,
+          "mode": "time",
+          "equipment": {
+            "pullupBar": true,
+            "stableSupport": true,
+            "resistanceBand": true
+          },
+          "restrictions": {},
+          "exclusions": []
+        },
+        "semanticSnapshotVersion": "cindy-semantic-history-snapshot-v1",
+        "semanticSnapshotHash": "4cba61039309fcb1d44c7e3ac5ebe08e730c42df43feaa18349d87309affca31",
+        "snapshotCapturedAt": "2026-10-22T01:50:32.261Z",
+        "semanticSnapshotStatus": "FROZEN_AT_START",
+        "profileVersion": "cindy-profile-v1-c3f994bda1a04f64",
+        "profileEffectiveFrom": "2026-10-22T01:50:32.261Z",
+        "exerciseMatrixVersion": "cindy-matrix-v3",
+        "sourceExerciseMatrixVersion": "cindy-matrix-v1",
+        "compatibilityVersion": "cindy-compat-v3",
+        "measurementContractVersion": "cindy-measurement-v3.0",
+        "measurementContract": {
+          "version": "cindy-measurement-v3.0",
+          "mode": "time",
+          "formatPolicy": "fixed",
+          "primaryMetric": "roundCount",
+          "primaryUnit": "rounds",
+          "higherIsBetter": true,
+          "plannedDefinition": "plannedSeconds",
+          "actualDefinition": "completedRounds + actualDurationSeconds",
+          "completedRoundDefinition": "execution_event_round_complete",
+          "earlyStopDefinition": "endedBy=manual/system before planned duration",
+          "segmentBoundaryDefinition": "lap events from execution engine",
+          "lapBoundaryDefinition": "lap events",
+          "requiredMeasurements": [
+            "completedRounds",
+            "actualDurationSeconds"
+          ],
+          "optionalMeasurements": [
+            "laps"
+          ],
+          "missingValueSemantics": "UNKNOWN",
+          "invalidValueSemantics": "UNRESOLVED",
+          "overCompletionSemantics": "roundCount may exceed prior observations; never clipped",
+          "fidelityFields": [
+            "mode",
+            "plannedSeconds",
+            "target",
+            "composition",
+            "order",
+            "variants",
+            "counts",
+            "measurementContractVersion"
+          ],
+          "stabilityTolerance": null
+        },
+        "decisionNow": "2026-10-22T01:50:32.261Z",
+        "decisionTimezone": "UTC",
+        "ownership": "BASELINE",
+        "contextFingerprint": "259ecd8bd31ea799",
+        "plannedSpecSnapshot": {
+          "specVersion": "3.0.0",
+          "decisionMode": "ADAPT",
+          "sessionPurpose": "BASELINE",
+          "decisionStatus": "VALID",
+          "mode": "time",
+          "formatPolicy": "fixed",
+          "plannedSeconds": 600,
+          "target": 0,
+          "targetRounds": null,
+          "composition": [
+            {
+              "slotId": "slot-1",
+              "exerciseId": "pull",
+              "variantId": null,
+              "count": 5,
+              "order": 1
+            },
+            {
+              "slotId": "slot-2",
+              "exerciseId": "push",
+              "variantId": null,
+              "count": 10,
+              "order": 2
+            },
+            {
+              "slotId": "slot-3",
+              "exerciseId": "squat",
+              "variantId": null,
+              "count": 15,
+              "order": 3
+            }
+          ],
+          "sessionType": "standard",
+          "ownership": "COACH",
+          "adaptation": {
+            "kind": "NONE",
+            "levers": [],
+            "leverCount": 0,
+            "magnitude": 0,
+            "targetSlot": null,
+            "fromState": null,
+            "toState": null,
+            "authority": "COACH",
+            "reason": "preserve"
+          },
+          "adaptationMagnitude": 0,
+          "measurementContractVersion": "cindy-measurement-v3.0",
+          "contextFingerprint": "259ecd8bd31ea799",
+          "autoGenerated": true,
+          "explanation": {
+            "what": "Coach baseline создан по явной Coach-baseline authority.",
+            "why": "История ещё не содержит завершённых тренировок, а продукт явно разрешил Coach авторство baseline.",
+            "basedOn": "baselineAuthority=true",
+            "limitations": "",
+            "usedDecisionVariables": [
+              "CoachInput.baselineAuthority",
+              "CoachInput.currentWorkout",
+              "Objective"
+            ],
+            "claims": [
+              {
+                "field": "what",
+                "text": "Coach baseline создан по явной Coach-baseline authority.",
+                "decisionVariables": [
+                  "CoachInput.currentWorkout"
+                ]
+              },
+              {
+                "field": "why",
+                "text": "История ещё не содержит завершённых тренировок, а продукт явно разрешил Coach авторство baseline.",
+                "decisionVariables": [
+                  "Objective"
+                ]
+              },
+              {
+                "field": "basedOn",
+                "text": "baselineAuthority=true",
+                "decisionVariables": [
+                  "CoachInput.baselineAuthority",
+                  "CoachInput.currentWorkout",
+                  "Objective"
+                ]
+              }
+            ]
+          },
+          "provenance": {
+            "coachOwned": true,
+            "sourceSpecId": null,
+            "derivedFrom": null,
+            "decisionNow": "2026-10-22T01:50:32.261Z",
+            "decisionTimezone": "UTC",
+            "specVersion": "3.0.0",
+            "coreVersion": "cindy-adaptive-coach-v3.0.0",
+            "releaseManifestRef": "f2c593aaf730e208",
+            "exerciseMatrixVersion": "cindy-matrix-v3",
+            "compatibilityVersion": "cindy-compat-v3",
+            "measurementContractVersion": "cindy-measurement-v3.0",
+            "decisionQuestion": "CALIBRATE_BASELINE",
+            "decisionBranch": "BASELINE",
+            "evidenceRefs": [],
+            "appliedLevers": [],
+            "executionAuthority": "COACHCORE",
+            "contextFingerprint": "259ecd8bd31ea799",
+            "usedDecisionVariables": [
+              "CoachInput.baselineAuthority",
+              "CoachInput.currentWorkout",
+              "Objective"
+            ]
+          },
+          "specId": "83e3196377d0b30f",
+          "validation": {
+            "valid": true,
+            "errors": []
+          }
+        },
+        "actualExecution": {
+          "durationSeconds": 600,
+          "rounds": 5,
+          "endedBy": "time",
+          "composition": [
+            {
+              "slotId": "slot-1",
+              "exerciseId": "pull",
+              "count": 5,
+              "order": 1
+            },
+            {
+              "slotId": "slot-2",
+              "exerciseId": "push",
+              "count": 10,
+              "order": 2
+            },
+            {
+              "slotId": "slot-3",
+              "exerciseId": "squat",
+              "count": 15,
+              "order": 3
+            }
+          ],
+          "laps": [
+            {
+              "n": 1,
+              "duration": 120,
+              "total": 120
+            },
+            {
+              "n": 2,
+              "duration": 120,
+              "total": 240
+            },
+            {
+              "n": 3,
+              "duration": 120,
+              "total": 360
+            },
+            {
+              "n": 4,
+              "duration": 120,
+              "total": 480
+            },
+            {
+              "n": 5,
+              "duration": 120,
+              "total": 600
+            }
+          ]
+        },
+        "executionFidelity": "EXACT",
+        "sessionPurpose": "BASELINE",
+        "coachIntervention": null,
+        "provenance": {
+          "coachOwned": false,
+          "specId": "83e3196377d0b30f",
+          "derivedFrom": null,
+          "appliedLevers": [],
+          "releaseManifest": {
+            "specVersion": "3.0.0",
+            "coreVersion": "cindy-adaptive-coach-v3.0.0",
+            "buildHash": "ef69c3217fb2b123cfc631483f3bc331df145a7eed5e9feeb1ec3c9734c49a04",
+            "sourceHash": "024608c9a30091d1d85105fea25dc28444f8b171fce890d313924b07f0a6f046",
+            "fixtureCorpusVersion": "v3.0.0-100",
+            "exerciseMatrixVersion": "cindy-matrix-v3",
+            "compatibilityVersion": "cindy-compat-v3",
+            "releaseCandidateId": "test",
+            "integrityVersion": "CINDY_RELEASE_HASH_V1",
+            "releaseSourceHash": "83ea6829ca6bd899d2f098bb3e6203113989e3123d90a2bb3a42a23d658fd7cd",
+            "releaseBuildHash": "c1cb7411af2c96d436c3742adad2667c1c9ccd6e227e0b2cff34c37f7ae87285"
+          },
+          "decisionQuestion": "CALIBRATE_BASELINE"
+        },
+        "claimConfounders": []
+      }
+    }
+  ],
+  "active": null,
+  "progress": {
+    "goal": 20,
+    "current": 6,
+    "next": 6,
+    "percent": 30,
+    "best": 7,
+    "note": "Учтено 2 последних занятия в этом формате: данных пока мало, поэтому уровень не повышается."
+  }
+}

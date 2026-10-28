@@ -133,6 +133,7 @@ assert(context.CINDYCoachApplicationServiceV3,'application service did not insta
 
 const originalLifecycle = { start:context.startResume, record:context.record, finish:context.finish, setConfig:context.setConfig };
 
+let currentTime = '2026-09-27T12:00:00.000Z';
 context.CINDYAppRuntimeV3 = Object.freeze({
   getConfig:()=>config,
   getSession:()=>session,
@@ -148,7 +149,7 @@ context.CINDYAppRuntimeV3 = Object.freeze({
   setConfig,
   renderAll,
   loadPersistedSession:()=>null,
-  now:()=> '2026-09-27T12:00:00.000Z'
+  now:()=> currentTime
 });
 
 vm.runInContext(programCode, context, {filename:'program_pack_v3.js'});
@@ -248,6 +249,7 @@ summary('EXECUTION_HISTORY',{historyCount:history.length,executionFidelity:hr.v3
 history.push(cloneBaselineForEvidence(hr,28,{comparable:true,rounds:10}));
 history.push(cloneBaselineForEvidence(hr,29,{comparable:true,rounds:11}));
 history.push(cloneBaselineForEvidence(hr,30,{comparable:true,rounds:12}));
+currentTime = '2026-10-01T12:30:00.000Z';
 const adaptiveReadiness=context.CindyCoachIntegration.readiness();
 assert.strictEqual(adaptiveReadiness.phase,'READY');
 assert.strictEqual(adaptiveReadiness.qualifyingTrainings,3);
