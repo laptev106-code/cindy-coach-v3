@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cindy-coach-v3-a39e5fbba34c-shell';
+const CACHE_NAME = 'cindy-coach-v3-f75c19443d3a-shell';
 const APP_SHELL = ['/', '/index.html', '/manifest.webmanifest'];
 
 self.addEventListener('install', (event) => {
