@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "CINDY / LITE",
-  "short_name": "CINDY Lite",
-  "description": "CINDY workout timer and round tracking.",
+  "name": "CINDY Coach V3",
+  "short_name": "CINDY Coach",
+  "description": "CINDY Coach V3 — персональный адаптивный тренер по Cindy с биомеханической ротацией упражнений.",
   "lang": "ru",
   "dir": "ltr",
   "start_url": "/",

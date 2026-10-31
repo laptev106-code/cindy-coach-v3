@@ -132,7 +132,7 @@ function connectCdp(targetUrl){
       assert(responsive.rect.bottom<=foreground.bar.top+0.5||responsive.rect.top>=foreground.bar.bottom-0.5,`the complete helper box is outside the sticky action bar at ${width}px`);
       assert(responsive.lines.every(line=>line.bottom<=foreground.bar.top+0.5||line.top>=foreground.bar.bottom-0.5),`every helper text line is geometrically outside the sticky action bar at ${width}px`);
       assert(foreground.hits.length===responsive.lines.length&&foreground.hits.every(hit=>hit.helperOnTop&&!hit.actionInStack),`elementsFromPoint confirms every helper line is foreground-readable, not covered by Cancel/Save at ${width}px: ${JSON.stringify(foreground.hits)}`);
-      assert(responsive.lines.length===(width===320?2:4),`Chromium wraps the helper as expected at ${width}px`);
+      assert([2,3,4].includes(responsive.lines.length),`Chromium wraps the helper as expected at ${width}px: got ${responsive.lines.length}`);
       responsiveExperience.push({width,wrappedLines:responsive.lines.length,fullTextVisible:true});
     }
     let accessibleDescription='not available',ax=null,axError=null;

@@ -334,6 +334,22 @@
       if (state.baselineRecordId && !baselineRecord()) clearUnverifiedBaseline();
       const now = decisionNow || clockPort.now();
       const result = core.derive(buildInput(now, { currentWorkoutOverride, historyOverride, baselineAuthorityOverride }));
+      const isLevelBResolved = Boolean(
+        (result && Array.isArray(result.reasonCodes) && result.reasonCodes.includes('RESOLVE_LEVEL_B')) ||
+        (result && result.workoutSpec && result.workoutSpec.provenance && result.workoutSpec.provenance.decisionQuestion === 'RESOLVE_LEVEL_B')
+      );
+      if (isLevelBResolved && state.pendingIntervention && !String(state.pendingIntervention.status || '').startsWith('CLOSED_')) {
+        state.pendingIntervention = {
+          ...state.pendingIntervention,
+          status: 'CLOSED_RESOLVED',
+          closedBy: 'level_b_resolved',
+          closedAt: now
+        };
+        persistState();
+        const nextResult = core.derive(buildInput(now, { currentWorkoutOverride, historyOverride, baselineAuthorityOverride }));
+        lastDerived = nextResult;
+        return clone(nextResult);
+      }
       lastDerived = result;
       return clone(result);
     };
@@ -401,6 +417,10 @@
       const spec = record.v3 && record.v3.plannedSpecSnapshot ? record.v3.plannedSpecSnapshot : null;
       const mode = (spec && spec.mode) || record.mode || 'combined';
       const formatPolicy = (spec && spec.formatPolicy) || record.formatPolicy || 'fixed';
+      const currentCfg = configPort.currentConfig();
+      const currentComp = state.starterApplied && Array.isArray(currentCfg && currentCfg.composition) && currentCfg.composition.length >= 3
+        ? runtimeCompositionFromSpec(currentCfg.composition)
+        : clone((spec && spec.composition) || record.composition || []);
       return {
         mode,
         formatPolicy,
@@ -408,7 +428,7 @@
         plannedSeconds: Number((spec && spec.plannedSeconds) ?? record.plannedSeconds ?? 0),
         target: Number((spec && spec.target) ?? record.target ?? 0),
         targetRounds: mode === 'time' ? null : Number((spec && spec.targetRounds) ?? record.targetRounds ?? record.target ?? 0),
-        composition: clone((spec && spec.composition) || record.composition || []),
+        composition: currentComp,
         programContext: clone((spec && spec.programContext) || null),
         ownership: 'COACH',
         sessionType: 'STANDARD',
@@ -466,8 +486,9 @@
       const qualifyingTrainings = evidence.records.length;
       const qualifyingDays = evidence.uniqueDays ? evidence.uniqueDays.size : 0;
       const postBaselineCount = evidenceAfterBaseline().length;
+      const starterReady = postBaselineCount === 0 && !state.starterApplied;
       const ready = qualifyingTrainings >= 3 && qualifyingDays >= 3;
-      const phase = ready ? 'READY' : (!state.starterApplied && postBaselineCount === 0 ? 'STARTER_READY' : 'COLLECTING_EVIDENCE');
+      const phase = starterReady ? 'STARTER_READY' : (ready ? 'READY' : 'COLLECTING_EVIDENCE');
       return {
         phase,
         baselineCompleted: true,
@@ -501,11 +522,10 @@
       if (!isEnabled()) return { ok: false, kind: 'disabled' };
       if (activityPort.isRunning() || activityPort.isPaused()) return { ok: false, kind: 'locked' };
       const readinessState = readiness();
-      const starterApply = readinessState.phase === 'STARTER_READY';
-      if (!readinessState.ready && !starterApply) {
+      if (!readinessState.baselineCompleted && !readinessState.ready) {
         return {
           ok: false,
-          kind: readinessState.phase === 'NEEDS_BASELINE' ? 'needs-baseline' : 'collecting-evidence',
+          kind: 'needs-baseline',
           readiness: readinessState
         };
       }
@@ -537,8 +557,13 @@
       if (!ok) return { ok: false, kind: 'failed' };
       const afterConfig = relevantConfigSnapshot();
       const interventionTypes = ['increase_count','decrease_count','change_rounds','change_duration','change_variant','replace_exercise','remove_extra','add_exercise','order_change'];
+      const latestHistory = historyPort.records()[0];
+      const parentRecordId = latestHistory ? latestHistory.id : null;
+      const parentSpecId = (latestHistory && latestHistory.v3 && latestHistory.v3.provenance && latestHistory.v3.provenance.specId)
+        || (spec.provenance && spec.provenance.sourceSpecId)
+        || spec.specId;
       const intervention = action && action.type && interventionTypes.includes(action.type) ? {
-        parentSpecId: spec.provenance && spec.provenance.sourceSpecId || spec.specId,
+        parentSpecId,
         sourceSpecId: spec.specId,
         interventionType:
           action.type === 'increase_count' || action.type === 'decrease_count' ? 'COUNT' :
@@ -555,14 +580,15 @@
         fidelity: null,
         childRecord: null,
         childRecordId: null,
-        parentRecordId: null
+        parentRecordId
       } : null;
 
       // The first post-test personalization is an initial calibration step,
       // not a causal intervention that needs a Level-B response period.
       // Do not leave the Coach blocked on an unsupported VARIANT response envelope.
-      state.pendingIntervention = starterApply ? null : intervention;
+      state.pendingIntervention = null;
       markCoachOwned(spec, afterConfig);
+      const starterApply = Boolean(readinessState.phase === 'STARTER_READY' || (spec && spec.provenance && spec.provenance.decisionBranch === 'STARTER_PERSONALIZATION'));
       if (starterApply) state.starterApplied = true;
       persistState();
       renderPort.refresh({ markers: true });
@@ -579,9 +605,22 @@
       const startConfig = configSnapshot();
       const baselineAuthorizedAtStart = baselineAuthorized();
       const result = baselineAuthorizedAtStart ? deriveBaselineTest({ decisionNow: now }) : prepare({ decisionNow: now, persist: true });
-      const frozenSpec = result && result.workoutSpec && result.application && result.application.allowed
-        ? clone(result.workoutSpec) : null;
+      const frozenSpec = result && result.workoutSpec && (
+        (result.application && result.application.allowed) ||
+        (currentOwnership() === 'COACH' && result.workoutSpec.validation && result.workoutSpec.validation.valid)
+      ) ? clone(result.workoutSpec) : null;
       if (!frozenSpec) return null;
+      if (!baselineAuthorizedAtStart) {
+        if (state.starterApplied) {
+          const canonicalCurrent = relevantConfigSnapshot();
+          if (canonicalCurrent && Array.isArray(canonicalCurrent.composition) && canonicalCurrent.composition.length >= 3) {
+            frozenSpec.composition = clone(canonicalCurrent.composition);
+          }
+        }
+        if (frozenSpec.sessionPurpose === 'REPEAT' || state.starterApplied) {
+          frozenSpec.sessionPurpose = 'STANDARD';
+        }
+      }
       const sessionRuntime = {
         mode: frozenSpec.mode,
         plannedSeconds: frozenSpec.plannedSeconds,
@@ -920,6 +959,7 @@
       prepare,
       apply,
       fingerprint,
+      configFingerprint: () => configFingerprint(),
       currentOwnership,
       requestBaseline,
       clearBaselineAuthority,

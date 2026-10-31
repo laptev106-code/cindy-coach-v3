@@ -3,10 +3,10 @@ setlocal
 cd /d "%~dp0"
 set "PORT=8080"
 
-echo Starting CINDY Lite on http://127.0.0.1:%PORT%/
+echo Starting CINDY Coach V3 on http://127.0.0.1:%PORT%/
 where py >nul 2>nul
 if %errorlevel%==0 (
-  start "CINDY Lite Server" cmd /k py -3 -m http.server %PORT%
+  start "CINDY Coach V3 Server" cmd /k py -3 -m http.server %PORT%
 ) else (
   where python >nul 2>nul
   if %errorlevel% neq 0 (
@@ -14,7 +14,7 @@ if %errorlevel%==0 (
     pause
     exit /b 1
   )
-  start "CINDY Lite Server" cmd /k python -m http.server %PORT%
+  start "CINDY Coach V3 Server" cmd /k python -m http.server %PORT%
 )
 
 timeout /t 2 /nobreak >nul

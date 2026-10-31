@@ -98,7 +98,6 @@ def generate(regression_status: str, zip_status: str) -> None:
 const APP_SHELL = ['/', '/index.html', '/manifest.webmanifest'];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
   self.skipWaiting();
 });
 
@@ -114,7 +113,15 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
+    fetch(event.request)
+      .then((response) => {
+        if (response && response.status === 200 && event.request.url.startsWith('http')) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+        }
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
 """
@@ -128,7 +135,7 @@ self.addEventListener('fetch', (event) => {
         "serviceWorkerTemplateHash": sha_bytes(sw_template.encode("utf-8")),
     }))
     sw = sw_template.replace("<CACHE_ID>", cache_identity_hash[:12])
-    (ROOT / "service-worker.js").write_text(sw, encoding="utf-8")
+    (ROOT / "service-worker.js").write_bytes(sw.encode("utf-8"))
 
     shell_hashes = {path: sha_file(path) for path in SHELL_PATHS}
     build_hash = sha_bytes(canonical({
@@ -144,6 +151,20 @@ self.addEventListener('fetch', (event) => {
     if source_count != 1 or build_count != 1:
         raise SystemExit("adapter project-release identity anchors must each occur exactly once")
     adapter_path.write_bytes(adapter)
+
+    sha256_path = ROOT / "SHA256SUMS.txt"
+    if sha256_path.exists():
+        sums = []
+        for line in sha256_path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            parts = line.split(None, 1)
+            if len(parts) == 2:
+                file_rel = parts[1]
+                target_rel = file_rel.lstrip("./")
+                sums.append(f"{sha_file(target_rel)}  {file_rel}")
+        sha256_path.write_bytes(("\n".join(sums) + "\n").encode("utf-8"))
 
     test_paths = sorted(f"tests/{entry.name}" for entry in (ROOT / "tests").iterdir() if entry.is_file() and entry.suffix == ".cjs")
     verification_paths = sorted(test_paths + ["scripts/update_release_manifests.py", "RELEASE_INTEGRITY.md", "RELEASE_README.md", "RELEASE_NOTES.md", "SHA256SUMS.txt", "CINDY_LITE_V1_RELEASE_NOTES.md", "CINDY_Adaptive_Coach_V3.0.0_NORMATIVE_SPECIFICATION.md", "CINDY_V30_PACE_GUIDANCE_BASELINE_VALIDATION_FIX_REPORT_20261004.md", "CINDY_V30_CONFIRMED_UX_IMPLEMENTATION_REPORT_20261004.md", "CINDY_V30_CONFIRMED_UX_DIFF_INVENTORY_20261004.md"])
@@ -305,6 +326,21 @@ self.addEventListener('fetch', (event) => {
         raise SystemExit("decomposition release-manifest hash read-back mismatch")
     if normalized_source_map() != source_map:
         raise SystemExit("normalized runtime source changed during release generation")
+
+    program_sha_path = ROOT / "CINDY_V30_COACH_4DAY_PROGRAM_SHA256.txt"
+    if program_sha_path.exists():
+        sums = []
+        for line in program_sha_path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            parts = line.split(None, 1)
+            if len(parts) == 2:
+                file_rel = parts[1]
+                target_rel = file_rel.lstrip("./")
+                sums.append(f"{sha_file(target_rel)}  {file_rel}")
+        program_sha_path.write_bytes(("\n".join(sums) + "\n").encode("utf-8"))
+
     print(json.dumps({
         "releaseCandidateId": generated_release["releaseCandidateId"],
         "integrityVersion": INTEGRITY_VERSION,
