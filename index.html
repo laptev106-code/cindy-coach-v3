@@ -4244,7 +4244,7 @@ body{font-size:16px}
       transform: translateY(-8px);
     }
     100% {
-      max-height: 500px;
+      max-height: 1200px;
       opacity: 1;
       transform: translateY(0);
     }
@@ -4252,7 +4252,7 @@ body{font-size:16px}
 
   @keyframes cindyAccordionSlideUp {
     0% {
-      max-height: 500px;
+      max-height: 1200px;
       opacity: 1;
       transform: translateY(0);
     }
@@ -5793,33 +5793,39 @@ body{font-size:16px}
     to { opacity: 1; }
   }
 
-  /* Profile Settings Accordion Drawer: smooth 360ms roll-down without instant jump */
-  #profileSettingsDetails {
+  /* Profile Settings In-Place Accordion: seamlessly interleaves under each category */
+  #profileSettingsSection {
     display: flex !important;
     flex-direction: column !important;
-    gap: 8px !important;
   }
-  #profileSettingsDetails > section {
-    display: block !important;
-    transition: max-height 360ms cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 300ms ease,
-                transform 360ms cubic-bezier(0.16, 1, 0.3, 1),
-                margin 360ms cubic-bezier(0.16, 1, 0.3, 1) !important;
-    overflow: hidden !important;
+
+  #profileSettingsCategories {
+    display: contents !important;
   }
+
+  #profileSettingsDetails {
+    display: contents !important;
+  }
+
+  #profileSettingsDetails > section.hidden {
+    display: none !important;
+  }
+
   #profileSettingsDetails > section:not(.hidden):not(.is-closing) {
-    max-height: 1200px !important;
-    opacity: 1 !important;
-    transform: translateY(0) scale(1) !important;
+    display: block !important;
+    animation: cindyAccordionSlideDown 340ms cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    transform-origin: top center !important;
+    overflow: hidden !important;
     margin-bottom: 14px !important;
+    margin-top: 2px !important;
     pointer-events: auto !important;
   }
-  #profileSettingsDetails > section.hidden,
+
   #profileSettingsDetails > section.is-closing {
-    max-height: 0 !important;
-    opacity: 0 !important;
-    transform: translateY(-8px) scale(0.99) !important;
-    margin-bottom: 0 !important;
+    display: block !important;
+    animation: cindyAccordionSlideUp 260ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
+    transform-origin: top center !important;
+    overflow: hidden !important;
     pointer-events: none !important;
   }
 
