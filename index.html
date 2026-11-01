@@ -2041,8 +2041,9 @@ body[data-color-theme] #profileSettingsCategories .choice[aria-expanded="true"] 
       </article>
       <div class="action-deck">
         <button class="control primary" id="primaryAction" type="button"><span class="primary-label">НАЧАТЬ</span><span class="primary-round-copy"><span class="primary-round-copy__title">ДОБАВИТЬ<br>КРУГ</span><small class="primary-round-copy__meta" id="primaryRoundMeta">5 подт. · 10 отж. · 15 прис.</small></span><b class="primary-round-copy__number" id="roundProgressValue">0</b></button>
-        <button class="control secondary hidden" id="roundButton" type="button" aria-label="Поставить тренировку на паузу">ПАУЗА</button><button class="control voice hidden" id="voiceAction" type="button" aria-label="Сказать команду Круг или Пауза" aria-pressed="false"><span class="voice-action__dot" aria-hidden="true"></span><span class="voice-label">ГОЛОСОВЫЕ<br>КОМАНДЫ</span></button>
-        <button class="control stop hidden" id="stopAction" type="button">ЗАВЕРШИТЬ</button>
+        <button class="control voice hidden" id="voiceAction" type="button" aria-label="Голосовое управление (Круг, Пауза, Продолжить)" aria-pressed="false"><span class="voice-icon-wrap" aria-hidden="true"><svg class="voice-mic-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg><span class="voice-action__dot"></span></span></button>
+        <button class="control secondary hidden" id="roundButton" type="button" aria-label="Поставить тренировку на паузу">ПАУЗА</button>
+        <button class="control stop hidden" id="stopAction" type="button" aria-label="Завершить тренировку">ЗАВЕРШИТЬ</button>
       </div>
       <aside class="idle-session-context" id="idleSessionContext" aria-label="Сводка следующей тренировки"><div><span class="eyebrow">СЛЕДУЮЩАЯ ТРЕНИРОВКА</span><b id="idlePreviewMode">20 МИНУТ</b></div><small id="idlePreviewExercises">5 подт. · 10 отж. · 15 прис.</small></aside>
       <div class="workout-coach-host" id="workoutCoachHost"></div></div>
@@ -2240,18 +2241,19 @@ function set(id,value){$(id).textContent=String(value)}function notify(text){if(
     function renderRepeat(){const record=lastRecord(),card=$('repeatCard'),button=$('repeatLast');card.classList.toggle('hidden',!record);if(!record)return;set('repeatMeta',`${recordModeText(record)} · ${roundsText(record.rounds)}`);button.disabled=active()}
     /* CINDY_VOICE_ROUND_V1_START — one-shot recognition delegates to existing addLap(); no workout state is introduced. */
     const VOICE_ROUND_COMMANDS=Object.freeze(['круг','круга','кругу','кругом','round','lap']);
+    const VOICE_RESUME_COMMANDS=Object.freeze(['продолжить','продолжай','продолжаем','дальше','старт','поехали','resume','continue']);
     let voiceRecognition=null,voiceListenTimer=null,voiceConsumed=false,voiceModeEnabled=false,voiceRestartTimer=null;
     function voiceRecognitionConstructor(){return window.SpeechRecognition||window.webkitSpeechRecognition||null}
     function voiceCommandText(value){return String(value||'').toLowerCase().replace(/ё/g,'е').replace(/[^а-яa-zs-]/gi,' ').replace(/s+/g,' ').trim()}
-    function isVoiceRoundCommand(value){const text=voiceCommandText(value);return VOICE_ROUND_COMMANDS.some(command=>text===command||text.split(' ').includes(command))}function isVoicePauseCommand(value){const t=voiceCommandText(value);return t==='пауза'||t==='pause'}
-    function renderVoiceAction(){const button=$('voiceAction');if(!button)return;if(session.status!=='running'&&voiceModeEnabled){voiceModeEnabled=false;clearTimeout(voiceRestartTimer);voiceRestartTimer=null;if(voiceRecognition){try{voiceRecognition.abort()}catch(_){}}voiceRecognition=null}const supported=Boolean(voiceRecognitionConstructor()),listening=Boolean(voiceRecognition)&&voiceModeEnabled,isEn=typeof config!=='undefined'&&config&&config.language==='en';button.classList.toggle('hidden',!active());button.disabled=session.status!=='running'||!supported;button.classList.toggle('is-listening',listening);button.setAttribute('aria-pressed',listening?'true':'false');button.setAttribute('aria-label',!supported?(isEn?'Voice commands unavailable in this browser':'Голосовая команда недоступна в этом браузере'):listening?(isEn?'Listening for Lap or Pause command. Click to cancel.':'Слушаю команду Круг или Пауза. Нажмите, чтобы отменить.'):(isEn?'Say Lap or Pause command':'Сказать команду Круг или Пауза'));button.innerHTML='<span class="voice-action__dot" aria-hidden="true"></span><span class="voice-label">'+(!supported?(isEn?'VOICE<br>UNAVAILABLE':'ГОЛОС<br>НЕДОСТУПЕН'):listening?(isEn?'LISTENING…':'СЛУШАЮ…'):(isEn?'VOICE<br>COMMANDS':'ГОЛОСОВЫЕ<br>КОМАНДЫ'))+'</span>'}
+    function isVoiceRoundCommand(value){const text=voiceCommandText(value);return VOICE_ROUND_COMMANDS.some(command=>text===command||text.split(' ').includes(command))}function isVoicePauseCommand(value){const t=voiceCommandText(value);return t==='пауза'||t==='pause'}function isVoiceResumeCommand(value){const text=voiceCommandText(value);return VOICE_RESUME_COMMANDS.some(command=>text===command||text.split(' ').includes(command))}
+    function renderVoiceAction(){const button=$('voiceAction');if(!button)return;if(!active()&&voiceModeEnabled){voiceModeEnabled=false;clearTimeout(voiceRestartTimer);voiceRestartTimer=null;if(voiceRecognition){try{voiceRecognition.abort()}catch(_){}}voiceRecognition=null}const supported=Boolean(voiceRecognitionConstructor()),listening=Boolean(voiceRecognition)&&voiceModeEnabled,isEn=typeof config!=='undefined'&&config&&config.language==='en';button.classList.toggle('hidden',!active());button.disabled=!active()||!supported;button.classList.toggle('is-listening',listening);button.setAttribute('aria-pressed',listening?'true':'false');button.setAttribute('aria-label',!supported?(isEn?'Voice commands unavailable in this browser':'Голосовая команда недоступна в этом браузере'):listening?(isEn?'Listening for Lap, Pause, or Resume command. Click to cancel.':'Слушаю команду Круг, Пауза или Продолжить. Нажмите, чтобы отменить.'):(isEn?'Say Lap, Pause, or Resume command':'Сказать команду Круг, Пауза или Продолжить'));button.innerHTML='<span class="voice-icon-wrap" aria-hidden="true"><svg class="voice-mic-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg><span class="voice-action__dot"></span></span>'}
     function clearVoiceRecognition(recognition,abort=false){if(!recognition||recognition!==voiceRecognition)return;clearTimeout(voiceListenTimer);voiceListenTimer=null;voiceRecognition=null;if(abort){try{recognition.abort()}catch(_){}}renderVoiceAction()}
-    function startVoiceRound(){if(session.status!=='running')return;const isEn=typeof config!=='undefined'&&config&&config.language==='en',Recognition=voiceRecognitionConstructor();if(!Recognition){renderVoiceAction();notify(isEn?'Voice commands are unavailable in this browser. Use the regular button.':'Голосовая команда недоступна в этом браузере. Используйте «ДОБАВИТЬ В КРУГ».');return}if(voiceModeEnabled){voiceModeEnabled=false;clearTimeout(voiceRestartTimer);voiceRestartTimer=null;if(voiceRecognition)clearVoiceRecognition(voiceRecognition,true);else renderVoiceAction();notify(isEn?'Voice control stopped.':'Голосовое управление остановлено.');return}voiceModeEnabled=true;const startSession=()=>{if(!voiceModeEnabled||session.status!=='running')return;const recognition=new Recognition();voiceRecognition=recognition;voiceConsumed=false;recognition.lang=isEn?'en-US':'ru-RU';recognition.continuous=false;recognition.interimResults=false;recognition.maxAlternatives=3;recognition.onresult=event=>{if(recognition!==voiceRecognition||voiceConsumed)return;voiceConsumed=true;const alternatives=event&&event.results&&event.results[0]?[...event.results[0]].map(result=>result.transcript):[];const matchedPause=alternatives.some(isVoicePauseCommand),matchedRound=alternatives.some(isVoiceRoundCommand);if(matchedPause&&session.status==='running')pause();else if(matchedRound&&session.status==='running')addLap();else if(!matchedPause&&!matchedRound)notify(isEn?'Command not recognized. Say "Lap" or "Pause" and try again.':'Команда не распознана. Скажите «Круг» или «Пауза» и попробуйте ещё раз.')};recognition.onerror=event=>{if(recognition!==voiceRecognition)return;const code=String(event&&event.error||'');clearVoiceRecognition(recognition,false);if(code==='not-allowed'||code==='service-not-allowed'){voiceModeEnabled=false;notify(isEn?'Microphone access denied. Voice mode stopped.':'Нет доступа к микрофону. Голосовой режим остановлен.');return}if(code!=='no-speech'&&code!=='aborted')notify(isEn?'Could not recognize command. Try again.':'Не удалось распознать команду. Попробуйте ещё раз.')};recognition.onend=()=>{if(recognition!==voiceRecognition)return;clearVoiceRecognition(recognition,false);if(voiceModeEnabled&&session.status==='running'){voiceRestartTimer=window.setTimeout(()=>{voiceRestartTimer=null;startSession()},140)}};renderVoiceAction();try{recognition.start()}catch(_){clearVoiceRecognition(recognition,false);voiceModeEnabled=false;notify(isEn?'Failed to enable voice control. Use regular button.':'Не удалось включить голосовое управление. Используйте обычную кнопку.')}};startSession()}
+    function startVoiceRound(){if(!active())return;const isEn=typeof config!=='undefined'&&config&&config.language==='en',Recognition=voiceRecognitionConstructor();if(!Recognition){renderVoiceAction();notify(isEn?'Voice commands are unavailable in this browser. Use the regular button.':'Голосовая команда недоступна в этом браузере. Используйте «ДОБАВИТЬ В КРУГ».');return}if(voiceModeEnabled){voiceModeEnabled=false;clearTimeout(voiceRestartTimer);voiceRestartTimer=null;if(voiceRecognition)clearVoiceRecognition(voiceRecognition,true);else renderVoiceAction();notify(isEn?'Voice control stopped.':'Голосовое управление остановлено.');return}voiceModeEnabled=true;const startSession=()=>{if(!voiceModeEnabled||!active())return;const recognition=new Recognition();voiceRecognition=recognition;voiceConsumed=false;recognition.lang=isEn?'en-US':'ru-RU';recognition.continuous=false;recognition.interimResults=false;recognition.maxAlternatives=3;recognition.onresult=event=>{if(recognition!==voiceRecognition||voiceConsumed)return;voiceConsumed=true;const alternatives=event&&event.results&&event.results[0]?[...event.results[0]].map(result=>result.transcript):[];const matchedPause=alternatives.some(isVoicePauseCommand),matchedRound=alternatives.some(isVoiceRoundCommand),matchedResume=alternatives.some(isVoiceResumeCommand);if(matchedPause&&session.status==='running')pause();else if(matchedResume&&session.status==='paused')startResume();else if(matchedRound&&session.status==='running')addLap();else if(!matchedPause&&!matchedRound&&!matchedResume)notify(isEn?'Command not recognized. Say "Lap", "Pause", or "Resume".':'Команда не распознана. Скажите «Круг», «Пауза» или «Продолжить».')};recognition.onerror=event=>{if(recognition!==voiceRecognition)return;const code=String(event&&event.error||'');clearVoiceRecognition(recognition,false);if(code==='not-allowed'||code==='service-not-allowed'){voiceModeEnabled=false;notify(isEn?'Microphone access denied. Voice mode stopped.':'Нет доступа к микрофону. Голосовой режим остановлен.');return}if(code!=='no-speech'&&code!=='aborted')notify(isEn?'Could not recognize command. Try again.':'Не удалось распознать команду. Попробуйте ещё раз.')};recognition.onend=()=>{if(recognition!==voiceRecognition)return;clearVoiceRecognition(recognition,false);if(voiceModeEnabled&&active()){voiceRestartTimer=window.setTimeout(()=>{voiceRestartTimer=null;startSession()},140)}};renderVoiceAction();try{recognition.start()}catch(_){clearVoiceRecognition(recognition,false);voiceModeEnabled=false;notify(isEn?'Failed to enable voice control. Use regular button.':'Не удалось включить голосовое управление. Используйте обычную кнопку.')}};startSession()}
     /* CINDY_VOICE_ROUND_V1_END */
     
     function repetitionsText(n){const num=Math.abs(Math.trunc(Number(n)||0)),tail=num%100,last=num%10;if(tail>=11&&tail<=19)return `${num} повторений`;if(last===1)return `${num} повторение`;if(last>=2&&last<=4)return `${num} повторения`;return `${num} повторений`}
     function syncTelegramClosingConfirmation(){if(typeof window!=='undefined'&&window.Telegram&&window.Telegram.WebApp){try{if(active()){if(typeof window.Telegram.WebApp.enableClosingConfirmation==='function')window.Telegram.WebApp.enableClosingConfirmation()}else{if(typeof window.Telegram.WebApp.disableClosingConfirmation==='function')window.Telegram.WebApp.disableClosingConfirmation()}}catch(_){}}}
-    function renderWorkout(options={}){const running=session.status==='running',meta=sessionModeMeta(session),isRound=session.mode==='rounds',isEn=typeof config!=='undefined'&&config&&config.language==='en';$('practiceCard').classList.toggle('is-live',running);$('practiceCard').classList.toggle('is-paused',session.status==='paused');$('practiceCard').classList.toggle('mode-combined',session.mode==='combined');set('modeLabel',meta.label);set('timer',meta.timer);$('timer').classList.toggle('round-mode',isRound);set('targetText',meta.description);set('idlePreviewMode',meta.label);set('idlePreviewExercises',compositionText(session.composition,{compact:true}));$('idleSessionContext').classList.toggle('hidden',active());set('paceCaption',meta.caption);const pct=isRound?(session.target?Math.min(100,session.rounds/session.target*100):0):(active()?Math.min(100,elapsedSeconds()/Math.max(1,session.plannedSeconds)*100):0);$('timeProgress').style.width=`${pct}%`;set('roundNumber',session.rounds);set('lapDetail',compositionText(session.composition,{compact:true}));renderExerciseTotals($('exerciseTotals'),session.composition,session.exerciseTotals);$('roundButton').disabled=!running;const actionDeck=$('primaryAction').parentElement,sessionActive=active(),roundGoal=hasRoundGoal(session.mode),roundProgress=roundGoal?`${roundsText(session.rounds)} ${isEn?'of':'из'} ${roundsText(session.target)}`:session.rounds?roundsText(session.rounds):(isEn?'Start':'Старт');actionDeck.classList.toggle('is-session-active',sessionActive);actionDeck.classList.toggle('is-paused',session.status==='paused');$('workoutRoundStatus').classList.toggle('is-active',sessionActive);set('roundProgressValue',session.rounds);set('roundProgressGoal',roundGoal?`${isEn?'Remaining':'Осталось'}: ${roundsText(Math.max(0,session.target-session.rounds))}`:session.rounds?`${isEn?'Completed':'Выполнено'}: ${roundProgress}`:(isEn?'Free pace':'В своём темпе'));const focusContext=$('focusContext');if(focusContext){const focusActive=session.status==='running'||session.status==='paused';focusContext.classList.toggle('is-active',focusActive);focusContext.classList.toggle('is-paused',session.status==='paused');set('focusContextMain',session.status==='paused'?`${isEn?'Paused':'Пауза'} · ${roundsText(session.rounds)} ${isEn?'completed':'выполнено'}`:session.status==='running'?`${isEn?'Round':'Круг'} ${session.rounds}`:(isEn?'Ready to start':'Готовы к старту'));set('focusContextMeta',session.status==='running'?(session.mode==='rounds'||session.mode==='combined'?`${isEn?'Target':'Цель'}: ${roundsText(session.target)}`:(isEn?'Workout pacing':'Ритм тренировки')):compositionText(session.composition,{compact:true}))}const primaryAction=$('primaryAction'),pauseAction=$('roundButton'),stopAction=$('stopAction');const primaryLabel=primaryAction.querySelector('.primary-label'),primaryRoundMeta=$('primaryRoundMeta');if(primaryLabel)primaryLabel.textContent=running?(isEn?'ADD ROUND':'ДОБАВИТЬ КРУГ'):session.status==='paused'?(isEn?'RESUME':'ПРОДОЛЖИТЬ'):(isEn?'START':'НАЧАТЬ');if(primaryRoundMeta)primaryRoundMeta.textContent=compositionText(session.composition,{compact:true});primaryAction.className=`control primary${running?' add-round-action':''}${session.status==='paused'?' is-paused':''}${primaryAction.classList.contains('is-physical-press')?' is-physical-press':''}`;primaryAction.setAttribute('aria-label',running?(isEn?`Add round. ${roundProgress}`:`Добавить круг. ${roundProgress}`):session.status==='paused'?(isEn?'Resume workout':'Продолжить тренировку'):(isEn?'Start workout':'Начать тренировку'));pauseAction.textContent=isEn?'PAUSE':'ПАУЗА';pauseAction.className=`control secondary${sessionActive?'':' hidden'}${pauseAction.classList.contains('is-physical-press')?' is-physical-press':''}`;pauseAction.disabled=session.status!=='running';pauseAction.setAttribute('aria-label',isEn?'Pause workout':'Поставить тренировку на паузу');stopAction.textContent=isEn?'FINISH':'ЗАВЕРШИТЬ';stopAction.classList.toggle('hidden',!sessionActive);renderVoiceAction();if(options.markers)renderMarkers(options.animate);if(!options.tick){renderLaps();renderRoute();renderRepeat();stage5RenderWorkoutCoach()}syncTelegramClosingConfirmation()}
+    function renderWorkout(options={}){const running=session.status==='running',meta=sessionModeMeta(session),isRound=session.mode==='rounds',isEn=typeof config!=='undefined'&&config&&config.language==='en';$('practiceCard').classList.toggle('is-live',running);$('practiceCard').classList.toggle('is-paused',session.status==='paused');$('practiceCard').classList.toggle('mode-combined',session.mode==='combined');set('modeLabel',meta.label);set('timer',meta.timer);$('timer').classList.toggle('round-mode',isRound);set('targetText',meta.description);set('idlePreviewMode',meta.label);set('idlePreviewExercises',compositionText(session.composition,{compact:true}));$('idleSessionContext').classList.toggle('hidden',active());set('paceCaption',meta.caption);const pct=isRound?(session.target?Math.min(100,session.rounds/session.target*100):0):(active()?Math.min(100,elapsedSeconds()/Math.max(1,session.plannedSeconds)*100):0);$('timeProgress').style.width=`${pct}%`;set('roundNumber',session.rounds);set('lapDetail',compositionText(session.composition,{compact:true}));renderExerciseTotals($('exerciseTotals'),session.composition,session.exerciseTotals);$('roundButton').disabled=!running;const actionDeck=$('primaryAction').parentElement,sessionActive=active(),roundGoal=hasRoundGoal(session.mode),roundProgress=roundGoal?`${roundsText(session.rounds)} ${isEn?'of':'из'} ${roundsText(session.target)}`:session.rounds?roundsText(session.rounds):(isEn?'Start':'Старт');actionDeck.classList.toggle('is-session-active',sessionActive);actionDeck.classList.toggle('is-paused',session.status==='paused');$('workoutRoundStatus').classList.toggle('is-active',sessionActive);set('roundProgressValue',session.rounds);set('roundProgressGoal',roundGoal?`${isEn?'Remaining':'Осталось'}: ${roundsText(Math.max(0,session.target-session.rounds))}`:session.rounds?`${isEn?'Completed':'Выполнено'}: ${roundProgress}`:(isEn?'Free pace':'В своём темпе'));const focusContext=$('focusContext');if(focusContext){const focusActive=session.status==='running'||session.status==='paused';focusContext.classList.toggle('is-active',focusActive);focusContext.classList.toggle('is-paused',session.status==='paused');set('focusContextMain',session.status==='paused'?`${isEn?'Paused':'Пауза'} · ${roundsText(session.rounds)} ${isEn?'completed':'выполнено'}`:session.status==='running'?`${isEn?'Round':'Круг'} ${session.rounds}`:(isEn?'Ready to start':'Готовы к старту'));set('focusContextMeta',session.status==='running'?(session.mode==='rounds'||session.mode==='combined'?`${isEn?'Target':'Цель'}: ${roundsText(session.target)}`:(isEn?'Workout pacing':'Ритм тренировки')):compositionText(session.composition,{compact:true}))}const primaryAction=$('primaryAction'),pauseAction=$('roundButton'),stopAction=$('stopAction');const primaryLabel=primaryAction.querySelector('.primary-label'),primaryRoundMeta=$('primaryRoundMeta');if(primaryLabel)primaryLabel.textContent=running?(isEn?'ADD ROUND':'ДОБАВИТЬ КРУГ'):session.status==='paused'?(isEn?'RESUME':'ПРОДОЛЖИТЬ'):(isEn?'START':'НАЧАТЬ');if(primaryRoundMeta)primaryRoundMeta.textContent=compositionText(session.composition,{compact:true});primaryAction.className=`control primary${running?' add-round-action':''}${session.status==='paused'?' is-paused':''}${primaryAction.classList.contains('is-physical-press')?' is-physical-press':''}`;primaryAction.setAttribute('aria-label',running?(isEn?`Add round. ${roundProgress}`:`Добавить круг. ${roundProgress}`):session.status==='paused'?(isEn?'Resume workout':'Продолжить тренировку'):(isEn?'Start workout':'Начать тренировку'));pauseAction.textContent=isEn?'PAUSE':'ПАУЗА';pauseAction.className=`control secondary${sessionActive?'':' hidden'}${pauseAction.classList.contains('is-physical-press')?' is-physical-press':''}`;pauseAction.disabled=session.status!=='running';pauseAction.setAttribute('aria-label',isEn?'Pause workout':'Поставить тренировку на паузу');stopAction.textContent=session.status==='paused'?(isEn?'FINISH WORKOUT':'ЗАВЕРШИТЬ ТРЕНИРОВКУ'):(isEn?'FINISH':'ЗАВЕРШИТЬ');stopAction.classList.toggle('hidden',!sessionActive);renderVoiceAction();if(options.markers)renderMarkers(options.animate);if(!options.tick){renderLaps();renderRoute();renderRepeat();stage5RenderWorkoutCoach()}syncTelegramClosingConfirmation()}
     function renderStepper(id,text){const el=$(id);if(el)set(id,text)}
     function moveCompositionItem(fromIndex,toIndex){if(active())return false;const from=Number(fromIndex),to=Number(toIndex),next=cloneComposition(config.composition);if(!Number.isInteger(from)||!Number.isInteger(to)||from<0||to<0||from>=next.length||to>=next.length||from===to)return false;const[item]=next.splice(from,1);next.splice(to,0,item);config=normalizeConfig({...config,composition:next});saveConfig();selectedCompositionSlot=-1;composerDraft=null;lastReorderedExerciseId=item.id;renderAll({markers:true});window.setTimeout(()=>{lastReorderedExerciseId='';document.querySelector('.composition-row.is-reordered')?.classList.remove('is-reordered')},180);notify('Порядок упражнений обновлён.');return true}function cindyBuilderBindSingleStep(button,action){
   button.addEventListener('click',event=>{event.preventDefault();if(!button.disabled)action()});
@@ -3976,78 +3978,146 @@ body{font-size:16px}
     50% { transform: scale(1.3); opacity: 0.7; }
   }
 
-  /* Master Workout Action Deck: Fixed 3-Button Sub-deck */
+    /* Master Workout Action Deck: Unified Sports Dock Architecture 2026 */
   .action-deck.is-session-active {
     display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    gap: 9px !important;
+    grid-template-columns: 52px minmax(0, 1fr) minmax(0, 1fr) !important;
+    align-items: stretch !important;
+    gap: 12px 10px !important;
+    margin-top: 14px !important;
   }
   .action-deck.is-session-active #primaryAction {
     grid-column: 1 / -1 !important;
+    grid-row: 1 !important;
+    margin-bottom: 2px !important;
   }
+
+  /* Satellite Voice Button (Column 1) */
+  .action-deck.is-session-active #voiceAction {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    width: 52px !important;
+    min-width: 52px !important;
+    max-width: 52px !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    padding: 0 !important;
+    border-radius: 16px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: var(--panel) !important;
+    border: 1px solid var(--line) !important;
+    color: var(--muted) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04),
+                0 4px 10px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+    cursor: pointer !important;
+    transition: transform 0.14s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.14s ease,
+                border-color 0.14s ease,
+                color 0.14s ease,
+                background 0.14s ease !important;
+  }
+  .action-deck.is-session-active #voiceAction:active {
+    transform: scale(0.93) !important;
+  }
+  .action-deck.is-session-active #voiceAction .voice-icon-wrap {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+  .action-deck.is-session-active #voiceAction .voice-mic-svg {
+    width: 20px !important;
+    height: 20px !important;
+    stroke: currentColor !important;
+    transition: transform 0.2s ease, stroke 0.2s ease !important;
+  }
+  .action-deck.is-session-active #voiceAction .voice-action__dot {
+    position: absolute !important;
+    top: -3px !important;
+    right: -4px !important;
+    width: 7px !important;
+    height: 7px !important;
+    border-radius: 50% !important;
+    background: color-mix(in srgb, var(--ink) 24%, transparent) !important;
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease !important;
+  }
+  .action-deck.is-session-active #voiceAction.is-listening {
+    color: var(--blue, #c45228) !important;
+    border-color: color-mix(in srgb, var(--blue, #c45228) 55%, var(--line)) !important;
+    background: color-mix(in srgb, var(--blue, #c45228) 10%, var(--panel)) !important;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue, #c45228) 18%, transparent),
+                0 6px 16px color-mix(in srgb, var(--blue, #c45228) 22%, transparent) !important;
+  }
+  .action-deck.is-session-active #voiceAction.is-listening .voice-action__dot {
+    background: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.28), 0 0 8px rgba(239, 68, 68, 0.6) !important;
+    animation: voiceListeningPulse 1.1s cubic-bezier(0.24, 0.75, 0.3, 1) infinite !important;
+  }
+
+  /* Unified Segmented Capsule: Columns 2 & 3 */
   .action-deck.is-session-active #roundButton,
-  .action-deck.is-session-active #voiceAction,
   .action-deck.is-session-active #stopAction {
-    grid-column: auto !important;
-    min-width: 0 !important;
+    grid-row: 2 !important;
     min-height: 52px !important;
     height: 52px !important;
-    width: 100% !important;
-    padding: 0 6px !important;
-    border-radius: 14px !important;
-    font-size: 11.5px !important;
-    font-weight: 850 !important;
-    letter-spacing: 0.06em !important;
-    text-align: center !important;
-    text-transform: uppercase !important;
-    display: inline-flex !important;
-    font-weight: 850 !important;
-    letter-spacing: 0.08em !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.05em !important;
     text-align: center !important;
     text-transform: uppercase !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     box-sizing: border-box !important;
-    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1),
-                filter 0.18s ease,
-                border-color 0.18s ease,
-                background 0.18s ease,
-                opacity 0.22s ease !important;
+    transition: transform 0.12s ease,
+                background 0.15s ease,
+                box-shadow 0.12s ease,
+                border-color 0.15s ease !important;
   }
 
-  /* Running state: ПАУЗА (left) and ЗАВЕРШИТЬ (right) */
+  /* Running State: Merged continuous capsule */
   .action-deck.is-session-active:not(.is-paused) #roundButton {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, color-mix(in srgb, var(--panel) 88%, var(--paper)) 100%) !important;
-    border: 1px solid color-mix(in srgb, var(--line) 80%, var(--blue) 20%) !important;
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    width: 100% !important;
+    border-radius: 16px 0 0 16px !important;
+    border: 1px solid var(--line) !important;
+    border-right: 0.5px solid color-mix(in srgb, var(--line) 75%, transparent) !important;
+    background: var(--panel) !important;
     color: var(--ink) !important;
-    box-shadow: var(--btn-facet-top),
-                var(--btn-facet-bottom),
-                var(--btn-extrude-secondary) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04),
+                0 4px 12px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
   }
-  body.dark .action-deck.is-session-active:not(.is-paused) #roundButton {
-    background: linear-gradient(180deg, color-mix(in srgb, var(--panel) 92%, #fff 8%) 0%, color-mix(in srgb, var(--panel) 96%, #000 4%) 100%) !important;
-    border-color: color-mix(in srgb, var(--line) 72%, rgba(255, 255, 255, 0.12)) !important;
-    color: #fff7f1 !important;
+  .action-deck.is-session-active:not(.is-paused) #roundButton:active {
+    background: color-mix(in srgb, var(--ink) 4%, var(--panel)) !important;
+    transform: scale(0.985) !important;
   }
 
   .action-deck.is-session-active:not(.is-paused) #stopAction {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, color-mix(in srgb, var(--panel) 88%, var(--paper)) 100%) !important;
-    border: 1px solid color-mix(in srgb, var(--coral) 55%, var(--line)) !important;
-    color: color-mix(in srgb, var(--coral) 88%, var(--ink)) !important;
-    box-shadow: var(--btn-facet-top),
-                var(--btn-facet-bottom),
-                var(--btn-extrude-secondary) !important;
+    grid-column: 3 !important;
+    grid-row: 2 !important;
+    width: 100% !important;
+    border-radius: 0 16px 16px 0 !important;
+    border: 1px solid var(--line) !important;
+    border-left: 0.5px solid color-mix(in srgb, var(--line) 75%, transparent) !important;
+    background: var(--panel) !important;
+    color: color-mix(in srgb, var(--coral, #bd4437) 85%, var(--ink)) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04),
+                0 4px 12px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
   }
-  body.dark .action-deck.is-session-active:not(.is-paused) #stopAction {
-    background: linear-gradient(180deg, color-mix(in srgb, var(--panel) 92%, #fff 8%) 0%, color-mix(in srgb, var(--panel) 96%, #000 4%) 100%) !important;
-    border-color: color-mix(in srgb, var(--coral) 60%, var(--line)) !important;
-    color: var(--coral) !important;
+  .action-deck.is-session-active:not(.is-paused) #stopAction:active {
+    background: color-mix(in srgb, var(--coral, #bd4437) 8%, var(--panel)) !important;
+    transform: scale(0.985) !important;
   }
 
-  /* PAUSED STATE */
-  /* Main action button on pause: Warm glowing amber-orange with ПРОДОЛЖИТЬ */
+  /* PAUSED STATE: Smooth hero resume + full-capsule finish action */
   .action-deck.is-session-active.is-paused #primaryAction,
   .action-deck.is-session-active #primaryAction.is-paused {
     background: linear-gradient(135deg, #f59e0b 0%, #ea580c 52%, #c2410c 100%) !important;
@@ -4064,60 +4134,45 @@ body{font-size:16px}
     100% { filter: brightness(1.08) drop-shadow(0 0 10px rgba(245, 158, 11, 0.45)); }
   }
 
-  /* Paused state: ПАУЗА (left, col 1) and ГОЛОС (center, col 2) stay visible but dimmed & disabled */
-  .action-deck.is-session-active.is-paused #roundButton,
-  .action-deck.is-session-active.is-paused #voiceAction {
-    grid-column: auto !important;
-    opacity: 0.38 !important;
-    cursor: not-allowed !important;
-    pointer-events: none !important;
-    filter: grayscale(0.6) !important;
-    transform: none !important;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08) !important;
+  .action-deck.is-session-active.is-paused #roundButton {
+    display: none !important;
   }
 
-  /* Paused state: ЗАВЕРШИТЬ stays fixed on the RIGHT (col 3) and becomes the HOT accent button */
   .action-deck.is-session-active.is-paused #stopAction {
-    grid-column: 3 !important;
+    grid-column: 2 / -1 !important;
+    grid-row: 2 !important;
+    width: 100% !important;
+    border-radius: 16px !important;
+    border: 1px solid color-mix(in srgb, var(--coral, #bd4437) 48%, var(--line)) !important;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--coral, #bd4437) 8%, var(--panel)) 0%, color-mix(in srgb, var(--coral, #bd4437) 14%, var(--panel)) 100%) !important;
+    color: color-mix(in srgb, var(--coral, #bd4437) 92%, var(--ink)) !important;
+    font-size: 13px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05),
+                0 4px 14px color-mix(in srgb, var(--coral, #bd4437) 16%, transparent),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
     opacity: 1 !important;
     cursor: pointer !important;
     pointer-events: auto !important;
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%) !important;
-    border: 1px solid #991b1b !important;
-    color: #ffffff !important;
-    box-shadow: inset 0 1.5px 0.5px rgba(255, 255, 255, 0.45),
-                inset 0 -2.5px 0 rgba(0, 0, 0, 0.35),
-                0 4px 0 #7f1d1d,
-                0 10px 22px rgba(220, 38, 38, 0.35) !important;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
   }
-  @media (hover: hover) {
-    .action-deck.is-session-active.is-paused #stopAction:hover {
-      filter: brightness(1.06) !important;
-      transform: translateY(-1.5px) !important;
-      box-shadow: inset 0 2px 1px rgba(255, 255, 255, 0.6),
-                  0 5.5px 0 #7f1d1d,
-                  0 14px 26px rgba(220, 38, 38, 0.45) !important;
-    }
-  }
-  .action-deck.is-session-active.is-paused #stopAction:active,
-  .action-deck.is-session-active.is-paused #stopAction.is-physical-press {
-    transform: translateY(3px) scale(0.985) !important;
-    filter: brightness(0.95) !important;
-    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.4),
-                0 1px 0 #7f1d1d,
-                0 5px 10px rgba(220, 38, 38, 0.2) !important;
+  .action-deck.is-session-active.is-paused #stopAction:active {
+    transform: scale(0.985) !important;
+    filter: brightness(0.96) !important;
   }
 
-  /* 7. Workout Hero & Tactile Lap Pad Refinement */
-  .practice-card {
-    box-shadow: 0 22px 48px -6px rgba(106, 39, 21, 0.32),
-                inset 0 1px 0 rgba(255, 255, 255, 0.32) !important;
+  /* Dark mode theme fidelity */
+  body.dark .action-deck.is-session-active:not(.is-paused) #roundButton,
+  body.dark .action-deck.is-session-active:not(.is-paused) #stopAction,
+  body.dark .action-deck.is-session-active #voiceAction {
+    background: var(--panel) !important;
+    border-color: var(--line) !important;
   }
-  .lap-pad {
-    box-shadow: 0 8px 0 #5f2416,
-                0 16px 32px rgba(157, 66, 35, 0.26),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  body.dark .action-deck.is-session-active:not(.is-paused) #stopAction {
+    color: var(--coral, #ff8977) !important;
+  }
+  body.dark .action-deck.is-session-active.is-paused #stopAction {
+    background: color-mix(in srgb, var(--coral, #ff8977) 14%, var(--panel)) !important;
+    border-color: color-mix(in srgb, var(--coral, #ff8977) 45%, var(--line)) !important;
+    color: var(--coral, #ff8977) !important;
   }
 
   /* 8. Modern Custom Scrollbar */
