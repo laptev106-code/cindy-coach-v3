@@ -3672,15 +3672,30 @@ body{font-size:16px}
     gap: 8px !important;
     margin-top: 6px !important;
   }
+  .profile-data-grid {
+    gap: 6px !important;
+    margin-top: 6px !important;
+  }
   .profile-data-cell {
-    padding: 10px 12px !important;
-    border-radius: 14px !important;
+    padding: 9px 5px !important;
+    border-radius: 13px !important;
+    text-align: center !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
   }
   .profile-data-cell b {
-    font-size: 16px !important;
+    font-size: 14.5px !important;
+    font-family: var(--font-body, "Manrope"), -apple-system, sans-serif !important;
+    font-variant-numeric: tabular-nums !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: clip !important;
+    letter-spacing: -0.01em !important;
   }
   .profile-data-cell span {
-    font-size: 12px !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.04em !important;
   }
 
   /* 4. Declutter Progress Screen & Solid Achievements Card */
@@ -4495,9 +4510,9 @@ body{font-size:16px}
   .bio-metric small {
     font-size: 10px !important;
     color: var(--ink-secondary) !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    white-space: normal !important;
+    line-height: 1.15 !important;
+    text-align: center !important;
     max-width: 100% !important;
   }
   .progress-bio-formula-desc {
@@ -7050,9 +7065,12 @@ body{font-size:16px}
     min-width: 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    padding: 10px 8px !important;
+    padding: 10px 4px !important;
     border-radius: 13px !important;
     overflow: hidden !important;
+    text-align: center !important;
+    align-items: center !important;
+    justify-content: center !important;
     background: linear-gradient(
       180deg,
       color-mix(in srgb, #ffffff 82%, var(--paper) 18%) 0%,
@@ -7079,22 +7097,25 @@ body{font-size:16px}
       0 5px 12px rgba(0, 0, 0, 0.28) !important;
   }
   html body .progress-stat-tile span {
-    font-size: 9.5px !important;
+    font-size: 11px !important;
     font-weight: 800 !important;
     letter-spacing: 0.03em !important;
     color: var(--muted) !important;
     white-space: nowrap !important;
     overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    text-overflow: clip !important;
     line-height: 1.2 !important;
+    text-align: center !important;
+    width: 100% !important;
   }
   html body .progress-stat-tile b {
-    font-size: 18px !important;
+    font-size: 19px !important;
     font-weight: 850 !important;
     line-height: 1.15 !important;
-    margin: 3px 0 2px !important;
+    margin: 4px 0 0 !important;
     white-space: nowrap !important;
     font-variant-numeric: tabular-nums !important;
+    text-align: center !important;
   }
   html body .progress-stat-tile small {
     font-size: 9px !important;
@@ -9894,12 +9915,12 @@ window.renderProgressActivityDashboard=renderProgressActivityDashboard;
   const streakText=stats.calendarDayStreak>0?`${stats.calendarDayStreak} дн.`:'—';
   const sessionsText=`${stats.completedSessions}`;
   const tiles=[
-    {label:'ТРЕНИРОВКИ',value:sessionsText,note:'завершено сессий'},
-    {label:'РЕКОРД КРУГОВ',value:bestRoundsText,note:'лучший результат'},
-    {label:'ВСЕГО КРУГОВ',value:totalRoundsText,note:'суммарный накат'},
-    {label:'ОБЩИЙ ОБЪЁМ',value:totalRepsText,note:'всего повторений'},
-    {label:'СРЕДНИЙ КРУГ',value:avgLap,note:'темп прохождения'},
-    {label:'УДАРНАЯ СЕРИЯ',value:streakText,note:'дней подряд'}
+    {label:'СЕССИИ',value:sessionsText},
+    {label:'РЕКОРД',value:bestRoundsText},
+    {label:'КРУГИ',value:totalRoundsText},
+    {label:'ПОВТОРЫ',value:totalRepsText},
+    {label:'ТЕМП',value:avgLap},
+    {label:'СЕРИЯ',value:streakText}
   ];
   tiles.forEach(tile=>{
     const cell=document.createElement('div');
@@ -9908,9 +9929,7 @@ window.renderProgressActivityDashboard=renderProgressActivityDashboard;
     cellLabel.textContent=tile.label;
     const cellValue=document.createElement('b');
     cellValue.textContent=tile.value;
-    const cellNote=document.createElement('small');
-    cellNote.textContent=tile.note;
-    cell.append(cellLabel,cellValue,cellNote);
+    cell.append(cellLabel,cellValue);
     grid.append(cell);
   });
   card.append(grid);
@@ -9945,7 +9964,7 @@ function renderProgressAnalyticsV3(){
   renderProgressAchievements(host);
   if(window.__cindyRefreshProgressPresentation)window.__cindyRefreshProgressPresentation();
 }
-renderProfile=function(){stage2BaseRenderProfile();const profileHost=$('profileContent');if(!profileHost)return;profileHost.querySelectorAll('.profile-avatar,.profile-goal').forEach(node=>node.remove());while(profileHost.children.length>3)profileHost.lastElementChild.remove();renderProgressAnalyticsV3();if(config.profile&&config.profile.developmentView){const analytics=profileAnalytics(),path=document.createElement('div');path.className='development-path';[['СЕССИИ',analytics.total],['СЕРИЯ',analytics.streak?`${analytics.streak} дн.`:'—'],['ЛУЧШИЙ',analytics.bestRounds?roundsText(analytics.bestRounds):'—']].forEach(([label,value])=>{const cell=document.createElement('div'),small=document.createElement('span'),bold=document.createElement('b');small.textContent=label;bold.textContent=value;cell.append(small,bold);path.append(cell)})}};
+renderProfile=function(){stage2BaseRenderProfile();const profileHost=$('profileContent');if(!profileHost)return;profileHost.querySelectorAll('.profile-avatar,.profile-goal').forEach(node=>node.remove());while(profileHost.children.length>3)profileHost.lastElementChild.remove();renderProgressAnalyticsV3();if(config.profile&&config.profile.developmentView){const analytics=profileAnalytics(),path=document.createElement('div');path.className='development-path';[['СЕССИИ',analytics.total],['СЕРИЯ',analytics.streak?`${analytics.streak} дн.`:'—'],['ЛУЧШИЙ',analytics.bestRounds?roundsText(analytics.bestRounds):'—']].forEach(([label,value])=>{const cell=document.createElement('div'),small=document.createElement('span'),bold=document.createElement('b');small.textContent=label;bold.textContent=value;cell.append(small,bold);path.append(cell)});profileHost.append(path)}};
 const stage2BaseSyncVisibility=stage5SyncVisibility;
 stage5SyncVisibility=function(){stage2BaseSyncVisibility();const settings=$('profileSettingsDetails');if(settings){settings.querySelectorAll('#googleSetup,#googleConnectPanel,.google-note,#clearHistory').forEach(node=>node.classList.add('stage5-pro-only'))}};
 
@@ -10154,7 +10173,6 @@ stage5SyncVisibility=function(){stage2BaseSyncVisibility();const settings=$('pro
     };
     const host=document.getElementById(hostId);
     window.__cindyRefreshProgressPresentation=refresh;
-    document.addEventListener('click',()=>window.setTimeout(refresh,0),true);
     queueMicrotask(refresh);
     window.setTimeout(refresh,0);
   })();
