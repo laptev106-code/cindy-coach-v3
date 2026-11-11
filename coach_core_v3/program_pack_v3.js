@@ -182,7 +182,7 @@
     return ensurePlan();
   }
 
-  window.CindyProgramPackV3=Object.freeze({
+  const api = Object.freeze({
     version:VERSION,
     programId:PROGRAM_ID,
     cycleCount:CYCLES.length,
@@ -193,4 +193,11 @@
     prepareCycleRotation,
     onWorkoutFinished
   });
+
+  if (typeof window !== 'undefined' && window) {
+    window.CindyProgramPackV3 = api;
+  }
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = api;
+  }
 })();

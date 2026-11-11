@@ -108,9 +108,19 @@ function connectCdp(targetUrl){
     await cdp.call('Runtime.enable');
     await cdp.call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
     const evaluate=async(expression)=>{
-      const reply=await cdp.call('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true,userGesture:true});
-      if(reply.result.exceptionDetails)throw new Error(reply.result.exceptionDetails.text||'page evaluation failed');
-      return reply.result.result.value;
+      for(let attempt=0;attempt<15;attempt++){
+        try{
+          const reply=await cdp.call('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true,userGesture:true});
+          if(reply.result.exceptionDetails)throw new Error(reply.result.exceptionDetails.text||'page evaluation failed');
+          return reply.result.result.value;
+        }catch(e){
+          if(String(e.message).includes('Execution context was destroyed')&&attempt<14){
+            await new Promise(r=>setTimeout(r,150));
+            continue;
+          }
+          throw e;
+        }
+      }
     };
     await evaluate(`new Promise((resolve,reject)=>{const start=Date.now();(function poll(){if(document.readyState==='complete'&&window.CINDYBootstrapV3&&window.CINDYBootstrapV3.ready===true){resolve(true);return}if(Date.now()-start>15000){reject(new Error('application bootstrap did not become ready'))}else setTimeout(poll,100)})()})`);
 
