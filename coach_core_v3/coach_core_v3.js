@@ -995,6 +995,7 @@
     const profile = input.profile || {};
     const age = Number(profile.age || 0);
     const weightKg = Number(profile.weightKg || 75);
+    const heightCm = Number(profile.heightCm || 175);
     const equip = activeEquipment(input) || {};
     const hasPullupBar = Boolean(equip.pullupBar || input.baselineRecordId || (lastSession && (lastSession.sessionType === 'BASELINE' || (lastSession.v3 && lastSession.v3.sessionPurpose === 'BASELINE'))));
     const hasParallelBars = Boolean(equip.parallelBars);
@@ -1038,6 +1039,14 @@
       pullWeightScale = Math.max(0.60, 1.0 - (weightKg - 80) * 0.012);
     } else if (weightKg < 65 && weightKg > 40) {
       pullWeightScale = Math.min(1.25, 1.0 + (65 - weightKg) * 0.008);
+    }
+
+    // Biomechanical leverage scaling for push and squat (tall athletes have longer limbs and larger range of motion)
+    let leverageScale = 1.0;
+    if (heightCm > 185) {
+      leverageScale = Math.max(0.80, 1.0 - (heightCm - 185) * 0.008);
+    } else if (heightCm < 165 && heightCm > 120) {
+      leverageScale = Math.min(1.15, 1.0 + (165 - heightCm) * 0.006);
     }
 
     const newComposition = [];
@@ -1132,6 +1141,7 @@
       const cAnchor = anchorDifficulty[baseType] || 50;
       let rawBaseReps = baseAnchorReps[baseType] || 10;
       if (baseType === 'pull') rawBaseReps = Math.max(2, Math.round(rawBaseReps * pullWeightScale));
+      else if (baseType === 'push' || baseType === 'squat') rawBaseReps = Math.max(2, Math.round(rawBaseReps * leverageScale));
 
       const scaledReps = Math.max(1, Math.round(rawBaseReps * (cAnchor / vDiff)));
 
@@ -1171,8 +1181,8 @@
       explanationDetails: {
         what: 'Умная ротация хватов и мышечных углов.',
         why: rotationNotes.join(' · '),
-        basedOn: `Биомеханическая матрица Аргона, прошлый результат (${observedRounds} кругов) и ваш профиль (вес: ${weightKg} кг, возраст: ${age || '—'}).`,
-        limitations: 'Нагрузка и суставные углы автоматически защищены алгоритмом.'
+        basedOn: `Биомеханическая матрица Аргона, прошлый результат (${observedRounds} кругов) и ваш профиль (вес: ${weightKg} кг, рост: ${heightCm ? heightCm + ' см' : '—'}, возраст: ${age || '—'}${profile.goal ? ', цель: ' + profile.goal : ''}).`,
+        limitations: 'Нагрузка, суставные углы и длина рычагов автоматически сбалансированы алгоритмом.'
       }
     };
   }

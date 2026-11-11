@@ -45,7 +45,7 @@
     .toast{position:fixed;z-index:40;bottom:calc(var(--nav-h) + 18px + env(safe-area-inset-bottom));left:50%;max-width:calc(100% - 36px);padding:10px 13px;color:white;border-radius:13px;background:linear-gradient(135deg,#321d17,#1b1412);box-shadow:var(--shadow);font-size:12px;text-align:center;transform:translate(-50%,14px);opacity:0;pointer-events:none;transition:opacity .22s ease,transform .28s cubic-bezier(.16,.84,.28,1)}.toast.visible{transform:translate(-50%,0);opacity:1}.modal{position:fixed;z-index:30;inset:0;display:grid;place-items:end center;padding:18px;padding-bottom:calc(var(--nav-h) + 18px + env(safe-area-inset-bottom));background:rgba(38,17,12,.52);backdrop-filter:blur(10px)}.result-sheet{width:min(100%,500px);padding:21px;border-radius:26px;background:var(--panel);box-shadow:0 28px 75px rgba(35,14,8,.34)}.modal:not(.hidden) .result-sheet{animation:sheetRise .42s cubic-bezier(.16,.84,.28,1) both}.result-sheet h2{margin:8px 0 16px;font-size:48px;letter-spacing:-.07em}.result-sheet h2 span{color:var(--muted);font-size:18px;letter-spacing:0}.result-note{margin:15px 0 0;color:var(--muted);font-size:13px;line-height:1.45}.result-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:18px}@keyframes meterReveal{from{opacity:0;transform:translateY(10px);letter-spacing:-.03em}to{opacity:1;transform:none}}@keyframes paceFlow{to{background-position:200% 0}}@keyframes orbitDrift{50%{transform:translate(-11px,-8px) scale(1.04)}}@keyframes orbBreath{50%{transform:translateY(-2px);box-shadow:0 0 0 12px rgba(255,208,169,.11)}}@keyframes padSheen{0%,62%,100%{transform:translateX(-55%)}78%{transform:translateX(55%)}}@keyframes sheetRise{from{opacity:0;transform:translateY(18px) scale(.975)}to{opacity:1;transform:none}}@media(hover:hover){.top-icon:hover{transform:translateY(-2px);border-color:rgba(204,91,46,.36);box-shadow:0 8px 18px rgba(101,48,27,.10)}.control:not(:disabled):hover{filter:brightness(1.04);transform:translateY(-1px)}.nav button:not(.active):hover{color:var(--ink);background:var(--soft-green)}}
     .meter,.lap-count,.total b,.route-grid b,.result-sheet h2{font-family:"Space Grotesk","Manrope",Inter,sans-serif}.lap-duration,.number{font-family:"DM Mono",ui-monospace,SFMono-Regular,Menlo,monospace}.eyebrow,.field-kicker,.wordmark,.control,.choice,.apply,.nav button{font-family:"Manrope",Inter,sans-serif}.practice-card:before,.practice-card:after,.practice-card .pace-track>i,.lap-pad:before{animation-play-state:paused}.practice-card.is-live:before{animation:orbitDrift 12s ease-in-out infinite}.practice-card.is-live:after{animation:orbBreath 1.05s ease-in-out infinite}.practice-card.is-live .pace-track>i,.lap-pad.is-live:before{animation-play-state:running}.practice-card.is-paused:after{animation:pausedGlow 2.6s ease-in-out infinite;animation-play-state:paused}.choice:focus-visible,.apply:focus-visible{outline:3px solid rgba(218,101,50,.45);outline-offset:3px}@keyframes pausedGlow{50%{transform:translateY(-1px);box-shadow:0 0 0 13px rgba(255,208,169,.08)}}@media(hover:hover){.apply:hover{filter:brightness(1.04);transform:translateY(-2px);box-shadow:0 8px 0 #7d2d1b,0 16px 24px rgba(145,58,28,.18)}.apply:hover>span:last-child{transform:translateX(3px)}.number-field:hover{border-color:color-mix(in srgb,var(--blue) 38%,var(--line))}}@media(max-width:410px){.custom-entry{grid-template-columns:1fr}.apply{width:100%}}@media(max-width:370px){.shell{padding-right:12px;padding-left:12px}.practice-card{padding:17px}.meter{font-size:57px}.lap-pad{min-height:101px}.route-grid div{padding:12px 9px}.route-grid b{font-size:21px}}
     .practice-card.motion-start{animation:sessionIgnite .58s cubic-bezier(.16,.84,.28,1) both}.practice-card.motion-start .timer-block{animation:timerWake .52s cubic-bezier(.16,.84,.28,1) both}.practice-card.motion-start .pace-wrap{animation:paceWake .58s cubic-bezier(.16,.84,.28,1) both}.practice-card.is-live .session-kicker i{animation:liveDotBeat 1.05s ease-in-out infinite}.practice-card.is-live .state-pill.running{animation:liveStatusBreath 1.05s ease-in-out infinite}.lap-pad:after{position:absolute;inset:50%;z-index:0;width:14px;height:14px;border:1px solid rgba(255,248,238,.72);border-radius:50%;background:rgba(255,243,231,.16);content:"";opacity:0;pointer-events:none;transform:translate(-50%,-50%) scale(.25)}#practiceCard.motion-lap + .action-deck .lap-pad:after{animation:lapRipple .52s cubic-bezier(.16,.84,.28,1) both}.practice-card.motion-lap:after{animation:lapOrbBurst .52s cubic-bezier(.16,.84,.28,1) both}.practice-card.motion-lap .pace-wrap{animation:paceConfirm .46s cubic-bezier(.16,.84,.28,1) both}@keyframes sessionIgnite{0%{filter:brightness(.96) saturate(.94);box-shadow:0 12px 28px rgba(106,39,21,.14)}58%{filter:brightness(1.045) saturate(1.035);box-shadow:0 24px 48px rgba(116,43,22,.30)}100%{filter:none;box-shadow:0 20px 40px rgba(106,39,21,.24)}}@keyframes timerWake{0%{opacity:.5;transform:translateY(5px);filter:blur(1px)}100%{opacity:1;transform:none;filter:none}}@keyframes paceWake{0%{opacity:.36;transform:translateY(4px) scaleX(.96)}100%{opacity:1;transform:none}}@keyframes liveDotBeat{50%{transform:scale(1.14);box-shadow:0 0 15px rgba(255,210,176,.95)}}@keyframes liveStatusBreath{50%{filter:brightness(1.045);box-shadow:0 0 0 4px rgba(255,221,187,.11)}}@keyframes lapRipple{0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}18%{opacity:.62}100%{opacity:0;transform:translate(-50%,-50%) scale(22)}}@keyframes lapOrbBurst{0%{transform:translateY(0) scale(1);box-shadow:0 0 0 10px rgba(255,208,169,.10)}42%{transform:translateY(-2px) scale(1.15);box-shadow:0 0 0 22px rgba(255,208,169,.16)}100%{transform:translateY(-1px) scale(1.035);box-shadow:0 0 0 12px rgba(255,208,169,.11)}}@keyframes paceConfirm{45%{filter:brightness(1.12);transform:translateY(-1px)}}
-    .repeat-card{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;margin-top:12px;box-shadow:none}.repeat-card b{display:block;margin-top:5px;font-size:13px}.repeat-card .control{min-width:112px;min-height:45px}.segmented.four{grid-template-columns:repeat(4,minmax(0,1fr))}.segmented.four .choice{min-height:48px;padding:6px 4px;font-size:8px}.cue-head{margin-top:18px}.history-swipe{position:relative;overflow:hidden;border-radius:var(--radius);touch-action:pan-y}.history-actions{position:absolute;top:0;right:0;bottom:0;display:grid;grid-template-columns:82px 82px;width:164px}.history-action{border:0;color:white;font-size:9px;font-weight:900;letter-spacing:.05em}.history-action.edit{background:#9d452d}.history-action.delete{background:#b63e38}.history-shell{position:relative;z-index:1;transition:transform .24s cubic-bezier(.2,.8,.2,1)}.history-swipe.revealed .history-shell{transform:translateX(-164px)}.history-swipe.dragging .history-shell{transition:none}@media(hover:hover){.history-swipe:hover .history-shell{transform:translateX(-164px)}}.record-callout{padding:10px 12px;margin:0 0 13px;color:#653217;border:1px solid rgba(208,114,58,.34);border-radius:14px;background:linear-gradient(135deg,#ffe7cf,#ffd3ab);font-size:12px;font-weight:850}.result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:15px;overflow:hidden;border:1px solid var(--line);border-radius:15px;background:var(--line)}.result-stats div{padding:11px 7px;background:var(--paper);text-align:center}.result-stats span{display:block;color:var(--muted);font-size:8px;font-weight:800;letter-spacing:.04em}.result-stats b{display:block;margin-top:6px;font-family:"DM Mono",ui-monospace,monospace;font-size:14px}.sheet-title{margin:7px 0 0!important;font-size:30px!important;letter-spacing:-.05em!important}.sheet-body{margin-top:15px}.editor-fields{display:grid;grid-template-columns:1fr 1fr;gap:9px}.editor-field{display:block;padding:9px 11px;border:1px solid var(--line);border-radius:14px;background:var(--paper)}.editor-field span{display:block;color:var(--muted);font-size:8px;font-weight:850;letter-spacing:.06em}.editor-field input{width:100%;min-height:32px;padding:0;border:0;background:transparent;color:var(--ink);font-family:"DM Mono",ui-monospace,monospace;font-size:16px;font-weight:700;outline:0}.lap-editor{margin-top:12px}.lap-editor summary{color:var(--blue);font-size:12px;font-weight:800;cursor:pointer}.lap-editor-list{display:grid;gap:7px;margin-top:10px;max-height:210px;overflow:auto}.lap-editor-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:var(--paper);font-size:12px;font-weight:750}.lap-editor-row input{width:78px;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);font-family:"DM Mono",ui-monospace,monospace;text-align:center}.sheet-body .empty{padding:12px 0}.action-sheet{max-height:min(84vh,720px);overflow:auto}.action-sheet .result-actions{position:sticky;bottom:0;padding-top:14px;background:var(--panel)}.feedback-sheet{width:min(100%,480px)}.feedback-types{margin:12px 0 10px}.feedback-entry{width:100%}.feedback-textarea{width:100%;min-height:96px;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:var(--paper);color:var(--ink);font:inherit;font-size:14px;line-height:1.45;resize:vertical;box-sizing:border-box}.feedback-textarea:focus{outline:2px solid var(--blue);outline-offset:1px}
+    .repeat-card{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;margin-top:12px;box-shadow:none}.repeat-card b{display:block;margin-top:5px;font-size:13px}.repeat-card .control{min-width:112px;min-height:45px}.segmented.four{grid-template-columns:repeat(4,minmax(0,1fr))}.segmented.four .choice{min-height:48px;padding:6px 4px;font-size:8px}.cue-head{margin-top:18px}.history-swipe{position:relative;overflow:hidden;border-radius:var(--radius);touch-action:pan-y}.history-actions{position:absolute;top:0;right:0;bottom:0;display:grid;grid-template-columns:82px 82px;width:164px}.history-action{border:0;color:white;font-size:9px;font-weight:900;letter-spacing:.05em}.history-action.edit{background:#9d452d}.history-action.delete{background:#b63e38}.history-shell{position:relative;z-index:1;transition:transform .24s cubic-bezier(.2,.8,.2,1)}.history-swipe.revealed .history-shell{transform:translateX(-164px)}.history-swipe.dragging .history-shell{transition:none}@media(hover:hover){.history-swipe:hover .history-shell{transform:translateX(-164px)}}.record-callout{padding:10px 12px;margin:0 0 13px;color:#653217;border:1px solid rgba(208,114,58,.34);border-radius:14px;background:linear-gradient(135deg,#ffe7cf,#ffd3ab);font-size:12px;font-weight:850}.result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:15px;overflow:hidden;border:1px solid var(--line);border-radius:15px;background:var(--line)}.result-stats div{padding:11px 7px;background:var(--paper);text-align:center}.result-stats span{display:block;color:var(--muted);font-size:8px;font-weight:800;letter-spacing:.04em}.result-stats b{display:block;margin-top:6px;font-family:"DM Mono",ui-monospace,monospace;font-size:14px}.sheet-title{margin:7px 0 0!important;font-size:30px!important;letter-spacing:-.05em!important}.sheet-body{margin-top:15px}.editor-fields{display:grid;grid-template-columns:1fr 1fr;gap:9px}.editor-field{display:block;padding:9px 11px;border:1px solid var(--line);border-radius:14px;background:var(--paper)}.editor-field span{display:block;color:var(--muted);font-size:8px;font-weight:850;letter-spacing:.06em}.editor-field input{width:100%;min-height:32px;padding:0;border:0;background:transparent;color:var(--ink);font-family:"DM Mono",ui-monospace,monospace;font-size:16px;font-weight:700;outline:0;-moz-appearance:textfield}.editor-field input::-webkit-inner-spin-button,.editor-field input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}.lap-editor{margin-top:12px}.lap-editor summary{color:var(--blue);font-size:12px;font-weight:800;cursor:pointer}.lap-editor-list{display:grid;gap:7px;margin-top:10px;max-height:210px;overflow:auto}.lap-editor-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:var(--paper);font-size:12px;font-weight:750}.lap-editor-row input{width:78px;padding:4px 6px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);font-family:"DM Mono",ui-monospace,monospace;text-align:center}.sheet-body .empty{padding:12px 0}.action-sheet{max-height:min(84vh,720px);overflow:auto}.action-sheet .result-actions{position:sticky;bottom:0;padding-top:14px;background:var(--panel)}.feedback-sheet{width:min(100%,480px)}.feedback-types{margin:12px 0 10px}.feedback-entry{width:100%}.feedback-textarea{width:100%;min-height:96px;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:var(--paper);color:var(--ink);font:inherit;font-size:14px;line-height:1.45;resize:vertical;box-sizing:border-box}.feedback-textarea:focus{outline:2px solid var(--blue);outline-offset:1px}
     @media(max-width:370px){.segmented.four .choice{font-size:7px}.history-actions{grid-template-columns:76px 76px;width:152px}.history-swipe.revealed .history-shell{transform:translateX(-152px)}.editor-fields{grid-template-columns:1fr}.result-stats b{font-size:12px}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
@@ -4422,6 +4422,106 @@ body{font-size:16px}
   .progress-activity-footer span b {
     color: var(--blue) !important;
     font-weight: 850 !important;
+  }
+
+  /* Biomechanics & Hidden Profile Fields */
+  .profile-field-hidden {
+    display: none !important;
+  }
+  .progress-biomechanics-section {
+    margin-top: 14px !important;
+    padding-top: 14px !important;
+    border-top: 1px solid var(--line) !important;
+    box-sizing: border-box !important;
+  }
+  .progress-bio-head {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-bottom: 10px !important;
+  }
+  .progress-bio-head .eyebrow {
+    margin: 0 !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    color: var(--ink-secondary) !important;
+  }
+  .bio-formula-badge {
+    font-family: var(--font-mono, 'DM Mono', monospace) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+    background: color-mix(in srgb, var(--blue, #3b82f6) 12%, transparent) !important;
+    color: var(--blue, #3b82f6) !important;
+    border: 1px solid color-mix(in srgb, var(--blue, #3b82f6) 24%, transparent) !important;
+  }
+  body[data-color-theme="copper"] .bio-formula-badge {
+    background: rgba(217, 107, 67, 0.12) !important;
+    color: #d96b43 !important;
+    border-color: rgba(217, 107, 67, 0.28) !important;
+  }
+  .progress-bio-metrics {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    margin-bottom: 10px !important;
+  }
+  .bio-metric {
+    background: color-mix(in srgb, var(--paper) 60%, var(--panel) 40%) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 12px !important;
+    padding: 8px 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    min-width: 0 !important;
+  }
+  .bio-metric span {
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.04em !important;
+    color: var(--ink-secondary) !important;
+    margin-bottom: 2px !important;
+  }
+  .bio-metric b {
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    color: var(--ink) !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+  .bio-metric small {
+    font-size: 10px !important;
+    color: var(--ink-secondary) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+  }
+  .progress-bio-formula-desc {
+    background: color-mix(in srgb, var(--panel) 80%, var(--ink) 4%) !important;
+    border-radius: 10px !important;
+    padding: 8px 12px !important;
+    margin-top: 6px !important;
+  }
+  .progress-bio-formula-desc p {
+    margin: 0 !important;
+    font-size: 11px !important;
+    line-height: 1.45 !important;
+    color: var(--ink-secondary) !important;
+  }
+  .progress-bio-formula-desc code {
+    font-family: var(--font-mono, 'DM Mono', monospace) !important;
+    font-size: 10px !important;
+    color: var(--ink) !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+    padding: 1px 4px !important;
+    border-radius: 4px !important;
+  }
+  body.dark .progress-bio-formula-desc code {
+    background: rgba(255, 255, 255, 0.08) !important;
   }
 
   /* 6. Profile & Chevron Centering + Smooth Physics */
@@ -9119,18 +9219,19 @@ function achievementRussianNumber(value,forms){const n=Math.abs(Number(value)||0
 function profileMetric(label,value,copy){return window.CindyPresentationLeafV3.metricCard({label:label,value:value,copy:copy});}function profileInsight(kicker,title,copy,className=''){return window.CindyPresentationLeafV3.insightCard({kicker:kicker,title:title,copy:copy,className:className});}function profileResultLine(result){const analytics=profileAnalytics('all');if(!result||!result.rounds)return'';if(analytics.total===1)return'Профиль обновлён: первая тренировка добавлена в вашу карту развития.';if(analytics.total===10)return'Профиль обновлён: открыта отметка «Десять занятий».';if(analytics.total===50)return'Профиль обновлён: открыта отметка «Полсотни».';return`Профиль обновлён: ${analytics.total} ${trainingWord(analytics.total)} в истории.`}function saveProfilePatch(patch,context={}){config=normalizeConfig({...config,...context,profile:{...config.profile,...patch,updatedAt:new Date().toISOString()}});if(!saveConfig()){renderProfile();notify('Не удалось сохранить профиль. Проверьте доступность локального хранилища.');return false}try{const api=window.CindyCoachIntegration;if(api&&typeof api.onConfigMutation==='function')api.onConfigMutation()}catch(_){}renderProfile();renderSettings();queueAutoSync();return true}function openProfileEditor(){
   const draft={...config.profile},body=document.createElement('div'),personalGroup=document.createElement('fieldset'),personalLegend=document.createElement('legend'),personalFields=document.createElement('div');body.className='profile-form-grid';personalGroup.className='profile-editor-group full';personalLegend.textContent='ЛИЧНЫЕ ДАННЫЕ';personalFields.className='profile-form-grid';personalGroup.append(personalLegend,personalFields);body.append(personalGroup);const field=(label,value,type='text',inputmode='text',full=false)=>{const wrap=document.createElement('label'),caption=document.createElement('span'),input=document.createElement('input');wrap.className=`editor-field${full?' full':''}`;caption.textContent=label;input.type=type;input.inputMode=inputmode;input.value=value??'';wrap.append(caption,input);personalFields.append(wrap);return input};
   const name=field('ИМЯ',draft.name,'text','text',true),age=field('ВОЗРАСТ',draft.age,'number','numeric'),height=field('РОСТ, СМ',draft.heightCm,'number','numeric'),weight=field('ВЕС, КГ',draft.weightKg,'number','decimal'),goal=field('ЛИЧНАЯ ЦЕЛЬ',draft.goal,'text','text',true),experience=field('ОПЫТ ТРЕНИРОВОК',draft.trainingExperience,'text','text',true);experience.disabled=true;experience.value='';experience.removeAttribute('placeholder');experience.setAttribute('aria-describedby','trainingExperienceHelp');const experienceHelp=document.createElement('p');experienceHelp.id='trainingExperienceHelp';experienceHelp.className='profile-experience-help';experienceHelp.textContent='Варианты выбора пока не заданы в нормативной спецификации.';experience.parentElement.after(experienceHelp);
+  goal.parentElement.classList.add('profile-field-hidden');experience.parentElement.classList.add('profile-field-hidden');experienceHelp.classList.add('profile-field-hidden');
   const addChoices=(titleText,options,selected,className)=>{const group=document.createElement('fieldset'),legend=document.createElement('legend'),list=document.createElement('div');group.className=`editor-choice-group full ${className||''}`;legend.textContent=titleText;list.className='profile-form-grid';for(const option of options){const label=document.createElement('label'),input=document.createElement('input'),copy=document.createElement('span');label.className='editor-choice';input.type='checkbox';input.value=option.value;input.checked=selected.has(option.value);copy.textContent=option.label;label.append(input,copy);list.append(label)}group.append(legend,list);body.append(group);return group};
   const equipmentDraft=normalizeEquipment(config.equipment),equipmentLabels={pullupBar:'Турник',resistanceBand:'Резиновая лента',stableSupport:'Устойчивая опора',parallelBars:'Брусья',benchDipComfort:'Опора для отжиманий на брусьях'};
   const equipmentGroup=addChoices('ДОСТУПНОЕ ОБОРУДОВАНИЕ',Object.keys(equipmentLabels).map(key=>({value:key,label:equipmentLabels[key]})),new Set(Object.keys(equipmentDraft).filter(key=>equipmentDraft[key])),'equipment-editor');
   const restrictionsDraft=cloneCoachConstraintObject(config.userRestrictions)||{};   const matrixExercises=CINDY_FINAL_COACH_MATRIX&&CINDY_FINAL_COACH_MATRIX.exercises||{},families=[...new Set(Object.values(matrixExercises).map(item=>item&&item.family).filter(value=>typeof value==='string'&&value))].sort(),familyLabel={pull:'ТЯГОВЫЕ УПРАЖНЕНИЯ',push:'ЖИМОВЫЕ УПРАЖНЕНИЯ',squat:'ПРИСЕДАНИЯ'};
   const familyGroup=addChoices('ИСКЛЮЧЁННЫЕ ГРУППЫ',families.map(value=>({value,label:familyLabel[value]||value})),new Set(Array.isArray(restrictionsDraft.excludedFamilies)?restrictionsDraft.excludedFamilies:[]),'restriction-family-editor');
-  const hint=document.createElement('p');hint.className='full';hint.textContent='Оборудование и ограничения фильтруют допустимые упражнения. Опыт — описательный профиль: он влияет только там, где это явно предусмотрено матрицей Coach.';body.append(hint);
+  const hint=document.createElement('p');hint.className='full';hint.textContent='Оборудование и ограничения фильтруют допустимые упражнения. Рост, вес и возраст учитываются алгоритмом в биомеханике и расчете мощности.';body.append(hint);
   openAction({kicker:'ПРОФИЛЬ',title:'Личная карта',copy:'Поля необязательны. Показатели Cindy всегда считаются по реальным тренировкам.',body,buttons:[actionButton('ОТМЕНА','secondary',closeAction),actionButton('СОХРАНИТЬ','primary',()=>{
     const ageValue=optionalClamp(age.value,13,100),heightValue=optionalClamp(height.value,80,250),weightRaw=weight.value.trim(),weightValue=weightRaw===''?null:Number(weightRaw);
     if((age.value.trim()&&ageValue===null)||(height.value.trim()&&heightValue===null)||weightRaw&&(!Number.isFinite(weightValue)||weightValue<25||weightValue>350)){notify('Проверьте возраст, рост и вес.');return}
     const equipment=Object.fromEntries([...equipmentGroup.querySelectorAll('input')].map(input=>[input.value,input.checked]));
     const userRestrictions={...restrictionsDraft,excludedFamilies:[...familyGroup.querySelectorAll('input:checked')].map(input=>input.value)};
-    const saved=saveProfilePatch({name:safeName(name.value,'',32),age:ageValue,heightCm:heightValue,weightKg:weightValue===null?null:Math.round(weightValue*10)/10,goal:safeName(goal.value,'',80)},{equipment,userRestrictions});
+    const saved=saveProfilePatch({name:safeName(name.value,'',32),age:ageValue,heightCm:heightValue,weightKg:weightValue===null?null:Math.round(weightValue*10)/10,goal:safeName(goal.value||draft.goal||'','',80),trainingExperience:typeof draft.trainingExperience==='string'?draft.trainingExperience:''},{equipment,userRestrictions});
     if(!saved)return;closeAction();notify('Профиль, оборудование и ограничения сохранены.');
   })]});window.setTimeout(()=>name.focus(),20)
 }function stage2ProfileDataInner(profile){const wrap=document.createElement('div');wrap.className='profile-data-integrated';const head=document.createElement('div');head.className='setting-head profile-data-head';const label=document.createElement('span');label.className='eyebrow';label.textContent='ДАННЫЕ ДЛЯ ТРЕНЕРА';const note=document.createElement('small');note.textContent='Помогают точнее рассчитать нагрузку';head.append(label,note);const grid=document.createElement('div');grid.className='profile-data-grid';[['ВОЗРАСТ',profile.age?profile.age+' лет':'—'],['РОСТ',profile.heightCm?profile.heightCm+' см':'—'],['ВЕС',profile.weightKg?String(profile.weightKg).replace('.',',')+' кг':'—']].forEach(([labelText,value])=>{const cell=document.createElement('div');cell.className='profile-data-cell';const cellLabel=document.createElement('span');cellLabel.textContent=labelText;const cellValue=document.createElement('b');cellValue.textContent=value;cell.append(cellLabel,cellValue);grid.append(cell)});wrap.append(head,grid);return wrap}
@@ -9720,6 +9821,20 @@ window.renderProgressActivityDashboard=renderProgressActivityDashboard;
     footer.innerHTML=`<span>ТЯГА: <b>${pulls}</b></span><span>ЖИМ: <b>${pushes}</b></span><span>ПРИСЕД: <b>${squats}</b></span>`;
     card.append(footer);
   }
+  const bioSection=document.createElement('div');
+  bioSection.className='progress-biomechanics-section';
+  const prof=config.profile||{}, w=Number(prof.weightKg)||null, h=Number(prof.heightCm)||null;
+  const kW=w?w/75:1.0, kH=h?h/175:1.0, kBody=Math.round(kW*kH*100)/100;
+  const totalReps=stats.totalRepetitions||0;
+  const totalSec=stats.totalDurationSeconds||0;
+  const workJoules=totalReps*268*kBody;
+  const workKj=workJoules>0?Math.round(workJoules/1000):0;
+  const workMjr=workKj>=1000?(workKj/1000).toFixed(1)+' МДж':`${workKj} кДж`;
+  const avgWatts=totalSec>0&&workJoules>0?Math.round(workJoules/totalSec):0;
+  const kText=w||h?`${kBody.toFixed(2).replace('.',',')}×`:'1,00×';
+  const paramsNote=w&&h?`вес ${w} кг · рост ${h} см`:(w?`вес ${w} кг`:(h?`рост ${h} см`:'базовый атлет (75 кг / 175 см)'));
+  bioSection.innerHTML=`<div class="progress-bio-head"><span class="eyebrow">БИОМЕХАНИКА И НАГРУЗКА</span><span class="bio-formula-badge">k = (W/75) × (H/175)</span></div><div class="progress-bio-metrics"><div class="bio-metric"><span>ФИЗ. РАБОТА</span><b>${workMjr}</b><small>${totalReps>0?'механическая работа':'после тренировок'}</small></div><div class="bio-metric"><span>МОЩНОСТЬ</span><b>${avgWatts>0?avgWatts+' Вт':'—'}</b><small>средняя полезная</small></div><div class="bio-metric"><span>РЫЧАГ ТЕЛА</span><b>${kText}</b><small>${paramsNote}</small></div></div><div class="progress-bio-formula-desc"><p>Формула связывает повторения с весом и ростом атлета: <code>W = ∑(повт × сложность) × (вес/75) × (рост/175)</code>. Атлет совершает реальную физическую работу против силы тяжести с учётом длины рычагов конечностей.</p></div>`;
+  card.append(bioSection);
   return card;
 }
 
@@ -9775,9 +9890,15 @@ stage5SyncVisibility=function(){stage2BaseSyncVisibility();const settings=$('pro
     function cindyNextWorkoutReason(recommendation){
       const spec=recommendation&&recommendation.workoutSpec;
       if(!spec)return 'Тренер подготовит тренировку, когда появятся данные.';
-      if(spec.sessionType==='control')return 'Состав и длительность сохранены намеренно. Выполните эту тренировку: Тренер учтёт результат и подготовит следующий шаг.';
-      if(recommendation&&recommendation.action)return 'Тренер подготовил один аккуратный шаг по вашим последним тренировкам. Выполните именно этот состав, чтобы сохранить точность следующей рекомендации.';
-      return 'Тренер подготовил текущую тренировку. После результата он проверит, нужен ли следующий шаг.';
+      const prof=config.profile||{}, weight=prof.weightKg, height=prof.heightCm, target=config.longGoal||prof.goal;
+      const bio=[];
+      if(weight)bio.push(`вес ${weight} кг`);
+      if(height)bio.push(`рост ${height} см`);
+      const bioInfo=bio.length?` (учёт: ${bio.join(', ')})`:'';
+      const goalInfo=target?` Целевой ориентир: ${target} кр.`:'';
+      if(spec.sessionType==='control')return `Состав и длительность сохранены намеренно для честной проверки динамики${bioInfo}.${goalInfo} Выполните эту тренировку: Тренер учтёт результат и подготовит следующий шаг.`;
+      if(recommendation&&recommendation.action)return `Тренер подготовил аккуратный шаг по вашим последним тренировкам${bioInfo}.${goalInfo} Выполните именно этот состав, чтобы сохранить точность следующей рекомендации.`;
+      return `Тренер подготовил текущую тренировку${bioInfo}.${goalInfo} После результата он проверит, нужен ли следующий шаг.`;
     }
     function cindyNextWorkoutChangeNote(recommendation){
       const spec=recommendation&&recommendation.workoutSpec;

@@ -51,7 +51,7 @@ function connectCdp(targetUrl){
         if(closed)return Promise.reject(new Error('Chrome DevTools connection is closed'));
         const id=++nextId;
         return new Promise((res,rej)=>{
-          const timer=setTimeout(()=>{pending.delete(id);rej(new Error(`CDP timeout: ${method}`));},10000);
+          const timer=setTimeout(()=>{pending.delete(id);rej(new Error(`CDP timeout: ${method}`));},25000);
           pending.set(id,{res,rej,timer,method});
           socket.send(JSON.stringify({id,method,params}));
         });
