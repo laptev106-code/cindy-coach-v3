@@ -1,0 +1,6 @@
+# Temporary and scratch
+scratch/
+*.log
+*.tmp
+.DS_Store
+Thumbs.db

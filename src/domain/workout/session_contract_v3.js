@@ -30,4 +30,5 @@
   });
   const api=Object.freeze({version:'cindy-session-contract-v3.0',clone,sanitize,apply,freeze});
   if(typeof window!=='undefined'&&window) window.CINDYSessionContractV3=api;
+  if(typeof module!=='undefined'&&module.exports) module.exports=api;
 })();

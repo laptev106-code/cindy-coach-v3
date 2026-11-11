@@ -23,8 +23,8 @@
   const V3_CORE_VERSION = CORE.CORE_VERSION;
   const V3_SOURCE_HASH = '024608c9a30091d1d85105fea25dc28444f8b171fce890d313924b07f0a6f046';
   const V3_BUILD_HASH = 'ef69c3217fb2b123cfc631483f3bc331df145a7eed5e9feeb1ec3c9734c49a04';
-  const V3_RELEASE_SOURCE_HASH = '95ca4c4b558362f7d3933eeb138bb8faa8e51b32d812c936fdef0981370a0e3b';
-  const V3_RELEASE_BUILD_HASH = '474123a6a44585af910a954a69809ede7e4c4a877172cf354fcbdde3c11ff204';
+  const V3_RELEASE_SOURCE_HASH = 'e1854bf031a26eb41c854ae44d59edecda0ee23bac7420391e2a82f71dce95ab';
+  const V3_RELEASE_BUILD_HASH = '0bb4bced8e4bcbcbc3ece42a8ede90575b31935baeeff5a2176a19a37823f89f';
 
   const clone = value => {
     if (value == null) return value;
@@ -62,14 +62,18 @@
   let service = null;
   let forceOffInThisTab = false;
   let pendingClosedForOff = false;
+  let closingPendingCoachState = false;
 
   const closePendingCoachState = () => {
     if (pendingClosedForOff) return true;
+    if (closingPendingCoachState) return false;
     if (!service || typeof service.disable !== 'function') return false;
+    closingPendingCoachState = true;
     try {
       pendingClosedForOff = service.disable() === true;
       return pendingClosedForOff;
     } catch (_) { return false; }
+    finally { closingPendingCoachState = false; }
   };
 
   const requireRuntime = () => {

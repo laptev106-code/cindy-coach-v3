@@ -1,14 +1,40 @@
 {
-  "id": "/",
+  "id": "./",
   "name": "CINDY Coach V3",
   "short_name": "CINDY Coach",
   "description": "CINDY Coach V3 — персональный адаптивный тренер по Cindy с биомеханической ротацией упражнений.",
   "lang": "ru",
   "dir": "ltr",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#211b19",
-  "background_color": "#f8f3ee"
+  "background_color": "#f8f3ee",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
 }
