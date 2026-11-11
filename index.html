@@ -8189,19 +8189,21 @@ body{font-size:16px}
   }
   html body[data-color-theme="flux"]:not(.dark),
   html body:not([data-color-theme]):not(.dark) {
-    --ink-accent: #026394;
-    --nav-active-ink: #026394;
+    --ink-accent: #0284c7;
+    --nav-active-ink: #0284c7;
   }
   html body.dark[data-color-theme="flux"] {
-    --ink-accent: #56ccf2;
-    --nav-active-ink: #56ccf2;
+    --ink-accent: #38bdf8;
+    --nav-active-ink: #38bdf8;
   }
   html body[data-color-theme="flux"],
   html body:not([data-color-theme]) {
-    --cta-bg: linear-gradient(145deg, #c93d1a 0%, #9b290c 100%) !important;
-    --card-cta-bg: linear-gradient(145deg, #c93d1a 0%, #9b290c 100%) !important;
+    --cta-bg: linear-gradient(145deg, #FC734D 0%, #E2481E 100%) !important;
+    --card-cta-bg: linear-gradient(145deg, #FC734D 0%, #E2481E 100%) !important;
     --cta-ink: #ffffff !important;
     --card-cta-ink: #ffffff !important;
+    --cta-glow: rgba(252, 115, 77, 0.42) !important;
+    --card-cta-glow: rgba(226, 72, 30, 0.28) !important;
   }
   html body[data-color-theme="copper"]:not(.dark) {
     --muted: #5d5551 !important;
@@ -8261,8 +8263,8 @@ body{font-size:16px}
   }
   html body[data-color-theme="flux"] :is(.choice.selected, .segmented .choice.selected, #profile #profileSettingsCategories .choice.selected, #profile #profileSettingsCategories .choice[aria-expanded="true"], .exercise-chip.selected, .lap-badge):not(#__none__),
   html body:not([data-color-theme]) :is(.choice.selected, .segmented .choice.selected, #profile #profileSettingsCategories .choice.selected, #profile #profileSettingsCategories .choice[aria-expanded="true"], .exercise-chip.selected, .lap-badge):not(#__none__) {
-    background: linear-gradient(135deg, #026394 0%, #01466b 100%) !important;
-    border-color: #013c5c !important;
+    background: linear-gradient(135deg, #0297DE 0%, #0277b5 100%) !important;
+    border-color: #0277b5 !important;
     color: #ffffff !important;
   }
   html body[data-color-theme="glass"] :is(.choice.selected, .segmented .choice.selected, #profile #profileSettingsCategories .choice.selected, #profile #profileSettingsCategories .choice[aria-expanded="true"], .exercise-chip.selected, .lap-badge):not(#__none__) {
@@ -8281,12 +8283,12 @@ body{font-size:16px}
   html body[data-color-theme="flux"]:not(.dark) .control.voice,
   html body:not([data-color-theme]):not(.dark) #voiceAction,
   html body:not([data-color-theme]):not(.dark) .control.voice {
-    border-color: #026394 !important;
-    color: #026394 !important;
+    border-color: #0297DE !important;
+    color: #0297DE !important;
   }
   html body[data-color-theme="flux"]:not(.dark) .nav .nav-inner button.active,
   html body:not([data-color-theme]):not(.dark) .nav .nav-inner button.active {
-    color: #026394 !important;
+    color: #0284c7 !important;
   }
 
   /* High-contrast CTA gradients for white text (>=4.5:1 even at bright gradient stop) */
@@ -8296,7 +8298,8 @@ body{font-size:16px}
   html body:not([data-color-theme]) #workout .workout-workarea .action-deck #primaryAction.primary,
   html body:not([data-color-theme]) #workout .workout-workarea .action-deck #primaryAction.lap-pad,
   html body:not([data-color-theme]) :is(.control.primary, #startPlanWorkout, #newWorkout):not(#__none__) {
-    background: linear-gradient(145deg, #c93d1a 0%, #9b290c 100%) !important;
+    background: linear-gradient(145deg, #FC734D 0%, #E2481E 100%) !important;
+    box-shadow: 0 1.5px 0 rgba(255, 255, 255, 0.6) inset, 0 -2.5px 0 rgba(0, 0, 0, 0.24) inset, 0 8px 24px rgba(252, 115, 77, 0.42), 0 16px 34px rgba(0, 0, 0, 0.28) !important;
     color: #ffffff !important;
   }
   html body[data-color-theme="copper"]:not(.dark) #workout .workout-workarea .action-deck #primaryAction.primary,
