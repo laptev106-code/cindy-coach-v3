@@ -418,7 +418,17 @@
 
   function validateReleaseManifest(manifest, expected) {
     const m = normalizeManifest(manifest);
-    return { valid: true, manifest: m, errors: [] };
+    const errors = [];
+    const required = ['specVersion', 'coreVersion', 'buildHash', 'sourceHash', 'fixtureCorpusVersion', 'exerciseMatrixVersion', 'compatibilityVersion'];
+    required.forEach(k => { if (!m[k]) errors.push(`missing:${k}`); });
+    if (m.specVersion && m.specVersion !== expected.specVersion) errors.push('specVersion');
+    if (m.coreVersion && m.coreVersion !== expected.coreVersion) errors.push('coreVersion');
+    if (m.buildHash && expected.buildHash && m.buildHash !== expected.buildHash) errors.push('buildHash');
+    if (m.sourceHash && expected.sourceHash && m.sourceHash !== expected.sourceHash) errors.push('sourceHash');
+    if (m.fixtureCorpusVersion && m.fixtureCorpusVersion !== expected.fixtureCorpusVersion) errors.push('fixtureCorpusVersion');
+    if (m.exerciseMatrixVersion && m.exerciseMatrixVersion !== expected.exerciseMatrixVersion) errors.push('exerciseMatrixVersion');
+    if (m.compatibilityVersion && m.compatibilityVersion !== expected.compatibilityVersion) errors.push('compatibilityVersion');
+    return { valid: errors.length === 0, manifest: m, errors };
   }
 
   function activeEquipment(input) {
@@ -885,6 +895,9 @@
 
   function candidateDomains(candidate, objective, goalState, views, readiness) {
     const primary = objective === 'PROGRESS_CAPACITY' || objective === 'REDUCE_LOCAL_STRESS' || objective === 'CORRECT_STRUCTURAL_BALANCE';
+    const recentPaces = arr(views && views.TrendCohort).slice(-3).map(r => r.performanceMetrics && r.performanceMetrics.lapProfile).filter(x => x && x.valid);
+    const negativeSplitPace = recentPaces.length >= 2 && recentPaces.filter(x => x.slowdownRatio != null && x.slowdownRatio <= 0.95).length >= Math.ceil(recentPaces.length / 2);
+    const accelVariation = objective === 'PROGRESS_CAPACITY' && readiness && readiness.exerciseVariationAllowed && (readiness.pacePattern === 'ACCELERATING' || negativeSplitPace);
     return {
       objectiveSufficiency: candidate.objectiveSufficient === true ? 1 : 0,
       smallestChange: 1,
@@ -894,6 +907,7 @@
       goalAlignment: candidate.goalAlignment === 'DIRECT' ? 2 : candidate.goalAlignment === 'NEUTRAL' ? 1 : 0,
       structuralFit: candidate.structuralFit === 'SATISFIES_REQUIREMENT' ? 1 : 0,
       exposureFit: candidate.exposureFit === 'REDUCES_EXPLICIT_CONCENTRATION' ? 1 : 0,
+      progressionModeFit: accelVariation ? (candidate.candidateType === 'VARIANT' ? 1 : 0) : 0,
       candidateId: candidate.id,
     };
   }
@@ -901,7 +915,7 @@
   function compareCandidates(a, b, objective, goalState, views, readiness) {
     const da = candidateDomains(a, objective, goalState, views, readiness);
     const db = candidateDomains(b, objective, goalState, views, readiness);
-    const keys = ['objectiveSufficiency', 'smallestChange', 'confounder', 'evidenceClass', 'contextCompatibility', 'goalAlignment', 'structuralFit', 'exposureFit'];
+    const keys = ['objectiveSufficiency', 'smallestChange', 'confounder', 'evidenceClass', 'contextCompatibility', 'goalAlignment', 'structuralFit', 'exposureFit', 'progressionModeFit'];
     for (const k of keys) {
       if (da[k] !== db[k]) return db[k] - da[k];
     }
@@ -1569,6 +1583,11 @@
       return finalize(i, spec, views, performanceState, readinessContext, confidenceProfile, goal, 'VALID');
     }
 
+    if (objective === 'CONFIRM_PLATEAU' && i.controlQuestion && inputControlEligible(i, views)) {
+      const control = makeSpec(i, null, 'PRESERVE', 'CONTROL', 'VALID', objective, views, goal, confidenceProfile, readinessContext, performanceState, { controlSpec: { question: i.controlQuestion, frozenContext: clone(i.currentWorkout), controlledVariable: 'none', expectedOutcomeA: 'stable', expectedOutcomeB: 'unstable', resolutionRule: 'reclassify on next result', nextBranch: 'Level A' }, explanation: { what: 'Контрольная тренировка сохраняет протокол.', why: 'Есть конкретный information question для различения двух допустимых объяснений.', basedOn: 'controlSpec.question', limitations: '' } });
+      return finalize(i, control, views, performanceState, readinessContext, confidenceProfile, goal, 'VALID');
+    }
+
     // Smart Biomechanical Rotation: when progression is not triggered, rotate grips/stances/angles
     const rotationCandidate = !currentInvalid && !i.interventionWindow
       ? smartBiomechanicalRotationCandidate(i, views, performanceState, readinessContext, goal)
@@ -1581,11 +1600,6 @@
         explanation: rotationCandidate.explanationDetails
       });
       if (spec.validation.valid) return finalize(i, spec, views, performanceState, readinessContext, confidenceProfile, goal, 'VALID');
-    }
-
-    if (objective === 'CONFIRM_PLATEAU' && i.controlQuestion && inputControlEligible(i, views)) {
-      const control = makeSpec(i, null, 'PRESERVE', 'CONTROL', 'VALID', objective, views, goal, confidenceProfile, readinessContext, performanceState, { controlSpec: { question: i.controlQuestion, frozenContext: clone(i.currentWorkout), controlledVariable: 'none', expectedOutcomeA: 'stable', expectedOutcomeB: 'unstable', resolutionRule: 'reclassify on next result', nextBranch: 'Level A' }, explanation: { what: 'Контрольная тренировка сохраняет протокол.', why: 'Есть конкретный information question для различения двух допустимых объяснений.', basedOn: 'controlSpec.question', limitations: '' } });
-      return finalize(i, control, views, performanceState, readinessContext, confidenceProfile, goal, 'VALID');
     }
 
     if (i.currentWorkout.invalid) {

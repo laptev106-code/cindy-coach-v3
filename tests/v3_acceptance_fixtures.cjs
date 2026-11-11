@@ -111,7 +111,7 @@ function cmp(a,b,opts={}){return CORE.strictCompare(CORE.normalizeHistoryRecord(
 const tests=[];
 function T(name,fn){tests.push({name,fn});}
 function ok(condition,msg){assert.ok(condition,msg);}
-function eq(actual,expected,msg){assert.strictEqual(actual,expected,msg);}
+function eq(actual,expected,msg){msg===undefined?assert.strictEqual(actual,expected):assert.strictEqual(actual,expected,msg);}
 function includes(arr,v,msg){ok(Array.isArray(arr)&&arr.includes(v),msg||`expected ${v}`);}
 
 T('T01 non-contiguous current-comparable cohort',()=>{const h=[record({day:20}),record({day:21,composition:[...BASE_COMPOSITION.slice(0,2),{...BASE_COMPOSITION[2],count:16}]}),record({day:24}),record({day:26})];const r=derive({history:h});eq(r.diagnostics.evidenceViews.strictCohort.length,3);});

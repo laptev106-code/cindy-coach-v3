@@ -27,7 +27,7 @@ const checks=[
   ['Recoverable V2.8 migration','run_coach_migration_tests.cjs','COACH_MIGRATION_TESTS_PASS'],
   ['Coach preference provenance','run_coach_preference_tests.cjs','COACH_PREFERENCE_TESTS_PASS'],
   ['Coach OFF lifecycle and failures','run_coach_off_session_tests.cjs','COACH_OFF_SESSION_TESTS_PASS'],
-  ['Lite presentation/runtime gates','run_lite_build_tests.cjs','CINDY_LITE_STATIC_GATES_PASS'],
+  ['Coach V3 presentation/runtime gates','run_lite_build_tests.cjs','CINDY_LITE_STATIC_GATES_PASS'],
   ['Release artifact integrity','run_release_integrity_tests.cjs','RELEASE_INTEGRITY_TESTS_PASS']
 ];
 let pass=0,fail=0;

@@ -75,7 +75,7 @@
     });
 
     const readState = () => isEnabled() ? clone(state) : null;
-    const persistState = (allowDisabled = false) => !isEnabled() && !allowDisabled ? false : stateRepository.save(state);
+    const persistState = (allowDisabled = false) => !allowDisabled && !isEnabled() ? false : stateRepository.save(state);
 
     const relevantConfigSnapshot = () => canonical(configPort.relevantSnapshot());
     const configFingerprint = () => hash(relevantConfigSnapshot());
