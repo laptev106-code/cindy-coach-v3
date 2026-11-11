@@ -3309,10 +3309,10 @@ body{font-size:16px}
   }
 
   body[data-color-theme="spidey"] {
-    --hero-orb-bg: radial-gradient(circle at 32% 28%, #ffffff 0%, #bae6fd 22%, #38bdf8 42%, #ef4444 68%, #1e1b4b 95%);
-    --hero-orb-glow: rgba(56, 189, 248, 0.8);
-    --wave-color: rgba(239, 68, 68, 0.45);
-    --wave-color-soft: rgba(56, 189, 248, 0.16);
+    --hero-orb-bg: radial-gradient(circle at 32% 28%, #ffffff 0%, #cbd5e1 20%, #2563eb 42%, #c8102e 68%, #0f172a 96%);
+    --hero-orb-glow: rgba(200, 16, 46, 0.65);
+    --wave-color: rgba(200, 16, 46, 0.55);
+    --wave-color-soft: rgba(37, 99, 235, 0.20);
   }
 
   body[data-color-theme="graphite"] {
@@ -3721,15 +3721,19 @@ body{font-size:16px}
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    padding: 0 !important;
+    padding: 12px 0 !important;
     border: 0 !important;
     background: transparent !important;
     color: var(--ink) !important;
     cursor: pointer !important;
+    transition: transform 0.16s cubic-bezier(0.2, 0.76, 0.24, 1), color 0.16s ease !important;
+  }
+  #progressAnalytics .achievement-section-toggle:active {
+    transform: scale(0.985) !important;
   }
   #progressAnalytics .achievement-section-toggle[aria-expanded="true"] {
-    padding-bottom: 14px !important;
-    border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent) !important;
+    padding: 12px 0 !important;
+    border-bottom: none !important;
   }
   #progressAnalytics .achievement-section-toggle > span {
     font-size: 17px !important;
@@ -3745,7 +3749,7 @@ body{font-size:16px}
     color: var(--blue) !important;
     font-weight: 700 !important;
     transform: rotate(0deg) !important;
-    transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease !important;
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.22s ease !important;
   }
   #progressAnalytics .achievement-section-toggle[aria-expanded="true"] > i {
     transform: rotate(90deg) !important;
@@ -4471,16 +4475,19 @@ body{font-size:16px}
     display: grid !important;
     grid-template-rows: 1fr !important;
     opacity: 1 !important;
-    transition: grid-template-rows 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease !important;
+    transition: grid-template-rows 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
   #progressAnalytics .achievements-content.is-collapsed {
     grid-template-rows: 0fr !important;
     opacity: 0 !important;
     pointer-events: none !important;
+    transition: grid-template-rows 0.30s cubic-bezier(0.2, 0, 0, 1), opacity 0.18s ease !important;
   }
   #progressAnalytics .achievements-content-inner {
     min-height: 0 !important;
     overflow: hidden !important;
+    border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent) !important;
+    padding-top: 8px !important;
   }
 
   /* ==========================================================================
@@ -5861,7 +5868,7 @@ body{font-size:16px}
   }
   html body[data-color-theme="spidey"] .workout-workarea .action-deck #primaryAction,
   html body[data-color-theme="spidey"] .action-deck #primaryAction.lap-pad {
-    background: linear-gradient(145deg, #ff4d5d 0%, #d91b2e 100%) !important;
+    background: linear-gradient(145deg, #c8102e 0%, #940d21 100%) !important;
     color: #ffffff !important;
   }
   html body[data-color-theme="cyber"] .workout-workarea .action-deck #primaryAction,
@@ -5994,25 +6001,25 @@ body{font-size:16px}
 
   html body[data-color-theme="spidey"] {
     --paper: #f8fafc;
-    --cta-bg: linear-gradient(145deg, #ef4444 0%, #c81e2f 100%);
+    --cta-bg: linear-gradient(145deg, #c8102e 0%, #940d21 100%);
     --cta-border: rgba(255, 224, 228, 0.45);
     --cta-ink: #ffffff;
-    --cta-glow: rgba(200, 30, 47, 0.32);
+    --cta-glow: rgba(200, 16, 46, 0.32);
     --card-cta-bg: var(--cta-bg);
     --card-cta-border: var(--cta-border);
     --card-cta-ink: var(--cta-ink);
-    --card-cta-glow: rgba(200, 30, 47, 0.22);
-    --dot-grad: linear-gradient(135deg, #ef4444, #1d4ed8);
-    --dot-ring: rgba(239, 68, 68, 0.26);
-    --nav-active-ink: #c81e2f;
-    --nav-active-bg: rgba(200, 30, 47, 0.10);
-    --nav-active-border: rgba(200, 30, 47, 0.22);
+    --card-cta-glow: rgba(200, 16, 46, 0.22);
+    --dot-grad: linear-gradient(135deg, #c8102e, #1d4ed8);
+    --dot-ring: rgba(200, 16, 46, 0.26);
+    --nav-active-ink: #c8102e;
+    --nav-active-bg: rgba(200, 16, 46, 0.10);
+    --nav-active-border: rgba(200, 16, 46, 0.22);
   }
   html body.dark[data-color-theme="spidey"] {
     --paper: #0a101d;
-    --nav-active-ink: #fb7185;
-    --nav-active-bg: rgba(251, 113, 133, 0.14);
-    --nav-active-border: rgba(251, 113, 133, 0.28);
+    --nav-active-ink: #e11d48;
+    --nav-active-bg: rgba(225, 29, 72, 0.14);
+    --nav-active-border: rgba(225, 29, 72, 0.28);
   }
 
   html body[data-color-theme="cyber"] {
@@ -6817,6 +6824,7 @@ body{font-size:16px}
   }
   html body.dark[data-color-theme] .nav .nav-inner .nav-pill-indicator,
   html body.dark:not([data-color-theme]) .nav .nav-inner .nav-pill-indicator {
+    border-radius: 26px !important;
     background: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0.20) 0%,
@@ -6933,22 +6941,17 @@ body{font-size:16px}
   }
   html body .progress-stats-grid {
     display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 9px !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
     width: 100% !important;
     box-sizing: border-box !important;
-  }
-  @media (min-width: 520px) {
-    html body .progress-stats-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    }
   }
   html body .progress-stat-tile {
     min-width: 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    padding: 12px 11px !important;
-    border-radius: 14px !important;
+    padding: 10px 8px !important;
+    border-radius: 13px !important;
     overflow: hidden !important;
     background: linear-gradient(
       180deg,
@@ -6975,15 +6978,31 @@ body{font-size:16px}
       0 2px 0 rgba(0, 0, 0, 0.46),
       0 5px 12px rgba(0, 0, 0, 0.28) !important;
   }
-  html body .progress-stat-tile span,
-  html body .progress-stat-tile small {
-    font-size: 11px !important;
-    line-height: 1.22 !important;
-    overflow-wrap: anywhere;
+  html body .progress-stat-tile span {
+    font-size: 9.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.03em !important;
+    color: var(--muted) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    line-height: 1.2 !important;
   }
   html body .progress-stat-tile b {
-    font-size: 20px !important;
+    font-size: 18px !important;
+    font-weight: 850 !important;
     line-height: 1.15 !important;
+    margin: 3px 0 2px !important;
+    white-space: nowrap !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+  html body .progress-stat-tile small {
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+    color: var(--muted) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
   html body .progress-activity-card .activity-badge {
     font-size: 11px !important;
@@ -7509,9 +7528,93 @@ body{font-size:16px}
     width: 24px !important;
   }
 
+  /* Tactical Dynamic Island notification pill — palette-matched, legible, animated */
   html body .toast {
+    position: fixed !important;
     z-index: 95 !important;
-    transition: opacity 180ms var(--ease-out), transform 220ms var(--ease-out) !important;
+    bottom: calc(var(--nav-h) + 20px + env(safe-area-inset-bottom)) !important;
+    left: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    min-height: 44px !important;
+    padding: 11px 22px !important;
+    font-family: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-size: 13.5px !important;
+    font-weight: 750 !important;
+    letter-spacing: -0.01em !important;
+    line-height: 1.25 !important;
+    white-space: nowrap !important;
+    border-radius: 999px !important;
+    pointer-events: none !important;
+    transform: translate3d(-50%, 14px, 0) scale(0.92) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    will-change: transform, opacity !important;
+    font-variant-numeric: tabular-nums !important;
+    box-sizing: border-box !important;
+  }
+  html body:not(.dark) .toast {
+    background: linear-gradient(165deg, color-mix(in srgb, var(--panel) 92%, #fff) 0%, color-mix(in srgb, var(--panel) 98%, var(--ink)) 100%) !important;
+    color: var(--ink) !important;
+    border: 1px solid color-mix(in srgb, var(--line) 78%, rgba(10, 20, 48, 0.12)) !important;
+    border-top-color: rgba(255, 255, 255, 0.95) !important;
+    border-bottom-color: color-mix(in srgb, var(--line) 90%, rgba(10, 20, 48, 0.18)) !important;
+    box-shadow:
+      0 4px 14px rgba(10, 20, 48, 0.10),
+      0 14px 32px rgba(10, 20, 48, 0.14),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(24px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  }
+  html body.dark .toast {
+    background: linear-gradient(165deg, color-mix(in srgb, var(--panel) 82%, rgba(255, 255, 255, 0.08)) 0%, color-mix(in srgb, var(--panel) 94%, #000) 100%) !important;
+    color: var(--ink) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-top-color: rgba(255, 255, 255, 0.28) !important;
+    border-bottom-color: rgba(0, 0, 0, 0.45) !important;
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.42),
+      0 16px 36px rgba(0, 0, 0, 0.50),
+      inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
+    backdrop-filter: blur(24px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  }
+  html body[data-color-theme="spidey"]:not(.dark) .toast {
+    border-color: color-mix(in srgb, #c8102e 32%, var(--line)) !important;
+    box-shadow:
+      0 4px 14px rgba(200, 16, 46, 0.12),
+      0 14px 32px rgba(27, 48, 88, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  }
+  html body.dark[data-color-theme="spidey"] .toast {
+    border-color: rgba(225, 29, 72, 0.35) !important;
+    box-shadow:
+      0 4px 16px rgba(225, 29, 72, 0.15),
+      0 16px 36px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  }
+  html body .toast.visible {
+    visibility: visible !important;
+    animation: cindyToastEnter 280ms cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  }
+  @keyframes cindyToastEnter {
+    0% {
+      opacity: 0;
+      transform: translate3d(-50%, 14px, 0) scale(0.92);
+      filter: blur(3px);
+    }
+    60% {
+      opacity: 1;
+      transform: translate3d(-50%, -2px, 0) scale(1.025);
+      filter: blur(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(-50%, 0, 0) scale(1);
+      filter: none;
+    }
   }
 
   /* --- 9b. FAST GPU COUNTER TICK ANIMATIONS ON ADD ROUND --- */
@@ -7942,12 +8045,11 @@ body{font-size:16px}
     bottom: 7px !important;
     height: 30px !important;
   }
-  html body #progressAnalytics .achievement-section-toggle {
-    min-height: 48px !important;
-    padding: 10px 0 !important;
-  }
+  html body #progressAnalytics .achievement-section-toggle,
   html body #progressAnalytics .achievement-section-toggle[aria-expanded="true"] {
-    padding-bottom: 14px !important;
+    min-height: 48px !important;
+    padding: 12px 0 !important;
+    border-bottom: none !important;
   }
   html body #progressAnalytics .achievement-families-toggle {
     display: inline-flex !important;
@@ -8231,12 +8333,21 @@ body{font-size:16px}
   }
 
   /* Concentric border radii (outer - padding) */
-  html body .nav .nav-inner {
-    border-radius: 22px !important;
+  html body .nav .nav-inner,
+  html body.dark .nav .nav-inner,
+  html body[data-color-theme] .nav .nav-inner,
+  html body.dark[data-color-theme] .nav .nav-inner {
+    border-radius: 28px !important;
   }
   html body .nav .nav-inner button,
-  html body .nav .nav-inner .nav-pill-indicator {
-    border-radius: 16px !important;
+  html body.dark .nav .nav-inner button,
+  html body[data-color-theme] .nav .nav-inner button,
+  html body.dark[data-color-theme] .nav .nav-inner button,
+  html body .nav .nav-inner .nav-pill-indicator,
+  html body.dark .nav .nav-inner .nav-pill-indicator,
+  html body[data-color-theme] .nav .nav-inner .nav-pill-indicator,
+  html body.dark[data-color-theme] .nav .nav-inner .nav-pill-indicator {
+    border-radius: 22px !important;
   }
   html body .setting-card,
   html body .progress-activity-card,
@@ -8312,38 +8423,65 @@ body{font-size:16px}
   }
 </style>
 <style id="cindy-phase4-gpu-compositor">
-  /* Tightened Apple screen & stagger timing + layout containment */
+  /* Ghost button suppression when idle: roundButton, stopAction & voiceAction are strictly hidden */
+  html body .hidden,
+  html body .control.hidden,
+  html body #workout .workout-workarea .action-deck:not(.is-session-active) :is(#roundButton, #stopAction, #voiceAction),
+  html body #workout .workout-workarea .action-deck :is(#roundButton, #stopAction, #voiceAction).hidden,
+  html body :is(#roundButton, #stopAction, #voiceAction).hidden {
+    display: none !important;
+  }
+
+  /* Universal nav dock styling & zero-doubling pill architecture */
+  html body .nav,
+  html body .nav .nav-inner {
+    touch-action: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+  }
+  html body .nav .nav-inner button,
+  html body .nav .nav-inner button.active,
+  html body[data-color-theme] .nav .nav-inner button,
+  html body[data-color-theme] .nav .nav-inner button.active,
+  html body.dark .nav .nav-inner button,
+  html body.dark .nav .nav-inner button.active,
+  html body .nav .nav-inner button:active,
+  html body .nav .nav-inner button.is-physical-press {
+    background: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    transform: none !important;
+    outline: none !important;
+  }
+  html body .nav .nav-inner .nav-pill-indicator.is-scrubbing {
+    transition: none !important;
+    transform: translate3d(var(--nav-pill-x, 4px), 0, 0) !important;
+    will-change: transform !important;
+  }
+  html body .nav .nav-inner.is-scrubbing button {
+    color: var(--muted) !important;
+    transition: color 120ms ease !important;
+  }
+  html body .nav .nav-inner.is-scrubbing button.is-scrub-target {
+    color: var(--nav-active-ink) !important;
+  }
+
+  /* Smooth Apple screen transition */
   html body .screen.active {
     contain: layout style;
-    animation: cindyAppleScreenEnter 200ms var(--ease-out) both !important;
+    animation: cindyAppleScreenEnter 220ms cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    will-change: opacity, transform;
   }
-  html body .screen.active > .card:nth-of-type(1),
-  html body .screen.active .training-setup > *:nth-child(1),
-  html body .screen.active #profileSettingsCategories > .choice:nth-child(1),
-  html body .screen.active #progressAnalytics > *:nth-child(1) {
-    animation-duration: 185ms !important;
-    animation-delay: 0ms !important;
-  }
-  html body .screen.active > .card:nth-of-type(2),
-  html body .screen.active .training-setup > *:nth-child(2),
-  html body .screen.active #profileSettingsCategories > .choice:nth-child(2),
-  html body .screen.active #progressAnalytics > *:nth-child(2) {
-    animation-duration: 185ms !important;
-    animation-delay: 26ms !important;
-  }
-  html body .screen.active > .card:nth-of-type(3),
-  html body .screen.active .training-setup > *:nth-child(3),
-  html body .screen.active #profileSettingsCategories > .choice:nth-child(3),
-  html body .screen.active #progressAnalytics > *:nth-child(3) {
-    animation-duration: 185ms !important;
-    animation-delay: 52ms !important;
-  }
-  html body .screen.active > .card:nth-of-type(4),
-  html body .screen.active .training-setup > *:nth-child(4),
-  html body .screen.active #profileSettingsCategories > .choice:nth-child(4),
-  html body .screen.active #progressAnalytics > *:nth-child(4) {
-    animation-duration: 185ms !important;
-    animation-delay: 78ms !important;
+  @keyframes cindyAppleScreenEnter {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 6px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
   }
 
   /* Bottom Sheet grabber + interruptible drag/settle/close GPU transitions */
@@ -8430,9 +8568,10 @@ body{font-size:16px}
     100% { opacity: 0.78; transform: translate3d(0, 0, 0) scale(1); }
   }
   @keyframes cindyGpuBallLap {
-    0% { opacity: 0.76; transform: translate3d(0, 0, 0) scale(1); }
-    24% { opacity: 0.90; transform: translate3d(0, 1px, 0) scale(0.93); }
-    56% { opacity: 1; transform: translate3d(1px, -4px, 0) scale(1.13); }
+    0% { opacity: 0.78; transform: translate3d(0, 0, 0) scale(1); }
+    20% { opacity: 0.84; transform: translate3d(0, 1px, 0) scale(0.97); }
+    48% { opacity: 0.94; transform: translate3d(0, -2px, 0) scale(1.055); }
+    74% { opacity: 0.86; transform: translate3d(0, -1px, 0) scale(1.02); }
     100% { opacity: 0.78; transform: translate3d(0, 0, 0) scale(1); }
   }
   @keyframes cindyGpuBallFinish {
@@ -8507,14 +8646,21 @@ body{font-size:16px}
   html body #workout .workout-workarea #practiceCard.practice-card:not(.is-live):not(.is-paused):not(.ball-lap):not(.ball-start):not(.ball-resume):not(.ball-finish)::before {
     animation: cindyGpuHaloIdle 5.8s ease-in-out infinite alternate !important;
   }
+  /* Living concentric waves pulsing outward during workout */
   html body #workout .workout-workarea #practiceCard.practice-card.is-live:not(.ball-lap):not(.ball-start):not(.ball-resume)::before {
-    animation: cindyGpuHaloLive 3.1s ease-in-out infinite alternate !important;
+    display: block !important;
+    border: 1.5px solid var(--wave-color, rgba(239, 134, 80, 0.45)) !important;
+    background: radial-gradient(circle, var(--wave-color-soft, rgba(239, 134, 80, 0.16)) 0%, transparent 70%) !important;
+    animation: kineticOrbLivingWaves 2.8s cubic-bezier(0.16, 0.8, 0.24, 1) infinite !important;
   }
   html body #workout .workout-workarea #practiceCard.practice-card.is-paused:not(.ball-lap)::before {
     animation: cindyGpuHaloPaused 4.8s ease-in-out infinite alternate !important;
   }
+  /* Expanding radiating shockwave rings on round click */
   html body #workout .workout-workarea #practiceCard.practice-card:is(.ball-start, .ball-resume, .ball-lap)::before {
-    animation: cindyGpuHaloImpulse 440ms var(--ease-out) both !important;
+    display: block !important;
+    border: 1.5px solid var(--wave-color, rgba(239, 134, 80, 0.65)) !important;
+    animation: ballLapShockwave 480ms cubic-bezier(0.2, 0.8, 0.2, 1) both !important;
   }
   html body #workout .workout-workarea #practiceCard.practice-card.ball-finish::before {
     animation: cindyGpuHaloFinish 360ms var(--ease-out) both !important;
@@ -8593,6 +8739,60 @@ body{font-size:16px}
     html body #recordCallout:not(.hidden) {
       animation: cindyReducedFade 140ms ease both !important;
     }
+  }
+
+  /* --- 12. PROGRESS SCREEN REFINEMENTS (Breathing Room, Phantom Line Elimination, Proportional Tiles) --- */
+  html body #progressHistorySection {
+    margin-top: 24px !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+  }
+  html body #progress :is(.profile-subsection, .profile-history, #progressHistorySection, #progressGoalSection) {
+    border-top: none !important;
+    padding-top: 0 !important;
+  }
+  html body #progressHistorySection > h2,
+  html body #progressHistoryTitle {
+    margin: 0 0 14px 0 !important;
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.025em !important;
+    line-height: 1.25 !important;
+  }
+  html body #historyContent > .best-strip,
+  html body .best-strip {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    min-height: 56px !important;
+    padding: 14px 18px !important;
+    margin: 0 0 12px 0 !important;
+    border-radius: 18px !important;
+    box-sizing: border-box !important;
+  }
+  html body .best-strip .eyebrow {
+    margin: 0 !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.06em !important;
+    color: var(--muted) !important;
+  }
+  html body .best-strip b {
+    font-size: 21px !important;
+    font-weight: 850 !important;
+    color: var(--ink) !important;
+    font-variant-numeric: tabular-nums !important;
+    line-height: 1 !important;
+  }
+  /* Suppress leaked phantom borders and nested boxes */
+  html body #progressAnalytics .achievement-families[hidden],
+  html body #progressAnalytics .achievement-families:not([aria-expanded="true"])[hidden] {
+    display: none !important;
+  }
+  html body #progressAnalytics .achievement-families {
+    border: 1px solid color-mix(in srgb, var(--line) 65%, transparent) !important;
+    border-radius: 14px !important;
+    margin-top: 8px !important;
   }
 </style>
 </head>
@@ -8994,7 +9194,180 @@ function renderAll(options={}){applyLanguage();stage2InitLayout();applyTheme();r
 if(window.CindyScreenPresenterV3){window.CindyScreenPresenterV3.bind({workout:function(options){renderWorkout(options||{})},programs:function(){renderPrograms();stage5OrganizeTraining()},progress:function(options){renderProfile();renderHistory();stage5SyncVisibility();if(options&&options.focusHistory)window.setTimeout(()=>stage2Focus('progressHistorySection'),0)},profile:function(options){renderProfile();renderSettings();stage5SyncVisibility();if(options&&options.focusSettings)window.setTimeout(()=>{stage2SetSettingsCategory('interface');stage2Focus('profileSettingsSection')},0)}})}
     function setConfig(patch){if(active()){notify('Завершите или поставьте на паузу текущую тренировку, чтобы изменить формат.');return false}config=normalizeConfig({...config,...patch});if(!saveConfig()){renderAll({markers:true});return false}let pendingBaselinePreview=null;try{const coachApi=window.CindyCoachIntegration;if(coachApi&&typeof coachApi.onConfigMutation==='function')coachApi.onConfigMutation();if(coachApi&&typeof coachApi.state==='function'){const state=coachApi.state();if(state&&state.baselineAuthority&&typeof coachApi.previewBaselineTest==='function')pendingBaselinePreview=coachApi.previewBaselineTest()}}catch(_){ }session=pendingBaselinePreview&&pendingBaselinePreview.sessionRuntime?freshSession(pendingBaselinePreview.sessionRuntime):freshSession();latestMarkerId=null;renderAll({markers:true});return true}
     function custom(input,field,min,max,label){const value=clamp($(input).value,min,max,null);if(value===null){notify(`Введите число от ${min} до ${max}.`);$(input).focus();return}if(setConfig({[field]:value})){$(input).value='';notify(`${label}: ${value}.`)}}function saveGoogleClientId(){const id=$('googleClientId').value.trim();if(!/^\S+\.apps\.googleusercontent\.com$/.test(id)){googleMessage('error','Введите корректный Web OAuth Client ID из Google Cloud.');$('googleClientId').focus();return}googleToken='';googleTokenClient=null;cloud={...cloudDefaults,clientId:id,updatedAt:cloud.updatedAt};saveCloud();googleMessage('ready','OAuth Client ID сохранён. Можно подключить Google.');notify('OAuth Client ID сохранён.')}
-    $('primaryAction').addEventListener('click',primaryWorkoutAction);$('stopAction').addEventListener('click',confirmStop);$('roundButton').addEventListener('click',secondaryPauseAction);$('voiceAction').addEventListener('click',startVoiceRound);const roundPressButton=$('roundButton'),clearRoundPress=()=>roundPressButton.classList.remove('is-pressing');roundPressButton.addEventListener('pointerdown',()=>{if(!roundPressButton.disabled&&session.status==='running')roundPressButton.classList.add('is-pressing')});['pointerup','pointercancel','pointerleave'].forEach(type=>roundPressButton.addEventListener(type,clearRoundPress));$('repeatLast').addEventListener('click',repeatLast);$('themeToggle').addEventListener('click',()=>{config.theme=config.theme==='dark'?'light':'dark';saveConfig();renderAll()});$('settingsShortcut').addEventListener('click',()=>show('settings',{focusSettings:true}));const coachSwitch=$('coachEnabledSwitch');if(coachSwitch)coachSwitch.addEventListener('change',()=>{if(!setCoachEnabled(coachSwitch.checked))coachSwitch.checked=config.coachEnabled===true});const developmentSwitch=$('developmentViewSwitch');if(developmentSwitch)developmentSwitch.addEventListener('change',()=>{const before=config;if(!saveProfilePatch({developmentView:developmentSwitch.checked})){config=before;renderAll();return}notify(developmentSwitch.checked?'Показ прогресса включён.':'Показ прогресса скрыт.')});$('navWorkout').addEventListener('click',()=>show('workout'));$('navPrograms').addEventListener('click',()=>show('programs'));$('navProgress').addEventListener('click',()=>show('progress'));$('navProfile').addEventListener('click',()=>show('profile'));(()=>{const navInner=document.querySelector('.nav .nav-inner');if(!navInner)return;let pill=navInner.querySelector('.nav-pill-indicator');if(!pill){pill=document.createElement('span');pill.className='nav-pill-indicator';pill.setAttribute('aria-hidden','true');navInner.prepend(pill)}const routeOf=b=>b&&b.id==='navPrograms'?'programs':(b&&b.id==='navProgress'?'progress':(b&&b.id==='navProfile'?'profile':'workout'));const buttons=()=>[...navInner.querySelectorAll('button')];const geom={rectLeft:0,pillW:0,pillH:0,top:0,minX:0,maxX:0,items:[]};let booted=false,scrubbing=false,activePointerId=null,startX=0,startY=0,grabOffset=0,scrubTargetBtn=null,suppressClickUntil=0,snapGen=0,lastW=-1,lastH=-1,lastTop=-1;const measureNav=()=>{const btns=buttons();if(!btns.length||typeof navInner.getBoundingClientRect!=='function')return false;const rect=navInner.getBoundingClientRect();const items=btns.map(b=>{const w=b.offsetWidth,h=b.offsetHeight,l=b.offsetLeft,t=b.offsetTop;return{btn:b,route:routeOf(b),left:l,top:t,width:w,height:h,center:l+w/2}});if(!items.length||items[0].width<=0||items[0].height<=0)return false;const first=items[0],last=items[items.length-1];geom.rectLeft=rect.left;geom.pillW=first.width;geom.pillH=first.height;geom.top=first.top;geom.minX=first.left;geom.maxX=last.left+last.width-first.width;geom.items=items;return true};const setScrubTarget=target=>{const items=geom.items.length?geom.items:buttons().map(b=>({btn:b}));for(const item of items)item.btn.classList.toggle('is-scrub-target',Boolean(target&&item.btn===target));scrubTargetBtn=target||null};const syncToBtn=(btn,{immediate=false,xOverride=null}={})=>{if(!btn||!pill)return;if(!geom.items.length&&!measureNav())return;const entry=geom.items.find(it=>it.btn===btn)||geom.items[0];if(!entry||entry.width<=0||entry.height<=0)return;const x=xOverride!==null?xOverride:entry.left;const shouldSnap=Boolean(immediate||!booted);if(shouldSnap){snapGen++;pill.style.transition='none';pill.classList.add('is-no-transition')}if(entry.width!==lastW){lastW=entry.width;pill.style.width=`${entry.width}px`}if(entry.height!==lastH){lastH=entry.height;pill.style.height=`${entry.height}px`}if(entry.top!==lastTop){lastTop=entry.top;pill.style.top=`${entry.top}px`}pill.style.setProperty('--nav-pill-x',`${x}px`);if(shouldSnap){booted=true;const myGen=snapGen;const clearSnap=()=>{if(!scrubbing&&myGen===snapGen){pill.classList.remove('is-no-transition');pill.style.removeProperty('transition')}};if(typeof requestAnimationFrame==='function')requestAnimationFrame(clearSnap);else clearSnap()}};const syncActive=opts=>{if(scrubbing&&!(opts&&opts.force))return;const items=geom.items;const active=(items.find(it=>it.btn.classList.contains('active'))||items[0])?.btn||buttons().find(b=>b.classList.contains('active'))||buttons()[0];syncToBtn(active,opts||{})};window.__cindySyncNavPill=syncActive;navInner.addEventListener('click',e=>{if(Date.now()<suppressClickUntil){e.preventDefault();e.stopImmediatePropagation();suppressClickUntil=0}},true);navInner.addEventListener('pointerdown',e=>{if(!e.isPrimary||(e.pointerType==='mouse'&&e.button!==0))return;measureNav();if(!geom.items.length)return;activePointerId=e.pointerId;startX=e.clientX;startY=e.clientY;scrubbing=false;grabOffset=null;pill.classList.add('is-pressing');setScrubTarget(null)});const onScrubMove=e=>{if(activePointerId===null||e.pointerId!==activePointerId)return;if(!geom.items.length)return;const dx=e.clientX-startX,dy=e.clientY-startY;if(!scrubbing){if(Math.abs(dx)<5||Math.abs(dy)>Math.abs(dx)*1.8)return;scrubbing=true;navInner.classList.add('is-scrubbing');pill.classList.add('is-scrubbing');const cur=geom.items.find(it=>it.btn.classList.contains('active'))||geom.items[0],relStart=startX-geom.rectLeft;grabOffset=(relStart>=cur.left&&relStart<=cur.left+cur.width)?(relStart-cur.left):(cur.width/2)}const rawX=(e.clientX-geom.rectLeft)-grabOffset,clampedX=Math.max(geom.minX,Math.min(geom.maxX,rawX)),center=clampedX+geom.pillW/2;let nearest=geom.items[0],bestDist=Infinity;for(const item of geom.items){const d=Math.abs(center-item.center);if(d<bestDist){bestDist=d;nearest=item}}if(nearest.btn!==scrubTargetBtn&&scrubTargetBtn!==null){try{navigator.vibrate&&typeof config!=='undefined'&&config&&config.hapticMode!==0&&navigator.vibrate(5)}catch(_){}}setScrubTarget(nearest.btn);syncToBtn(nearest.btn,{immediate:true,xOverride:clampedX});if(e.cancelable)e.preventDefault()};const finishScrub=(commit,e)=>{if(activePointerId===null||(e&&e.pointerId!==activePointerId))return;const wasScrubbing=scrubbing,chosen=scrubTargetBtn;scrubbing=false;activePointerId=null;navInner.classList.remove('is-scrubbing');pill.classList.remove('is-scrubbing','is-pressing');pill.classList.remove('is-no-transition');pill.style.removeProperty('transition');setScrubTarget(null);if(wasScrubbing){suppressClickUntil=Date.now()+260;if(commit&&chosen){const targetRoute=routeOf(chosen),curActive=buttons().find(b=>b.classList.contains('active'));if(chosen!==curActive){show(targetRoute)}else{syncActive({immediate:false})}}else{syncActive({immediate:false})}}};if(typeof window!=='undefined'){window.addEventListener('pointermove',onScrubMove,{passive:false});window.addEventListener('pointerup',e=>finishScrub(true,e));window.addEventListener('pointercancel',e=>finishScrub(false,e));window.addEventListener('blur',()=>finishScrub(false,null));window.addEventListener('resize',()=>{if(measureNav())syncActive({immediate:true})})}if(typeof ResizeObserver!=='undefined'){new ResizeObserver(()=>{if(measureNav())syncActive({immediate:true})}).observe(navInner)}if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(measureNav())syncActive({immediate:true})}).catch(()=>{});const bootSync=()=>{measureNav();syncActive({immediate:true})};if(typeof requestAnimationFrame==='function')requestAnimationFrame(bootSync);else bootSync()})();function cindyBindSheetDismiss(modal,onDismiss){if(!modal||typeof window==='undefined')return;const sheet=modal.querySelector('.result-sheet, .action-sheet, .feedback-sheet');if(!sheet||modal.__cindySheetBound)return;modal.__cindySheetBound=true;let activeId=null,startX=0,startY=0,lastY=0,prevY=0,lastT=0,prevT=0,dragging=false,sheetH=360;const headerSel='.sheet-grabber, .result-sheet > .eyebrow, .result-sheet > h2, .result-sheet > .sheet-title, .result-sheet > .result-note';const blockSel='button, a, input, textarea, select, label, .sheet-body, .feedback-entry, .segmented';sheet.addEventListener('pointerdown',e=>{if(!e.isPrimary||(e.pointerType==='mouse'&&e.button!==0)||modal.classList.contains('hidden')||modal.classList.contains('is-sheet-closing'))return;const onGrabber=Boolean(e.target.closest&&e.target.closest('.sheet-grabber'));if(!onGrabber){if(e.target.closest&&e.target.closest(blockSel))return;if(!(e.target.closest&&e.target.closest(headerSel)))return;if(sheet.scrollTop>0)return}cindyResetSheetVisual(modal);activeId=e.pointerId;startX=e.clientX;startY=lastY=prevY=e.clientY;lastT=prevT=Date.now();dragging=false;sheetH=sheet.offsetHeight||(typeof sheet.getBoundingClientRect==='function'?sheet.getBoundingClientRect().height:360)||360});const onMove=e=>{if(activeId===null||e.pointerId!==activeId)return;const dx=e.clientX-startX,dy=e.clientY-startY;if(!dragging){if(dy<=5||dy<Math.abs(dx)*1.15)return;dragging=true;modal.classList.add('is-sheet-dragging');try{typeof sheet.setPointerCapture==='function'&&sheet.setPointerCapture(activeId)}catch(_){}}const now=Date.now();if(now-lastT>=8){prevY=lastY;prevT=lastT;lastY=e.clientY;lastT=now}else{lastY=e.clientY}const renderY=dy<0?Math.max(-24,dy*0.14):dy;sheet.style.transform=`translate3d(0,${renderY.toFixed(1)}px,0)`;modal.style.opacity=String(Math.max(0.18,1-(Math.max(0,renderY)/Math.max(220,sheetH))*0.65).toFixed(3));if(e.cancelable)e.preventDefault()};const onEnd=(commit,e)=>{if(activeId===null||(e&&e.pointerId!==activeId))return;const pid=activeId,wasDragging=dragging,dy=(e?e.clientY:lastY)-startY,vy=(lastY-prevY)/Math.max(8,lastT-prevT);activeId=null;dragging=false;try{typeof sheet.releasePointerCapture==='function'&&sheet.hasPointerCapture&&sheet.hasPointerCapture(pid)&&sheet.releasePointerCapture(pid)}catch(_){}modal.classList.remove('is-sheet-dragging');if(!wasDragging)return;if(commit&&(dy>Math.min(110,sheetH*0.28)||(dy>32&&vy>0.55))){modal.classList.add('is-sheet-closing');modal.style.removeProperty('opacity');sheet.style.removeProperty('transform');modal.__cindySheetTimer=window.setTimeout(()=>{modal.__cindySheetTimer=0;cindyResetSheetVisual(modal);onDismiss()},190)}else{modal.classList.add('is-sheet-settling');modal.style.removeProperty('opacity');sheet.style.removeProperty('transform');modal.__cindySheetTimer=window.setTimeout(()=>{modal.__cindySheetTimer=0;modal.classList.remove('is-sheet-settling')},240)}};window.addEventListener('pointermove',onMove,{passive:false});window.addEventListener('pointerup',e=>onEnd(true,e));window.addEventListener('pointercancel',e=>onEnd(false,e))}cindyBindSheetDismiss($('actionModal'),()=>closeAction());cindyBindSheetDismiss($('feedbackModal'),()=>{const closeBtn=$('closeFeedback');if(closeBtn)closeBtn.click();else{const m=$('feedbackModal');cindyResetSheetVisual(m);m?.classList.add('hidden')}});cindyBindSheetDismiss($('resultModal'),()=>reset());$('actionModal').addEventListener('click',event=>{if(event.target===$('actionModal'))closeAction()});$('feedbackModal')?.addEventListener('click',event=>{if(event.target===$('feedbackModal'))$('closeFeedback')?.click()});const physicalControlIds=['primaryAction','roundButton','stopAction','themeToggle','navWorkout','navPrograms','navProgress','navProfile'];physicalControlIds.map($).filter(Boolean).forEach(control=>{const setPressed=()=>{if(!control.disabled)control.classList.add('is-physical-press')},clearPressed=()=>control.classList.remove('is-physical-press');control.addEventListener('pointerdown',setPressed);['pointerup','pointercancel','pointerleave','blur'].forEach(type=>control.addEventListener(type,clearPressed));control.addEventListener('keydown',event=>{if((event.key==='Enter'||event.key===' ')&&!event.repeat)setPressed()});control.addEventListener('keyup',event=>{if(event.key==='Enter'||event.key===' ')clearPressed()})});
+    $('primaryAction').addEventListener('click',primaryWorkoutAction);$('stopAction').addEventListener('click',confirmStop);$('roundButton').addEventListener('click',secondaryPauseAction);$('voiceAction').addEventListener('click',startVoiceRound);const roundPressButton=$('roundButton'),clearRoundPress=()=>roundPressButton.classList.remove('is-pressing');roundPressButton.addEventListener('pointerdown',()=>{if(!roundPressButton.disabled&&session.status==='running')roundPressButton.classList.add('is-pressing')});['pointerup','pointercancel','pointerleave'].forEach(type=>roundPressButton.addEventListener(type,clearRoundPress));$('repeatLast').addEventListener('click',repeatLast);$('themeToggle').addEventListener('click',()=>{config.theme=config.theme==='dark'?'light':'dark';saveConfig();renderAll()});$('settingsShortcut').addEventListener('click',()=>show('settings',{focusSettings:true}));const coachSwitch=$('coachEnabledSwitch');if(coachSwitch)coachSwitch.addEventListener('change',()=>{if(!setCoachEnabled(coachSwitch.checked))coachSwitch.checked=config.coachEnabled===true});const developmentSwitch=$('developmentViewSwitch');if(developmentSwitch)developmentSwitch.addEventListener('change',()=>{const before=config;if(!saveProfilePatch({developmentView:developmentSwitch.checked})){config=before;renderAll();return}notify(developmentSwitch.checked?'Показ прогресса включён.':'Показ прогресса скрыт.')});$('navWorkout').addEventListener('click',()=>show('workout'));$('navPrograms').addEventListener('click',()=>show('programs'));$('navProgress').addEventListener('click',()=>show('progress'));$('navProfile').addEventListener('click',()=>show('profile'));(()=>{
+  const navInner=document.querySelector('.nav .nav-inner');
+  if(!navInner)return;
+  let pill=navInner.querySelector('.nav-pill-indicator');
+  if(!pill){
+    pill=document.createElement('span');
+    pill.className='nav-pill-indicator';
+    pill.setAttribute('aria-hidden','true');
+    navInner.prepend(pill);
+  }
+  const routeOf=b=>b&&b.id==='navPrograms'?'programs':(b&&b.id==='navProgress'?'progress':(b&&b.id==='navProfile'?'profile':'workout'));
+  const buttons=()=>[...navInner.querySelectorAll('button')];
+  const geom={rectLeft:0,pillW:0,pillH:0,top:0,minX:0,maxX:0,items:[]};
+  let booted=false,scrubbing=false,activePointerId=null,startX=0,startY=0,grabOffset=0,scrubTargetBtn=null,suppressClickUntil=0;
+
+  const measureNav=()=>{
+    const btns=buttons();
+    if(!btns.length||typeof navInner.getBoundingClientRect!=='function')return false;
+    const rect=navInner.getBoundingClientRect();
+    const items=btns.map(b=>{
+      const w=b.offsetWidth,h=b.offsetHeight,l=b.offsetLeft,t=b.offsetTop;
+      return{btn:b,route:routeOf(b),left:l,top:t,width:w,height:h,center:l+w/2};
+    });
+    if(!items.length||items[0].width<=0||items[0].height<=0)return false;
+    const first=items[0],last=items[items.length-1];
+    geom.rectLeft=rect.left;
+    geom.pillW=first.width;
+    geom.pillH=first.height;
+    geom.top=first.top;
+    geom.minX=first.left;
+    geom.maxX=last.left+last.width-first.width;
+    geom.items=items;
+    return true;
+  };
+
+  const setScrubTarget=target=>{
+    const items=geom.items.length?geom.items:buttons().map(b=>({btn:b}));
+    for(const item of items)
+      item.btn.classList.toggle('is-scrub-target',Boolean(target&&item.btn===target));
+    scrubTargetBtn=target||null;
+  };
+
+  const syncToBtn=(btn,{immediate=false,xOverride=null}={})=>{
+    if(!btn||!pill)return;
+    if(!geom.items.length&&!measureNav())return;
+    const entry=geom.items.find(it=>it.btn===btn)||geom.items[0];
+    if(!entry||entry.width<=0||entry.height<=0)return;
+    const x=xOverride!==null?xOverride:entry.left;
+    if(immediate||!booted){
+      pill.style.transition='none';
+      pill.classList.add('is-no-transition');
+    }
+    pill.style.width=`${entry.width}px`;
+    pill.style.height=`${entry.height}px`;
+    pill.style.top=`${entry.top}px`;
+    pill.style.setProperty('--nav-pill-x',`${x}px`);
+    if(immediate||!booted){
+      booted=true;
+      if(typeof requestAnimationFrame==='function'){
+        requestAnimationFrame(()=>{
+          if(!scrubbing){
+            pill.classList.remove('is-no-transition');
+            pill.style.removeProperty('transition');
+          }
+        });
+      }
+    }
+  };
+
+  const syncActive=opts=>{
+    if(scrubbing&&!(opts&&opts.force))return;
+    const items=geom.items;
+    const active=(items.find(it=>it.btn.classList.contains('active'))||items[0])?.btn||buttons().find(b=>b.classList.contains('active'))||buttons()[0];
+    syncToBtn(active,opts||{});
+  };
+  window.__cindySyncNavPill=syncActive;
+
+  navInner.addEventListener('click',e=>{
+    if(Date.now()<suppressClickUntil){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      suppressClickUntil=0;
+    }
+  },true);
+
+  navInner.addEventListener('pointerdown',e=>{
+    if(!e.isPrimary||(e.pointerType==='mouse'&&e.button!==0))return;
+    measureNav();
+    if(!geom.items.length)return;
+    activePointerId=e.pointerId;
+    startX=e.clientX;
+    startY=e.clientY;
+    scrubbing=false;
+    pill.classList.add('is-pressing');
+    const cur=geom.items.find(it=>it.btn.classList.contains('active'))||geom.items[0];
+    const relStart=startX-geom.rectLeft;
+    grabOffset=(relStart>=cur.left&&relStart<=cur.left+cur.width)?(relStart-cur.left):(cur.width/2);
+    setScrubTarget(null);
+  });
+
+  const onScrubMove=e=>{
+    if(activePointerId===null||e.pointerId!==activePointerId)return;
+    if(!geom.items.length)return;
+    const dx=e.clientX-startX,dy=e.clientY-startY;
+    if(!scrubbing){
+      if(Math.abs(dx)<4||Math.abs(dy)>Math.abs(dx)*1.5)return;
+      scrubbing=true;
+      navInner.classList.add('is-scrubbing');
+      pill.classList.add('is-scrubbing');
+      pill.style.transition='none';
+      try{typeof navInner.setPointerCapture==='function'&&navInner.setPointerCapture(activePointerId)}catch(_){}
+    }
+    const rawX=(e.clientX-geom.rectLeft)-grabOffset;
+    const clampedX=Math.max(geom.minX,Math.min(geom.maxX,rawX));
+    const center=clampedX+geom.pillW/2;
+    let nearest=geom.items[0],bestDist=Infinity;
+    for(const item of geom.items){
+      const d=Math.abs(center-item.center);
+      if(d<bestDist){
+        bestDist=d;
+        nearest=item;
+      }
+    }
+    if(nearest.btn!==scrubTargetBtn&&scrubTargetBtn!==null){
+      try{navigator.vibrate&&typeof config!=='undefined'&&config&&config.hapticMode!==0&&navigator.vibrate(5)}catch(_){}
+    }
+    setScrubTarget(nearest.btn);
+    pill.style.setProperty('--nav-pill-x',`${clampedX.toFixed(1)}px`);
+    if(e.cancelable)e.preventDefault();
+  };
+
+  const finishScrub=(commit,e)=>{
+    if(activePointerId===null||(e&&e.pointerId!==activePointerId))return;
+    const pid=activePointerId,wasScrubbing=scrubbing,chosen=scrubTargetBtn;
+    activePointerId=null;
+    scrubbing=false;
+    try{typeof navInner.releasePointerCapture==='function'&&navInner.hasPointerCapture&&navInner.hasPointerCapture(pid)&&navInner.releasePointerCapture(pid)}catch(_){}
+    navInner.classList.remove('is-scrubbing');
+    pill.classList.remove('is-scrubbing','is-pressing','is-no-transition');
+    pill.style.removeProperty('transition');
+    setScrubTarget(null);
+    if(wasScrubbing){
+      suppressClickUntil=Date.now()+260;
+      if(commit&&chosen){
+        const targetRoute=routeOf(chosen),curActive=buttons().find(b=>b.classList.contains('active'));
+        if(chosen!==curActive){
+          show(targetRoute);
+        }else{
+          syncActive({immediate:false});
+        }
+      }else{
+        syncActive({immediate:false});
+      }
+    }
+  };
+
+  if(typeof window!=='undefined'){
+    window.addEventListener('pointermove',onScrubMove,{passive:false});
+    window.addEventListener('pointerup',e=>finishScrub(true,e));
+    window.addEventListener('pointercancel',e=>finishScrub(false,e));
+    window.addEventListener('blur',()=>finishScrub(false,null));
+    window.addEventListener('resize',()=>{if(measureNav())syncActive({immediate:true})});
+  }
+  if(typeof ResizeObserver!=='undefined'){
+    new ResizeObserver(()=>{if(measureNav())syncActive({immediate:true})}).observe(navInner);
+  }
+  if(document.fonts&&document.fonts.ready){
+    document.fonts.ready.then(()=>{if(measureNav())syncActive({immediate:true})}).catch(()=>{});
+  }
+  const bootSync=()=>{measureNav();syncActive({immediate:true})};
+  if(typeof requestAnimationFrame==='function')requestAnimationFrame(bootSync);
+  else bootSync();
+})();
+function cindyBindSheetDismiss(modal,onDismiss){if(!modal||typeof window==='undefined')return;const sheet=modal.querySelector('.result-sheet, .action-sheet, .feedback-sheet');if(!sheet||modal.__cindySheetBound)return;modal.__cindySheetBound=true;let activeId=null,startX=0,startY=0,lastY=0,prevY=0,lastT=0,prevT=0,dragging=false,sheetH=360;const headerSel='.sheet-grabber, .result-sheet > .eyebrow, .result-sheet > h2, .result-sheet > .sheet-title, .result-sheet > .result-note';const blockSel='button, a, input, textarea, select, label, .sheet-body, .feedback-entry, .segmented';sheet.addEventListener('pointerdown',e=>{if(!e.isPrimary||(e.pointerType==='mouse'&&e.button!==0)||modal.classList.contains('hidden')||modal.classList.contains('is-sheet-closing'))return;const onGrabber=Boolean(e.target.closest&&e.target.closest('.sheet-grabber'));if(!onGrabber){if(e.target.closest&&e.target.closest(blockSel))return;if(!(e.target.closest&&e.target.closest(headerSel)))return;if(sheet.scrollTop>0)return}cindyResetSheetVisual(modal);activeId=e.pointerId;startX=e.clientX;startY=lastY=prevY=e.clientY;lastT=prevT=Date.now();dragging=false;sheetH=sheet.offsetHeight||(typeof sheet.getBoundingClientRect==='function'?sheet.getBoundingClientRect().height:360)||360});const onMove=e=>{if(activeId===null||e.pointerId!==activeId)return;const dx=e.clientX-startX,dy=e.clientY-startY;if(!dragging){if(dy<=5||dy<Math.abs(dx)*1.15)return;dragging=true;modal.classList.add('is-sheet-dragging');try{typeof sheet.setPointerCapture==='function'&&sheet.setPointerCapture(activeId)}catch(_){}}const now=Date.now();if(now-lastT>=8){prevY=lastY;prevT=lastT;lastY=e.clientY;lastT=now}else{lastY=e.clientY}const renderY=dy<0?Math.max(-24,dy*0.14):dy;sheet.style.transform=`translate3d(0,${renderY.toFixed(1)}px,0)`;modal.style.opacity=String(Math.max(0.18,1-(Math.max(0,renderY)/Math.max(220,sheetH))*0.65).toFixed(3));if(e.cancelable)e.preventDefault()};const onEnd=(commit,e)=>{if(activeId===null||(e&&e.pointerId!==activeId))return;const pid=activeId,wasDragging=dragging,dy=(e?e.clientY:lastY)-startY,vy=(lastY-prevY)/Math.max(8,lastT-prevT);activeId=null;dragging=false;try{typeof sheet.releasePointerCapture==='function'&&sheet.hasPointerCapture&&sheet.hasPointerCapture(pid)&&sheet.releasePointerCapture(pid)}catch(_){}modal.classList.remove('is-sheet-dragging');if(!wasDragging)return;if(commit&&(dy>Math.min(110,sheetH*0.28)||(dy>32&&vy>0.55))){modal.classList.add('is-sheet-closing');modal.style.removeProperty('opacity');sheet.style.removeProperty('transform');modal.__cindySheetTimer=window.setTimeout(()=>{modal.__cindySheetTimer=0;cindyResetSheetVisual(modal);onDismiss()},190)}else{modal.classList.add('is-sheet-settling');modal.style.removeProperty('opacity');sheet.style.removeProperty('transform');modal.__cindySheetTimer=window.setTimeout(()=>{modal.__cindySheetTimer=0;modal.classList.remove('is-sheet-settling')},240)}};window.addEventListener('pointermove',onMove,{passive:false});window.addEventListener('pointerup',e=>onEnd(true,e));window.addEventListener('pointercancel',e=>onEnd(false,e))}cindyBindSheetDismiss($('actionModal'),()=>closeAction());cindyBindSheetDismiss($('feedbackModal'),()=>{const closeBtn=$('closeFeedback');if(closeBtn)closeBtn.click();else{const m=$('feedbackModal');cindyResetSheetVisual(m);m?.classList.add('hidden')}});cindyBindSheetDismiss($('resultModal'),()=>reset());$('actionModal').addEventListener('click',event=>{if(event.target===$('actionModal'))closeAction()});$('feedbackModal')?.addEventListener('click',event=>{if(event.target===$('feedbackModal'))$('closeFeedback')?.click()});const physicalControlIds=['primaryAction','roundButton','stopAction','themeToggle'];physicalControlIds.map($).filter(Boolean).forEach(control=>{const setPressed=()=>{if(!control.disabled)control.classList.add('is-physical-press')},clearPressed=()=>control.classList.remove('is-physical-press');control.addEventListener('pointerdown',setPressed);['pointerup','pointercancel','pointerleave','blur'].forEach(type=>control.addEventListener(type,clearPressed));control.addEventListener('keydown',event=>{if((event.key==='Enter'||event.key===' ')&&!event.repeat)setPressed()});control.addEventListener('keyup',event=>{if(event.key==='Enter'||event.key===' ')clearPressed()})});
     $('lightTheme').addEventListener('click',()=>{config.theme='light';saveConfig();renderAll()});$('darkTheme').addEventListener('click',()=>{config.theme='dark';saveConfig();renderAll()});document.querySelectorAll('[data-color-theme-choice]').forEach(button=>button.addEventListener('click',()=>{const colorTheme=button.dataset.colorThemeChoice;if(!['flux','cobalt','pulse','spidey','cyber','miami','aurora','blue','forest','plum','glass','lava'].includes(colorTheme)||colorTheme===config.colorTheme)return;config=normalizeConfig({...config,colorTheme});saveConfig();renderAll();notify(`Цветовая тема: ${COLOR_THEME_LABELS[colorTheme]}.`)}));$('timeMode').addEventListener('click',()=>setConfig({mode:'time'}));$('roundMode').addEventListener('click',()=>setConfig({mode:'rounds'}));$('combinedMode').addEventListener('click',()=>setConfig({mode:'combined'}));document.querySelectorAll('[data-minutes]').forEach(b=>b.addEventListener('click',()=>setConfig({minutes:Number(b.dataset.minutes)})));document.querySelectorAll('[data-target]').forEach(b=>b.addEventListener('click',()=>setConfig({target:Number(b.dataset.target)})));function stepConfig(field,delta,label){const value=clamp(config[field]+delta,...(field==='minutes'?LIMITS.minutes:field==='target'?LIMITS.target:LIMITS.goal),null);if(value!==null&&setConfig({[field]:value}))notify(`${label}: ${value}.`)}function bindHold(button,action){let hold=null,repeat=null,pressed=false;const clear=()=>{clearTimeout(hold);clearInterval(repeat);hold=null;repeat=null};button.addEventListener('pointerdown',event=>{pressed=true;event.preventDefault();action();hold=setTimeout(()=>{repeat=setInterval(action,115)},430)});['pointerup','pointercancel','pointerleave'].forEach(type=>button.addEventListener(type,clear));button.addEventListener('click',event=>{if(pressed){pressed=false;event.preventDefault();return}action()})}bindHold($('minutesMinus'),()=>stepConfig('minutes',-1,'Время'));bindHold($('minutesPlus'),()=>stepConfig('minutes',1,'Время'));bindHold($('targetMinus'),()=>stepConfig('target',-1,'Круги'));bindHold($('targetPlus'),()=>stepConfig('target',1,'Круги'));bindHold($('goalMinus'),()=>stepConfig('longGoal',-1,'Ориентир'));bindHold($('goalPlus'),()=>stepConfig('longGoal',1,'Ориентир'));$('paceGuidance').addEventListener('change',event=>setConfig({paceGuidance:event.target.checked}));$('saveProWorkout').addEventListener('click',savePro);$('runProWorkout').addEventListener('click',runPro);$('saveGoogleClient').addEventListener('click',saveGoogleClientId);$('connectGoogle').addEventListener('click',connectGoogle);$('syncGoogleNow').addEventListener('click',()=>syncGoogle());$('refreshGoogle').addEventListener('click',()=>syncGoogle());$('disconnectGoogle').addEventListener('click',disconnectGoogle);$('googleClientId').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveGoogleClientId()}});document.querySelectorAll('[data-language-choice]').forEach(button=>button.addEventListener('click',()=>{const lang=button.dataset.languageChoice;if(lang&&['ru','en'].includes(lang)&&lang!==config.language){setConfig({language:lang});notify(lang==='en'?'Language: English':'Язык: Русский')}}));$('soundEnabled').addEventListener('change',e=>{config.sound=e.target.checked;saveConfig();renderSettings()});document.querySelectorAll('[data-cue]').forEach(button=>button.addEventListener('click',()=>{config=normalizeConfig({...config,cueInterval:Number(button.dataset.cue)});saveConfig();renderSettings()}));document.querySelectorAll('[data-tone]').forEach(button=>button.addEventListener('click',()=>{config=normalizeConfig({...config,cueTone:button.dataset.tone});saveConfig();renderSettings()}));document.querySelectorAll('[data-haptic]').forEach(button=>button.addEventListener('click',()=>{config=normalizeConfig({...config,hapticMode:Number(button.dataset.haptic)});saveConfig();renderSettings()}));$('clearHistory').addEventListener('click',()=>{if(confirm('Удалить весь журнал тренировок?')){if(!historyRepository.remove()){notify('Не удалось очистить журнал.');return}markLocalChanged();try{const api=window.CindyCoachIntegration;if(api&&typeof api.onHistoryMutation==='function')api.onHistoryMutation({kind:'clear'})}catch(_){}renderAll();notify('Журнал очищен.')}});const importBtn=$('importLocalBackupBtn'),importInput=$('importLocalBackupInput');if(importBtn&&importInput){importBtn.addEventListener('click',()=>{const isEn=typeof config!=='undefined'&&config&&config.language==='en';if(active()){notify(isEn?'Finish the active workout before restoring a backup.':'Завершите текущую тренировку перед восстановлением копии.');return}importInput.click()});importInput.addEventListener('change',async()=>{const isEn=typeof config!=='undefined'&&config&&config.language==='en',file=importInput.files&&importInput.files[0];importInput.value='';if(!file)return;try{const text=await file.text(),parsed=JSON.parse(text);if(!parsed||typeof parsed!=='object'||(!parsed.config&&!Array.isArray(parsed.history)))throw new Error('invalid-backup');if(!Number.isFinite(Number(parsed.updatedAt)))parsed.updatedAt=Date.now();if(!acceptSnapshot(parsed,cloud.fileId||'')){notify(isEn?'Could not restore backup data.':'Не удалось восстановить данные из файла.');return}renderGoogle();notify(isEn?'Backup restored.':'Резервная копия восстановлена.')}catch(_){notify(isEn?'Invalid JSON backup file.':'Неверный формат файла резервной копии JSON.')}})}$('newWorkout').addEventListener('click',reset);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&session.status==='running'){takeWakeLock();schedule()}});window.addEventListener('pagehide',()=>{if(active())saveSession()});
 
     // Stage 2: explicit, read-only bridge to the isolated pure Coach engine. No UI, persistence or application path.
