@@ -2125,7 +2125,7 @@ body[data-color-theme] #profileSettingsCategories .choice[aria-expanded="true"] 
 
     
   </main>
-  <nav class="nav" aria-label="Основная навигация"><div class="nav-inner"><button class="active" id="navWorkout" type="button" aria-current="page"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="7"></circle><path d="M12 5v3M19 12h-3M12 19v-3M5 12h3"></path><circle cx="12" cy="12" r="2"></circle></svg></span>Тренировка</button><button id="navPrograms" type="button"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M6 5.5c2.4-1.1 4.7-.8 6 1v12c-1.3-1.8-3.6-2.1-6-1V5.5Z"></path><path d="M18 5.5c-2.4-1.1-4.7-.8-6 1v12c1.3-1.8 3.6-2.1 6-1V5.5Z"></path></svg></span>План</button><button id="navProgress" type="button"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 18.5 9.2 13l3.1 2.5L19 7"></path><path d="M15.8 7H19v3.2"></path><path d="M5 20h14"></path></svg></span>Прогресс</button><button id="navProfile" type="button"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="8.2" r="3.2"></circle><path d="M5.3 20c.7-3.5 3.1-5.5 6.7-5.5s6 2 6.7 5.5"></path></svg></span>Профиль</button></div></nav>
+  <nav class="nav" aria-label="Основная навигация"><div class="nav-inner"><span class="nav-pill-indicator" aria-hidden="true"></span><button class="active" id="navWorkout" type="button" aria-current="page"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="7"></circle><path d="M12 5v3M19 12h-3M12 19v-3M5 12h3"></path><circle cx="12" cy="12" r="2"></circle></svg></span>Тренировка</button><button id="navPrograms" type="button"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M6 5.5c2.4-1.1 4.7-.8 6 1v12c-1.3-1.8-3.6-2.1-6-1V5.5Z"></path><path d="M18 5.5c-2.4-1.1-4.7-.8-6 1v12c1.3-1.8 3.6-2.1 6-1V5.5Z"></path></svg></span>План</button><button id="navProgress" type="button"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 18.5 9.2 13l3.1 2.5L19 7"></path><path d="M15.8 7H19v3.2"></path><path d="M5 20h14"></path></svg></span>Прогресс</button><button id="navProfile" type="button"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="8.2" r="3.2"></circle><path d="M5.3 20c.7-3.5 3.1-5.5 6.7-5.5s6 2 6.7 5.5"></path></svg></span>Профиль</button></div></nav>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="modal hidden" id="resultModal" role="dialog" aria-modal="true" aria-labelledby="resultHeading"><section class="result-sheet"><div class="eyebrow">ТРЕНИРОВКА ЗАВЕРШЕНА</div><h2 id="resultHeading">0 кругов</h2><p class="record-callout hidden" id="recordCallout"></p><section class="totals exercise-totals result-exercise-totals" id="resultExerciseTotals" aria-label="Итог по упражнениям"></section><section class="result-stats"><div><span>ДЛИТЕЛЬНОСТЬ</span><b id="resultDuration">0:00</b></div><div><span>СРЕДНИЙ КРУГ</span><b id="resultAverage">—</b></div><div><span>ЛУЧШИЙ КРУГ</span><b id="resultBestLap">—</b></div></section><p class="result-note" id="resultNote"></p><div class="result-actions"><button class="control primary" id="newWorkout" type="button">ОК</button></div></section></div>
   <div class="modal hidden" id="actionModal" role="dialog" aria-modal="true" aria-labelledby="actionTitle"><section class="result-sheet action-sheet"><div class="eyebrow" id="actionKicker">ДЕЙСТВИЕ</div><h2 class="sheet-title" id="actionTitle">Подтвердите действие</h2><p class="result-note" id="actionCopy"></p><div class="sheet-body" id="actionBody"></div><div class="result-actions" id="actionButtons"></div></section></div>
@@ -2259,7 +2259,11 @@ function set(id,value){$(id).textContent=String(value)}function notify(text){if(
     
     function repetitionsText(n){const num=Math.abs(Math.trunc(Number(n)||0)),tail=num%100,last=num%10;if(tail>=11&&tail<=19)return `${num} повторений`;if(last===1)return `${num} повторение`;if(last>=2&&last<=4)return `${num} повторения`;return `${num} повторений`}
     function syncTelegramClosingConfirmation(){if(typeof window!=='undefined'&&window.Telegram&&window.Telegram.WebApp){try{if(active()){if(typeof window.Telegram.WebApp.enableClosingConfirmation==='function')window.Telegram.WebApp.enableClosingConfirmation()}else{if(typeof window.Telegram.WebApp.disableClosingConfirmation==='function')window.Telegram.WebApp.disableClosingConfirmation()}}catch(_){}}}
-    function renderWorkout(options={}){const running=session.status==='running',meta=sessionModeMeta(session),isRound=session.mode==='rounds',isEn=typeof config!=='undefined'&&config&&config.language==='en';$('practiceCard').classList.toggle('is-live',running);$('practiceCard').classList.toggle('is-paused',session.status==='paused');$('practiceCard').classList.toggle('mode-combined',session.mode==='combined');set('modeLabel',meta.label);set('timer',meta.timer);$('timer').classList.toggle('round-mode',isRound);set('targetText',meta.description);set('idlePreviewMode',meta.label);set('idlePreviewExercises',compositionText(session.composition,{compact:true}));$('idleSessionContext').classList.toggle('hidden',active());set('paceCaption',meta.caption);const pct=isRound?(session.target?Math.min(100,session.rounds/session.target*100):0):(active()?Math.min(100,elapsedSeconds()/Math.max(1,session.plannedSeconds)*100):0);$('timeProgress').style.width=`${pct}%`;set('roundNumber',session.rounds);set('lapDetail',compositionText(session.composition,{compact:true}));renderExerciseTotals($('exerciseTotals'),session.composition,session.exerciseTotals);$('roundButton').disabled=!running;const actionDeck=$('primaryAction').parentElement,sessionActive=active(),roundGoal=hasRoundGoal(session.mode),roundProgress=roundGoal?`${roundsText(session.rounds)} ${isEn?'of':'из'} ${roundsText(session.target)}`:session.rounds?roundsText(session.rounds):(isEn?'Start':'Старт');actionDeck.classList.toggle('is-session-active',sessionActive);actionDeck.classList.toggle('is-paused',session.status==='paused');$('workoutRoundStatus').classList.toggle('is-active',sessionActive);set('roundProgressValue',session.rounds);set('roundProgressGoal',roundGoal?`${isEn?'Remaining':'Осталось'}: ${roundsText(Math.max(0,session.target-session.rounds))}`:session.rounds?`${isEn?'Completed':'Выполнено'}: ${roundProgress}`:(isEn?'Free pace':'В своём темпе'));const focusContext=$('focusContext');if(focusContext){const focusActive=session.status==='running'||session.status==='paused';focusContext.classList.toggle('is-active',focusActive);focusContext.classList.toggle('is-paused',session.status==='paused');set('focusContextMain',session.status==='paused'?`${isEn?'Paused':'Пауза'} · ${roundsText(session.rounds)} ${isEn?'completed':'выполнено'}`:session.status==='running'?`${isEn?'Round':'Круг'} ${session.rounds}`:(isEn?'Ready to start':'Готовы к старту'));set('focusContextMeta',session.status==='running'?(session.mode==='rounds'||session.mode==='combined'?`${isEn?'Target':'Цель'}: ${roundsText(session.target)}`:(isEn?'Workout pacing':'Ритм тренировки')):compositionText(session.composition,{compact:true}))}const primaryAction=$('primaryAction'),pauseAction=$('roundButton'),stopAction=$('stopAction');const primaryLabel=primaryAction.querySelector('.primary-label'),primaryRoundMeta=$('primaryRoundMeta');if(primaryLabel)primaryLabel.textContent=running?(isEn?'ADD ROUND':'ДОБАВИТЬ КРУГ'):session.status==='paused'?(isEn?'RESUME':'ПРОДОЛЖИТЬ'):(isEn?'START':'НАЧАТЬ');if(primaryRoundMeta)primaryRoundMeta.textContent=compositionText(session.composition,{compact:true});primaryAction.className=`control primary${running?' add-round-action':''}${session.status==='paused'?' is-paused':''}${primaryAction.classList.contains('is-physical-press')?' is-physical-press':''}`;primaryAction.setAttribute('aria-label',running?(isEn?`Add round. ${roundProgress}`:`Добавить круг. ${roundProgress}`):session.status==='paused'?(isEn?'Resume workout':'Продолжить тренировку'):(isEn?'Start workout':'Начать тренировку'));pauseAction.textContent=isEn?'PAUSE':'ПАУЗА';pauseAction.className=`control secondary${sessionActive?'':' hidden'}${pauseAction.classList.contains('is-physical-press')?' is-physical-press':''}`;pauseAction.disabled=session.status!=='running';pauseAction.setAttribute('aria-label',isEn?'Pause workout':'Поставить тренировку на паузу');stopAction.textContent=session.status==='paused'?(isEn?'FINISH WORKOUT':'ЗАВЕРШИТЬ ТРЕНИРОВКУ'):(isEn?'FINISH':'ЗАВЕРШИТЬ');stopAction.classList.toggle('hidden',!sessionActive);renderVoiceAction();if(options.markers)renderMarkers(options.animate);if(!options.tick){renderLaps();renderRoute();renderRepeat();stage5RenderWorkoutCoach()}syncTelegramClosingConfirmation()}
+    const ROUND_COOLDOWN_MS=5000;let roundCooldownTimer=0,roundNudgeTimer=0;
+    function roundCooldownRemainingMs(){return session&&session.status==='running'&&lastLapPress>0?Math.max(0,ROUND_COOLDOWN_MS-(Date.now()-lastLapPress)):0}
+    function syncRoundCooldownUi(){const primary=$('primaryAction'),meta=$('primaryRoundMeta');if(!primary)return;const rem=roundCooldownRemainingMs(),activeCooldown=rem>0,isEn=typeof config!=='undefined'&&config&&config.language==='en';primary.classList.toggle('is-lap-cooldown',activeCooldown);if(meta){if(activeCooldown){const sec=Math.max(1,Math.ceil(rem/1000));meta.textContent=isEn?`Anti-spam · wait ${sec}s`:`Защита от спама · ${sec} с`}else{meta.textContent=compositionText(session.composition,{compact:true})}}clearTimeout(roundCooldownTimer);roundCooldownTimer=0;if(activeCooldown){const nextEdge=(rem%1000)||1000;roundCooldownTimer=window.setTimeout(()=>{syncRoundCooldownUi()},Math.min(nextEdge+20,1020))}}
+    function nudgeRoundCooldown(){const primary=$('primaryAction');if(!primary)return;clearTimeout(roundNudgeTimer);primary.classList.remove('is-cooldown-nudge');void primary.offsetWidth;primary.classList.add('is-cooldown-nudge');roundNudgeTimer=window.setTimeout(()=>{primary.classList.remove('is-cooldown-nudge');roundNudgeTimer=0},260)}
+    function renderWorkout(options={}){const running=session.status==='running',meta=sessionModeMeta(session),isRound=session.mode==='rounds',isEn=typeof config!=='undefined'&&config&&config.language==='en';$('practiceCard').classList.toggle('is-live',running);$('practiceCard').classList.toggle('is-paused',session.status==='paused');$('practiceCard').classList.toggle('mode-combined',session.mode==='combined');set('modeLabel',meta.label);set('timer',meta.timer);$('timer').classList.toggle('round-mode',isRound);set('targetText',meta.description);set('idlePreviewMode',meta.label);set('idlePreviewExercises',compositionText(session.composition,{compact:true}));$('idleSessionContext').classList.toggle('hidden',active());set('paceCaption',meta.caption);const pct=isRound?(session.target?Math.min(100,session.rounds/session.target*100):0):(active()?Math.min(100,elapsedSeconds()/Math.max(1,session.plannedSeconds)*100):0);$('timeProgress').style.width=`${pct}%`;set('roundNumber',session.rounds);set('lapDetail',compositionText(session.composition,{compact:true}));renderExerciseTotals($('exerciseTotals'),session.composition,session.exerciseTotals);$('roundButton').disabled=!running;const actionDeck=$('primaryAction').parentElement,sessionActive=active(),roundGoal=hasRoundGoal(session.mode),roundProgress=roundGoal?`${roundsText(session.rounds)} ${isEn?'of':'из'} ${roundsText(session.target)}`:session.rounds?roundsText(session.rounds):(isEn?'Start':'Старт');actionDeck.classList.toggle('is-session-active',sessionActive);actionDeck.classList.toggle('is-paused',session.status==='paused');$('workoutRoundStatus').classList.toggle('is-active',sessionActive);set('roundProgressValue',session.rounds);set('roundProgressGoal',roundGoal?`${isEn?'Remaining':'Осталось'}: ${roundsText(Math.max(0,session.target-session.rounds))}`:session.rounds?`${isEn?'Completed':'Выполнено'}: ${roundProgress}`:(isEn?'Free pace':'В своём темпе'));const focusContext=$('focusContext');if(focusContext){const focusActive=session.status==='running'||session.status==='paused';focusContext.classList.toggle('is-active',focusActive);focusContext.classList.toggle('is-paused',session.status==='paused');set('focusContextMain',session.status==='paused'?`${isEn?'Paused':'Пауза'} · ${roundsText(session.rounds)} ${isEn?'completed':'выполнено'}`:session.status==='running'?`${isEn?'Round':'Круг'} ${session.rounds}`:(isEn?'Ready to start':'Готовы к старту'));set('focusContextMeta',session.status==='running'?(session.mode==='rounds'||session.mode==='combined'?`${isEn?'Target':'Цель'}: ${roundsText(session.target)}`:(isEn?'Workout pacing':'Ритм тренировки')):compositionText(session.composition,{compact:true}))}const primaryAction=$('primaryAction'),pauseAction=$('roundButton'),stopAction=$('stopAction');const primaryLabel=primaryAction.querySelector('.primary-label'),primaryRoundMeta=$('primaryRoundMeta');if(primaryLabel)primaryLabel.textContent=running?(isEn?'ADD ROUND':'ДОБАВИТЬ КРУГ'):session.status==='paused'?(isEn?'RESUME':'ПРОДОЛЖИТЬ'):(isEn?'START':'НАЧАТЬ');if(primaryRoundMeta)primaryRoundMeta.textContent=compositionText(session.composition,{compact:true});primaryAction.className=`control primary${running?' add-round-action':''}${session.status==='paused'?' is-paused':''}${primaryAction.classList.contains('is-physical-press')?' is-physical-press':''}${roundCooldownRemainingMs()>0?' is-lap-cooldown':''}${primaryAction.classList.contains('is-cooldown-nudge')?' is-cooldown-nudge':''}`;syncRoundCooldownUi();primaryAction.setAttribute('aria-label',running?(isEn?`Add round. ${roundProgress}`:`Добавить круг. ${roundProgress}`):session.status==='paused'?(isEn?'Resume workout':'Продолжить тренировку'):(isEn?'Start workout':'Начать тренировку'));pauseAction.textContent=isEn?'PAUSE':'ПАУЗА';pauseAction.className=`control secondary${sessionActive?'':' hidden'}${pauseAction.classList.contains('is-physical-press')?' is-physical-press':''}`;pauseAction.disabled=session.status!=='running';pauseAction.setAttribute('aria-label',isEn?'Pause workout':'Поставить тренировку на паузу');stopAction.textContent=session.status==='paused'?(isEn?'FINISH WORKOUT':'ЗАВЕРШИТЬ ТРЕНИРОВКУ'):(isEn?'FINISH':'ЗАВЕРШИТЬ');stopAction.classList.toggle('hidden',!sessionActive);renderVoiceAction();if(options.markers)renderMarkers(options.animate);if(!options.tick){renderLaps();renderRoute();renderRepeat();stage5RenderWorkoutCoach()}syncTelegramClosingConfirmation()}
     function renderStepper(id,text){const el=$(id);if(el)set(id,text)}
     function moveCompositionItem(fromIndex,toIndex){if(active())return false;const from=Number(fromIndex),to=Number(toIndex),next=cloneComposition(config.composition);if(!Number.isInteger(from)||!Number.isInteger(to)||from<0||to<0||from>=next.length||to>=next.length||from===to)return false;const[item]=next.splice(from,1);next.splice(to,0,item);config=normalizeConfig({...config,composition:next});saveConfig();selectedCompositionSlot=-1;composerDraft=null;lastReorderedExerciseId=item.id;renderAll({markers:true});window.setTimeout(()=>{lastReorderedExerciseId='';document.querySelector('.composition-row.is-reordered')?.classList.remove('is-reordered')},180);notify('Порядок упражнений обновлён.');return true}function cindyBuilderBindSingleStep(button,action){
   button.addEventListener('click',event=>{event.preventDefault();if(!button.disabled)action()});
@@ -2367,7 +2371,7 @@ function applyLanguage(){
   updateNavLabel('navWorkout',isEn?'Workout':'Тренировка');
   updateNavLabel('navPrograms',isEn?'Plan':'План');
   updateNavLabel('navProgress',isEn?'Progress':'Прогресс');
-  updateNavLabel('navProfile',isEn?'Profile':'Профиль');
+  updateNavLabel('navProfile',isEn?'Profile':'Профиль');if(typeof window.__cindySyncNavPill==='function')window.__cindySyncNavPill({immediate:true});
   if($('progressTitle'))$('progressTitle').textContent=isEn?'Progress':'Прогресс';
   if($('progressGoalTitle'))$('progressGoalTitle').textContent=isEn?'Target':'Цель';
   if($('progressHistoryTitle'))$('progressHistoryTitle').textContent=isEn?'Workout Log':'Журнал тренировок';
@@ -2408,18 +2412,18 @@ function renderAll(options={}){applyLanguage();stage2InitLayout();applyTheme();r
     function clearTick(){clearTimeout(tickHandle);tickHandle=null}function schedule(){clearTick();if(session.status!=='running')return;if(usesClock(session.mode)&&remaining()<=0){finish('time');return}maybeTimeCue();maybePaceCue();renderWorkout({tick:true});tickHandle=setTimeout(schedule,Math.max(160,1000-Date.now()%1000+12))}const motionHandles=new Map();let ballMotionHandle=0,latestMarkerHandle=0,roundFeedbackHandle=0;function motion(className,duration){const card=$('practiceCard');clearTimeout(motionHandles.get(className));card.classList.remove(className);void card.offsetWidth;card.classList.add(className);const handle=window.setTimeout(()=>{card.classList.remove(className);motionHandles.delete(className)},duration);motionHandles.set(className,handle)}function ballMotion(className,duration){const card=$('practiceCard'),all=['ball-start','ball-resume','ball-lap','ball-pause','ball-finish'];clearTimeout(ballMotionHandle);card.classList.remove(...all);void card.offsetWidth;card.classList.add(className);ballMotionHandle=window.setTimeout(()=>{card.classList.remove(className);ballMotionHandle=0},duration)}function settleLatestMarkers(){clearTimeout(latestMarkerHandle);latestMarkerHandle=window.setTimeout(()=>{document.querySelectorAll('#lapMarkers .latest').forEach(x=>x.classList.remove('latest'));latestMarkerHandle=0},390)}function roundFeedback(){const button=$('roundButton');clearTimeout(roundFeedbackHandle);button.classList.remove('flash');void button.offsetWidth;button.classList.add('flash');roundFeedbackHandle=window.setTimeout(()=>{button.classList.remove('flash');roundFeedbackHandle=0},360)}let cindyLapCounterHandle=0;function cindyPulseLapCounters(){clearTimeout(cindyLapCounterHandle);const roundVal=$('roundProgressValue'),roundStatus=$('workoutRoundStatus'),totalsHost=$('exerciseTotals'),tiles=totalsHost?[...totalsHost.querySelectorAll('.exercise-total')]:[];[roundVal,roundStatus,...tiles].forEach(el=>el?.classList.remove('is-lap-counter-pop'));void (totalsHost||roundVal)?.offsetWidth;roundVal?.classList.add('is-lap-counter-pop');roundStatus?.classList.add('is-lap-counter-pop');tiles.forEach((tile,idx)=>{tile.style.setProperty('--cindy-stagger',`${idx*24}ms`);tile.classList.add('is-lap-counter-pop')});cindyLapCounterHandle=window.setTimeout(()=>{[roundVal,roundStatus,...tiles].forEach(el=>el?.classList.remove('is-lap-counter-pop'));cindyLapCounterHandle=0},280)}function clearMotion(){const card=$('practiceCard');motionHandles.forEach(handle=>clearTimeout(handle));motionHandles.clear();clearTimeout(ballMotionHandle);clearTimeout(latestMarkerHandle);clearTimeout(roundFeedbackHandle);ballMotionHandle=latestMarkerHandle=roundFeedbackHandle=0;$('roundButton').classList.remove('is-pressing','flash');card.classList.remove('motion-start','motion-lap','ball-start','ball-resume','ball-lap','ball-pause','ball-finish')}
     function startResume(){const now=Date.now();if(session.status==='running'){pause();return}const starting=session.status==='idle',coachApi=window.CindyCoachIntegration,rollbackSession=starting?JSON.parse(JSON.stringify(session)):null;const prepared=starting&&coachApi&&typeof coachApi.prepareForStart==='function'?coachApi.prepareForStart():null;if(starting){session=freshSession(prepared&&prepared.sessionRuntime?prepared.sessionRuntime:null);session.status='running';session.startedAt=now;latestMarkerId=null}else{session.status='running';session.startedAt=now}if(!saveSession()){if(starting)session=freshSession();else{session.status='paused';session.startedAt=null}renderAll({markers:true});return}if(starting&&prepared&&session.status==='running'){let committed=null;try{committed=coachApi&&typeof coachApi.commitStart==='function'?coachApi.commitStart({frozenSpec:prepared.frozenSpec,baselineAuthorizedAtStart:prepared.baselineAuthorizedAtStart,isBaseline:Boolean(prepared.isBaseline),rollbackSession:prepared.rollbackSession||rollbackSession}):null}catch(_){}if(!committed){const restore=prepared.rollbackSession||rollbackSession,appRuntime=window.CINDYAppRuntimeV3;let restored=false;if(appRuntime&&typeof appRuntime.restoreSession==='function'){try{restored=appRuntime.restoreSession(restore)===true}catch(_){}if(!restored){try{restored=appRuntime.restoreSession(restore)===true}catch(_){}}}else{session=restore||freshSession();try{restored=clearSession()===true}catch(_){}}session=restore||freshSession();latestMarkerId=null;clearTick();releaseWakeLock();renderAll({markers:true});notify(restored?'Не удалось безопасно зафиксировать тренировку. Попробуйте начать снова.':'Не удалось подтвердить отмену тренировки в хранилище. Проверьте сохранённую тренировку перед продолжением.');return}}if(starting){renderMarkers(false);feedback('start');notify(prepared&&prepared.isBaseline?'Стандартный тест начался.':'Тренировка началась.')}else{feedback('start');notify('Продолжаем с того же места.')}takeWakeLock();schedule();renderAll();ballMotion(starting?'ball-start':'ball-resume',starting?240:220);if(starting)motion('motion-start',660)}
     function pause(){if(session.status!=='running')return;const accumulatedMs=session.accumulatedMs,startedAt=session.startedAt;session.accumulatedMs=elapsedMs();session.startedAt=null;session.status='paused';if(!saveSession()){session.accumulatedMs=accumulatedMs;session.startedAt=startedAt;session.status='running';return}clearTick();releaseWakeLock();clearMotion();renderAll();ballMotion('ball-pause',160);notify('Пауза. Результат сохранён.') }
-    function addLap(){if(session.status!=='running')return;const now=Date.now();if(now-lastLapPress<350){notify('Этот круг уже учтён.');return}const rounds=session.rounds,exerciseTotals={...session.exerciseTotals},totalLegacy=[...session.total],lastLapTotal=session.lastLapTotal,lapsLength=session.laps.length,markerId=latestMarkerId,total=elapsedSeconds(),duration=Math.max(0,total-session.lastLapTotal);session.rounds+=1;session.exerciseTotals=totalsFor(session.composition,session.rounds);session.total=legacyTotals(session.composition,session.rounds);const lap={n:session.rounds,duration,total};session.laps.push(lap);session.lastLapTotal=total;latestMarkerId=lap.n;if(!saveSession()){session.rounds=rounds;session.exerciseTotals=exerciseTotals;session.total=totalLegacy;session.lastLapTotal=lastLapTotal;session.laps.length=lapsLength;latestMarkerId=markerId;return}lastLapPress=now;feedback('lap');renderWorkout({markers:true,animate:true});settleLatestMarkers();roundFeedback();motion('motion-lap',360);ballMotion('ball-lap',360);if(typeof cindyPulseLapCounters==='function')cindyPulseLapCounters();notify(`Круг ${session.rounds} · ${time(duration)}`);if(hasRoundGoal(session.mode)&&session.rounds>=session.target)finish('target')}
+    function addLap(){if(session.status!=='running')return;const now=Date.now(),rem=lastLapPress>0?(ROUND_COOLDOWN_MS-(now-lastLapPress)):0;if(rem>0){const sec=Math.max(1,Math.ceil(rem/1000)),isEn=typeof config!=='undefined'&&config&&config.language==='en';syncRoundCooldownUi();nudgeRoundCooldown();try{haptic('lap')}catch(_){}notify(isEn?`Too fast — wait ${sec}s before next round.`:`Защита от спама: подождите ${sec} с перед следующим кругом.`);return}const rounds=session.rounds,exerciseTotals={...session.exerciseTotals},totalLegacy=[...session.total],lastLapTotal=session.lastLapTotal,lapsLength=session.laps.length,markerId=latestMarkerId,total=elapsedSeconds(),duration=Math.max(0,total-session.lastLapTotal);session.rounds+=1;session.exerciseTotals=totalsFor(session.composition,session.rounds);session.total=legacyTotals(session.composition,session.rounds);const lap={n:session.rounds,duration,total};session.laps.push(lap);session.lastLapTotal=total;latestMarkerId=lap.n;if(!saveSession()){session.rounds=rounds;session.exerciseTotals=exerciseTotals;session.total=totalLegacy;session.lastLapTotal=lastLapTotal;session.laps.length=lapsLength;latestMarkerId=markerId;return}lastLapPress=now;feedback('lap');renderWorkout({markers:true,animate:true});syncRoundCooldownUi();settleLatestMarkers();roundFeedback();motion('motion-lap',360);ballMotion('ball-lap',360);if(typeof cindyPulseLapCounters==='function')cindyPulseLapCounters();notify(`Круг ${session.rounds} · ${time(duration)}`);if(hasRoundGoal(session.mode)&&session.rounds>=session.target)finish('target')}
     function primaryWorkoutAction(){if(session.status==='running'){addLap();return}startResume()}function secondaryPauseAction(){if(session.status==='running')pause()}
     function record(end){const completedAtDate=new Date(),completedAt=completedAtDate.toISOString(),timeMetadata=historyTimeMetadata(completedAtDate),legacy=legacyTotals(session.composition,session.rounds),raw={id:`${completedAt}-${Math.random().toString(36).slice(2,8)}`,completedAt,...timeMetadata,rounds:session.rounds,duration:elapsedSeconds(),mode:session.mode,plannedSeconds:session.plannedSeconds,target:session.target,endedBy:end,laps:session.laps.map(x=>({...x})),composition:cloneComposition(session.composition),exerciseTotals:{...session.exerciseTotals},pull:legacy[0],push:legacy[1],squat:legacy[2],source:cloneSource(session.source)};const coachApi=window.CindyCoachIntegration;try{if(coachApi&&typeof coachApi.handleRecord==='function')return coachApi.handleRecord({raw,end})}catch(_){ }return raw}
-    function finish(end='manual'){if(!active())return;if(session.status==='running'){session.accumulatedMs=elapsedMs();session.startedAt=null}session.status='finished';clearTick();releaseWakeLock();clearMotion();ballMotion('ball-finish',260);const result=record(end),previousBest=allTimeBest(),isPersonalBest=result.rounds>0&&result.rounds>previousBest;if(result.rounds>0){const list=records();list.unshift(result);if(!saveHistory(list)){session.status='paused';session.startedAt=null;saveSession();renderAll({markers:true});return}try{const coachApi=window.CindyCoachIntegration;if(coachApi&&typeof coachApi.reconcileAfterFinish==='function')coachApi.reconcileAfterFinish(result)}catch(err){try{console.warn('[CINDY Coach] reconcileAfterFinish failed',err)}catch(_){}}try{const programApi=window.CINDYProgramServiceV3;if(programApi&&typeof programApi.completeWorkoutTransition==='function')programApi.completeWorkoutTransition(result)}catch(_){ }}clearSession();feedback('finish');session=freshSession();renderWorkout({markers:true});renderHistory();try{renderPrograms()}catch(_){ }window.setTimeout(()=>showResult(result,{previousBest,isPersonalBest}),160);queueAutoSync()}
+    function finish(end='manual'){if(!active())return;clearTimeout(roundCooldownTimer);roundCooldownTimer=0;lastLapPress=0;if(session.status==='running'){session.accumulatedMs=elapsedMs();session.startedAt=null}session.status='finished';clearTick();releaseWakeLock();clearMotion();ballMotion('ball-finish',260);const result=record(end),previousBest=allTimeBest(),isPersonalBest=result.rounds>0&&result.rounds>previousBest;if(result.rounds>0){const list=records();list.unshift(result);if(!saveHistory(list)){session.status='paused';session.startedAt=null;saveSession();renderAll({markers:true});return}try{const coachApi=window.CindyCoachIntegration;if(coachApi&&typeof coachApi.reconcileAfterFinish==='function')coachApi.reconcileAfterFinish(result)}catch(err){try{console.warn('[CINDY Coach] reconcileAfterFinish failed',err)}catch(_){}}try{const programApi=window.CINDYProgramServiceV3;if(programApi&&typeof programApi.completeWorkoutTransition==='function')programApi.completeWorkoutTransition(result)}catch(_){ }}clearSession();feedback('finish');session=freshSession();renderWorkout({markers:true});renderHistory();try{renderPrograms()}catch(_){ }window.setTimeout(()=>showResult(result,{previousBest,isPersonalBest}),160);queueAutoSync()}
     function showResult(result,{previousBest=0,isPersonalBest=false}={}){set('resultHeading',roundsText(result.rounds));renderExerciseTotals($('resultExerciseTotals'),result.composition,result.exerciseTotals);set('resultDuration',time(result.duration));const stats=recordStats(result);set('resultAverage',stats.average?time(stats.average):'—');set('resultBestLap',stats.best?time(stats.best):'—');const pr=$('recordCallout');pr.classList.toggle('hidden',!result.rounds);pr.textContent=isPersonalBest?`НОВЫЙ ЛИЧНЫЙ РЕКОРД · ${roundsText(result.rounds)}${previousBest?` · +${result.rounds-previousBest}`:''}`:previousBest?`Личный рекорд: ${roundsText(previousBest)}`:'';if(!isPersonalBest&&!previousBest)pr.classList.add('hidden');const p=model(),coach=coachPresentation(deriveProductionCoach()),reason=result.endedBy==='time'?'Время закончилось.':result.endedBy==='target'?'Цель тренировки выполнена.':'Тренировка остановлена вручную.',outcome=result.rounds===0?'Круги не завершены, поэтому тренировка не добавлена в журнал.':`Следующий ориентир: ${roundsText(p.next)}.`;set('resultNote',`${reason} ${outcome} ${result.rounds?coach.title+' — '+coach.summary+' '+profileResultLine(result):''}`);$('resultModal').classList.remove('hidden');$('newWorkout').focus()}
     function repeatLast(){if(active()){notify('Завершите текущую тренировку перед повтором.');return}const record=lastRecord();if(!record)return;config=normalizeConfig({...config,mode:record.mode,minutes:usesClock(record.mode)?Math.max(1,Math.round(record.plannedSeconds/60)):config.minutes,target:record.target,composition:cloneComposition(record.composition)});saveConfig();session=freshSession();latestMarkerId=null;renderAll({markers:true});notify('Параметры последней тренировки готовы к повтору.')}
-    function reset(){clearTick();releaseWakeLock();clearMotion();clearSession();session=freshSession();latestMarkerId=null;$('resultModal').classList.add('hidden');closeAction();renderAll({markers:true});show('workout')}
-    function show(id,{focusHistory=false,focusSettings=false}={}){const options={focusHistory,focusSettings};if(window.CindyScreenPresenterV3)return window.CindyScreenPresenterV3.present(id,options);const route=window.CindyScreenRouterV3?window.CindyScreenRouterV3.activate(id):(id==='history'?'progress':(id==='settings'?'profile':id));if(route==='programs'){renderPrograms();stage5OrganizeTraining()}if(route==='progress'){renderProfile();renderHistory();stage5SyncVisibility();if(focusHistory)window.setTimeout(()=>stage2Focus('progressHistorySection'),0)}if(route==='profile'){renderProfile();renderSettings();stage5SyncVisibility();if(focusSettings)window.setTimeout(()=>{stage2SetSettingsCategory('interface');stage2Focus('profileSettingsSection')},0)}return route}
+    function reset(){clearTimeout(roundCooldownTimer);roundCooldownTimer=0;lastLapPress=0;clearTick();releaseWakeLock();clearMotion();clearSession();session=freshSession();latestMarkerId=null;$('resultModal').classList.add('hidden');closeAction();renderAll({markers:true});show('workout')}
+    function show(id,{focusHistory=false,focusSettings=false}={}){const options={focusHistory,focusSettings};if(window.CindyScreenPresenterV3)return window.CindyScreenPresenterV3.present(id,options);const route=window.CindyScreenRouterV3?window.CindyScreenRouterV3.activate(id):(id==='history'?'progress':(id==='settings'?'profile':id));if(typeof window.__cindySyncNavPill==='function')window.__cindySyncNavPill();if(route==='programs'){renderPrograms();stage5OrganizeTraining()}if(route==='progress'){renderProfile();renderHistory();stage5SyncVisibility();if(focusHistory)window.setTimeout(()=>stage2Focus('progressHistorySection'),0)}if(route==='profile'){renderProfile();renderSettings();stage5SyncVisibility();if(focusSettings)window.setTimeout(()=>{stage2SetSettingsCategory('interface');stage2Focus('profileSettingsSection')},0)}return route}
 if(window.CindyScreenPresenterV3){window.CindyScreenPresenterV3.bind({workout:function(options){renderWorkout(options||{})},programs:function(){renderPrograms();stage5OrganizeTraining()},progress:function(options){renderProfile();renderHistory();stage5SyncVisibility();if(options&&options.focusHistory)window.setTimeout(()=>stage2Focus('progressHistorySection'),0)},profile:function(options){renderProfile();renderSettings();stage5SyncVisibility();if(options&&options.focusSettings)window.setTimeout(()=>{stage2SetSettingsCategory('interface');stage2Focus('profileSettingsSection')},0)}})}
     function setConfig(patch){if(active()){notify('Завершите или поставьте на паузу текущую тренировку, чтобы изменить формат.');return false}config=normalizeConfig({...config,...patch});if(!saveConfig()){renderAll({markers:true});return false}let pendingBaselinePreview=null;try{const coachApi=window.CindyCoachIntegration;if(coachApi&&typeof coachApi.onConfigMutation==='function')coachApi.onConfigMutation();if(coachApi&&typeof coachApi.state==='function'){const state=coachApi.state();if(state&&state.baselineAuthority&&typeof coachApi.previewBaselineTest==='function')pendingBaselinePreview=coachApi.previewBaselineTest()}}catch(_){ }session=pendingBaselinePreview&&pendingBaselinePreview.sessionRuntime?freshSession(pendingBaselinePreview.sessionRuntime):freshSession();latestMarkerId=null;renderAll({markers:true});return true}
     function custom(input,field,min,max,label){const value=clamp($(input).value,min,max,null);if(value===null){notify(`Введите число от ${min} до ${max}.`);$(input).focus();return}if(setConfig({[field]:value})){$(input).value='';notify(`${label}: ${value}.`)}}function saveGoogleClientId(){const id=$('googleClientId').value.trim();if(!/^\S+\.apps\.googleusercontent\.com$/.test(id)){googleMessage('error','Введите корректный Web OAuth Client ID из Google Cloud.');$('googleClientId').focus();return}googleToken='';googleTokenClient=null;cloud={...cloudDefaults,clientId:id,updatedAt:cloud.updatedAt};saveCloud();googleMessage('ready','OAuth Client ID сохранён. Можно подключить Google.');notify('OAuth Client ID сохранён.')}
-    $('primaryAction').addEventListener('click',primaryWorkoutAction);$('stopAction').addEventListener('click',confirmStop);$('roundButton').addEventListener('click',secondaryPauseAction);$('voiceAction').addEventListener('click',startVoiceRound);const roundPressButton=$('roundButton'),clearRoundPress=()=>roundPressButton.classList.remove('is-pressing');roundPressButton.addEventListener('pointerdown',()=>{if(!roundPressButton.disabled&&session.status==='running')roundPressButton.classList.add('is-pressing')});['pointerup','pointercancel','pointerleave'].forEach(type=>roundPressButton.addEventListener(type,clearRoundPress));$('repeatLast').addEventListener('click',repeatLast);$('themeToggle').addEventListener('click',()=>{config.theme=config.theme==='dark'?'light':'dark';saveConfig();renderAll()});$('settingsShortcut').addEventListener('click',()=>show('settings',{focusSettings:true}));const coachSwitch=$('coachEnabledSwitch');if(coachSwitch)coachSwitch.addEventListener('change',()=>{if(!setCoachEnabled(coachSwitch.checked))coachSwitch.checked=config.coachEnabled===true});const developmentSwitch=$('developmentViewSwitch');if(developmentSwitch)developmentSwitch.addEventListener('change',()=>{const before=config;if(!saveProfilePatch({developmentView:developmentSwitch.checked})){config=before;renderAll();return}notify(developmentSwitch.checked?'Показ прогресса включён.':'Показ прогресса скрыт.')});$('navWorkout').addEventListener('click',()=>show('workout'));$('navPrograms').addEventListener('click',()=>show('programs'));$('navProgress').addEventListener('click',()=>show('progress'));$('navProfile').addEventListener('click',()=>show('profile'));$('actionModal').addEventListener('click',event=>{if(event.target===$('actionModal'))closeAction()});const physicalControlIds=['primaryAction','roundButton','stopAction','themeToggle','navWorkout','navPrograms','navProgress','navProfile'];physicalControlIds.map($).filter(Boolean).forEach(control=>{const setPressed=()=>{if(!control.disabled)control.classList.add('is-physical-press')},clearPressed=()=>control.classList.remove('is-physical-press');control.addEventListener('pointerdown',setPressed);['pointerup','pointercancel','pointerleave','blur'].forEach(type=>control.addEventListener(type,clearPressed));control.addEventListener('keydown',event=>{if((event.key==='Enter'||event.key===' ')&&!event.repeat)setPressed()});control.addEventListener('keyup',event=>{if(event.key==='Enter'||event.key===' ')clearPressed()})});
+    $('primaryAction').addEventListener('click',primaryWorkoutAction);$('stopAction').addEventListener('click',confirmStop);$('roundButton').addEventListener('click',secondaryPauseAction);$('voiceAction').addEventListener('click',startVoiceRound);const roundPressButton=$('roundButton'),clearRoundPress=()=>roundPressButton.classList.remove('is-pressing');roundPressButton.addEventListener('pointerdown',()=>{if(!roundPressButton.disabled&&session.status==='running')roundPressButton.classList.add('is-pressing')});['pointerup','pointercancel','pointerleave'].forEach(type=>roundPressButton.addEventListener(type,clearRoundPress));$('repeatLast').addEventListener('click',repeatLast);$('themeToggle').addEventListener('click',()=>{config.theme=config.theme==='dark'?'light':'dark';saveConfig();renderAll()});$('settingsShortcut').addEventListener('click',()=>show('settings',{focusSettings:true}));const coachSwitch=$('coachEnabledSwitch');if(coachSwitch)coachSwitch.addEventListener('change',()=>{if(!setCoachEnabled(coachSwitch.checked))coachSwitch.checked=config.coachEnabled===true});const developmentSwitch=$('developmentViewSwitch');if(developmentSwitch)developmentSwitch.addEventListener('change',()=>{const before=config;if(!saveProfilePatch({developmentView:developmentSwitch.checked})){config=before;renderAll();return}notify(developmentSwitch.checked?'Показ прогресса включён.':'Показ прогресса скрыт.')});$('navWorkout').addEventListener('click',()=>show('workout'));$('navPrograms').addEventListener('click',()=>show('programs'));$('navProgress').addEventListener('click',()=>show('progress'));$('navProfile').addEventListener('click',()=>show('profile'));(()=>{const navInner=document.querySelector('.nav .nav-inner');if(!navInner)return;let pill=navInner.querySelector('.nav-pill-indicator');if(!pill){pill=document.createElement('span');pill.className='nav-pill-indicator';pill.setAttribute('aria-hidden','true');navInner.prepend(pill)}const routeOf=b=>b&&b.id==='navPrograms'?'programs':(b&&b.id==='navProgress'?'progress':(b&&b.id==='navProfile'?'profile':'workout'));const buttons=()=>[...navInner.querySelectorAll('button')];let booted=false,scrubbing=false,activePointerId=null,startX=0,startY=0,grabOffset=0,scrubTargetBtn=null,suppressClickUntil=0;const setScrubTarget=target=>{buttons().forEach(b=>b.classList.toggle('is-scrub-target',Boolean(target&&b===target)));scrubTargetBtn=target||null};const syncToBtn=(btn,{immediate=false,xOverride=null}={})=>{if(!btn||!pill)return;const w=btn.offsetWidth,h=btn.offsetHeight;if(w<=0||h<=0)return;const x=xOverride!==null?xOverride:btn.offsetLeft,y=btn.offsetTop;if(immediate||!booted)pill.classList.add('is-no-transition');pill.style.width=`${w}px`;pill.style.height=`${h}px`;pill.style.top=`${y}px`;pill.style.setProperty('--nav-pill-x',`${x}px`);if(immediate||!booted){void pill.offsetWidth;pill.classList.remove('is-no-transition');booted=true}};const syncActive=opts=>{if(scrubbing&&!(opts&&opts.force))return;const btns=buttons(),active=btns.find(b=>b.classList.contains('active'))||btns[0];syncToBtn(active,opts||{})};window.__cindySyncNavPill=syncActive;navInner.addEventListener('click',e=>{if(Date.now()<suppressClickUntil){e.preventDefault();e.stopImmediatePropagation();suppressClickUntil=0}},true);navInner.addEventListener('pointerdown',e=>{if(!e.isPrimary||(e.pointerType==='mouse'&&e.button!==0))return;const btns=buttons();if(!btns.length)return;activePointerId=e.pointerId;startX=e.clientX;startY=e.clientY;scrubbing=false;grabOffset=null;pill.classList.add('is-pressing');setScrubTarget(null)});const onScrubMove=e=>{if(activePointerId===null||e.pointerId!==activePointerId)return;const dx=e.clientX-startX,dy=e.clientY-startY;const btns=buttons();if(!btns.length)return;if(!scrubbing){if(Math.abs(dx)<5||Math.abs(dy)>Math.abs(dx)*1.8)return;scrubbing=true;navInner.classList.add('is-scrubbing');pill.classList.add('is-scrubbing');const rect=navInner.getBoundingClientRect(),curBtn=btns.find(b=>b.classList.contains('active'))||btns[0],pillW=curBtn.offsetWidth,curX=curBtn.offsetLeft,relStart=startX-rect.left;grabOffset=(relStart>=curX&&relStart<=curX+pillW)?(relStart-curX):(pillW/2)}const rect=navInner.getBoundingClientRect(),first=btns[0],last=btns[btns.length-1],pillW=first.offsetWidth,minX=first.offsetLeft,maxX=last.offsetLeft+last.offsetWidth-pillW,rawX=(e.clientX-rect.left)-grabOffset,clampedX=Math.max(minX,Math.min(maxX,rawX)),center=clampedX+pillW/2;let nearest=btns[0],bestDist=Infinity;for(const b of btns){const c=b.offsetLeft+b.offsetWidth/2,d=Math.abs(center-c);if(d<bestDist){bestDist=d;nearest=b}}if(nearest!==scrubTargetBtn&&scrubTargetBtn!==null){try{navigator.vibrate&&typeof config!=='undefined'&&config&&config.hapticMode!==0&&navigator.vibrate(5)}catch(_){}}setScrubTarget(nearest);syncToBtn(nearest,{immediate:true,xOverride:clampedX});if(e.cancelable)e.preventDefault()};const finishScrub=(commit,e)=>{if(activePointerId===null||(e&&e.pointerId!==activePointerId))return;const wasScrubbing=scrubbing,chosen=scrubTargetBtn;scrubbing=false;activePointerId=null;navInner.classList.remove('is-scrubbing');pill.classList.remove('is-scrubbing','is-pressing');setScrubTarget(null);if(wasScrubbing){suppressClickUntil=Date.now()+260;if(commit&&chosen){const targetRoute=routeOf(chosen),curActive=buttons().find(b=>b.classList.contains('active'));if(chosen!==curActive){show(targetRoute)}else{syncActive({immediate:false})}}else{syncActive({immediate:false})}}};window.addEventListener('pointermove',onScrubMove,{passive:false});window.addEventListener('pointerup',e=>finishScrub(true,e));window.addEventListener('pointercancel',e=>finishScrub(false,e));window.addEventListener('blur',()=>finishScrub(false,null));if(typeof ResizeObserver!=='undefined'){new ResizeObserver(()=>syncActive({immediate:true})).observe(navInner)}window.addEventListener('resize',()=>syncActive({immediate:true}));requestAnimationFrame(()=>syncActive({immediate:true}))})();$('actionModal').addEventListener('click',event=>{if(event.target===$('actionModal'))closeAction()});const physicalControlIds=['primaryAction','roundButton','stopAction','themeToggle','navWorkout','navPrograms','navProgress','navProfile'];physicalControlIds.map($).filter(Boolean).forEach(control=>{const setPressed=()=>{if(!control.disabled)control.classList.add('is-physical-press')},clearPressed=()=>control.classList.remove('is-physical-press');control.addEventListener('pointerdown',setPressed);['pointerup','pointercancel','pointerleave','blur'].forEach(type=>control.addEventListener(type,clearPressed));control.addEventListener('keydown',event=>{if((event.key==='Enter'||event.key===' ')&&!event.repeat)setPressed()});control.addEventListener('keyup',event=>{if(event.key==='Enter'||event.key===' ')clearPressed()})});
     $('lightTheme').addEventListener('click',()=>{config.theme='light';saveConfig();renderAll()});$('darkTheme').addEventListener('click',()=>{config.theme='dark';saveConfig();renderAll()});document.querySelectorAll('[data-color-theme-choice]').forEach(button=>button.addEventListener('click',()=>{const colorTheme=button.dataset.colorThemeChoice;if(!['flux','cobalt','pulse','spidey','cyber','miami','aurora','blue','forest','plum','glass','lava'].includes(colorTheme)||colorTheme===config.colorTheme)return;config=normalizeConfig({...config,colorTheme});saveConfig();renderAll();notify(`Цветовая тема: ${COLOR_THEME_LABELS[colorTheme]}.`)}));$('timeMode').addEventListener('click',()=>setConfig({mode:'time'}));$('roundMode').addEventListener('click',()=>setConfig({mode:'rounds'}));$('combinedMode').addEventListener('click',()=>setConfig({mode:'combined'}));document.querySelectorAll('[data-minutes]').forEach(b=>b.addEventListener('click',()=>setConfig({minutes:Number(b.dataset.minutes)})));document.querySelectorAll('[data-target]').forEach(b=>b.addEventListener('click',()=>setConfig({target:Number(b.dataset.target)})));function stepConfig(field,delta,label){const value=clamp(config[field]+delta,...(field==='minutes'?LIMITS.minutes:field==='target'?LIMITS.target:LIMITS.goal),null);if(value!==null&&setConfig({[field]:value}))notify(`${label}: ${value}.`)}function bindHold(button,action){let hold=null,repeat=null,pressed=false;const clear=()=>{clearTimeout(hold);clearInterval(repeat);hold=null;repeat=null};button.addEventListener('pointerdown',event=>{pressed=true;event.preventDefault();action();hold=setTimeout(()=>{repeat=setInterval(action,115)},430)});['pointerup','pointercancel','pointerleave'].forEach(type=>button.addEventListener(type,clear));button.addEventListener('click',event=>{if(pressed){pressed=false;event.preventDefault();return}action()})}bindHold($('minutesMinus'),()=>stepConfig('minutes',-1,'Время'));bindHold($('minutesPlus'),()=>stepConfig('minutes',1,'Время'));bindHold($('targetMinus'),()=>stepConfig('target',-1,'Круги'));bindHold($('targetPlus'),()=>stepConfig('target',1,'Круги'));bindHold($('goalMinus'),()=>stepConfig('longGoal',-1,'Ориентир'));bindHold($('goalPlus'),()=>stepConfig('longGoal',1,'Ориентир'));$('paceGuidance').addEventListener('change',event=>setConfig({paceGuidance:event.target.checked}));$('saveProWorkout').addEventListener('click',savePro);$('runProWorkout').addEventListener('click',runPro);$('saveGoogleClient').addEventListener('click',saveGoogleClientId);$('connectGoogle').addEventListener('click',connectGoogle);$('syncGoogleNow').addEventListener('click',()=>syncGoogle());$('refreshGoogle').addEventListener('click',()=>syncGoogle());$('disconnectGoogle').addEventListener('click',disconnectGoogle);$('googleClientId').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveGoogleClientId()}});document.querySelectorAll('[data-language-choice]').forEach(button=>button.addEventListener('click',()=>{const lang=button.dataset.languageChoice;if(lang&&['ru','en'].includes(lang)&&lang!==config.language){setConfig({language:lang});notify(lang==='en'?'Language: English':'Язык: Русский')}}));$('soundEnabled').addEventListener('change',e=>{config.sound=e.target.checked;saveConfig();renderSettings()});document.querySelectorAll('[data-cue]').forEach(button=>button.addEventListener('click',()=>{config=normalizeConfig({...config,cueInterval:Number(button.dataset.cue)});saveConfig();renderSettings()}));document.querySelectorAll('[data-tone]').forEach(button=>button.addEventListener('click',()=>{config=normalizeConfig({...config,cueTone:button.dataset.tone});saveConfig();renderSettings()}));document.querySelectorAll('[data-haptic]').forEach(button=>button.addEventListener('click',()=>{config=normalizeConfig({...config,hapticMode:Number(button.dataset.haptic)});saveConfig();renderSettings()}));$('clearHistory').addEventListener('click',()=>{if(confirm('Удалить весь журнал тренировок?')){if(!historyRepository.remove()){notify('Не удалось очистить журнал.');return}markLocalChanged();try{const api=window.CindyCoachIntegration;if(api&&typeof api.onHistoryMutation==='function')api.onHistoryMutation({kind:'clear'})}catch(_){}renderAll();notify('Журнал очищен.')}});$('newWorkout').addEventListener('click',reset);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&session.status==='running'){takeWakeLock();schedule()}});window.addEventListener('pagehide',()=>{if(active())saveSession()});
 
     // Stage 2: explicit, read-only bridge to the isolated pure Coach engine. No UI, persistence or application path.
@@ -2634,7 +2638,7 @@ let stage2Initialized=false;
 function stage2ProfileDataCard(profile){const card=document.createElement('article');card.className='card setting-card profile-data-card';card.append(stage2ProfileDataInner(profile));return card}function stage2AboutCard(){const meta=document.createElement('div');meta.className='about-meta';const name=document.createElement('b');name.textContent='CINDY COACH V3';const version=document.createElement('span');version.textContent='Версия V3.0 (Smart Adaptive Coach)';meta.append(name,version);const links=document.createElement('div');links.className='service-actions';links.append(stage2ServiceRow('Privacy Policy','Политика конфиденциальности',()=>notify('Privacy Policy будет добавлена на этапе Product Foundation.')),stage2ServiceRow('Terms of Use','Условия использования',()=>notify('Terms of Use будут добавлены на этапе Product Foundation.')));return stage2ServiceCard('О ПРИЛОЖЕНИИ','CINDY Coach V3 — максимальная версия с биомеханической ротацией упражнений и адаптивным тренером.',[meta,links])}const stage2BaseRenderProfile=renderProfile;
 function stage2Move(){/* static V3 screen composition; no runtime reparenting */}
 function stage2Focus(id){const node=$(id);if(!node)return;node.setAttribute('tabindex','-1');node.focus({preventScroll:true});const reduced=Boolean(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);node.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'})}
-function stage2SetSettingsCategory(id,{scroll=false,toggle=false}={}){const host=$('profileSettingsDetails'),categories=$('profileSettingsCategories');if(!host||!categories)return;const isToggle=toggle&&host.dataset.activeCategory===id;const nextId=isToggle?null:id;const prevId=host.dataset.activeCategory;host.dataset.activeCategory=nextId||'';[...host.children].forEach(node=>{const wasActive=node.dataset.stage2Category===prevId;const willBeActive=node.dataset.stage2Category===nextId;if(wasActive&&!willBeActive){node.classList.remove('hidden');node.classList.add('is-closing');setTimeout(()=>{node.classList.remove('is-closing');if(node.dataset.stage2Category!==host.dataset.activeCategory){node.classList.add('hidden');node.setAttribute('aria-hidden','true')}},260)}else if(willBeActive){node.classList.remove('is-closing');node.classList.remove('hidden');node.setAttribute('aria-hidden','false')}else{node.classList.remove('is-closing');node.classList.add('hidden');node.setAttribute('aria-hidden','true')}});[...categories.querySelectorAll('button')].forEach(button=>{const active=button.dataset.stage2Category===nextId;button.classList.toggle('selected',active);button.setAttribute('aria-pressed',String(active));button.setAttribute('aria-expanded',String(active));const chevron=button.querySelector('.settings-chevron');if(chevron){chevron.textContent=active?'⌄':'›';chevron.setAttribute('aria-hidden','true')}});if(scroll&&nextId){const target=[...host.children].find(n=>n.dataset.stage2Category===nextId);if(target){const reduced=Boolean(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);target.scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'})}}}
+function stage2SetSettingsCategory(id,{scroll=false,toggle=false}={}){const host=$('profileSettingsDetails'),categories=$('profileSettingsCategories');if(!host||!categories)return;const isToggle=toggle&&host.dataset.activeCategory===id;const nextId=isToggle?null:id;const prevId=host.dataset.activeCategory;const reduced=Boolean(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);host.dataset.activeCategory=nextId||'';[...host.children].forEach(node=>{if(node.__cindyCloseTimer){clearTimeout(node.__cindyCloseTimer);node.__cindyCloseTimer=0}const wasActive=node.dataset.stage2Category===prevId;const willBeActive=node.dataset.stage2Category===nextId;if(wasActive&&!willBeActive){if(reduced){node.classList.remove('is-closing');node.classList.add('hidden');node.setAttribute('aria-hidden','true')}else{node.classList.remove('hidden');node.classList.add('is-closing');node.__cindyCloseTimer=setTimeout(()=>{node.__cindyCloseTimer=0;node.classList.remove('is-closing');if(node.dataset.stage2Category!==host.dataset.activeCategory){node.classList.add('hidden');node.setAttribute('aria-hidden','true')}},260)}}else if(willBeActive){node.classList.remove('is-closing');node.classList.remove('hidden');node.setAttribute('aria-hidden','false')}else{node.classList.remove('is-closing');node.classList.add('hidden');node.setAttribute('aria-hidden','true')}});[...categories.querySelectorAll('button')].forEach(button=>{const active=button.dataset.stage2Category===nextId;button.classList.toggle('selected',active);button.setAttribute('aria-pressed',String(active));button.setAttribute('aria-expanded',String(active));const chevron=button.querySelector('.settings-chevron');if(chevron){chevron.textContent=active?'⌄':'›';chevron.setAttribute('aria-hidden','true')}});if(scroll&&nextId){const target=[...host.children].find(n=>n.dataset.stage2Category===nextId);if(target){target.scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'})}}}
 function stage2SettingsCategory(id,label,copy,nodes){const categories=$('profileSettingsCategories'),details=$('profileSettingsDetails');if(!categories||!details||!nodes.length)return;const button=document.createElement('button'),section=document.createElement('section'),head=document.createElement('div'),title=document.createElement('h3'),note=document.createElement('p'),buttonCopy=document.createElement('span'),chevron=document.createElement('i');button.type='button';button.className='choice';button.dataset.stage2Category=id;button.setAttribute('aria-controls','profileSettingsDetail-'+id);button.setAttribute('aria-pressed','false');button.setAttribute('aria-expanded','false');buttonCopy.className='settings-choice-copy';const buttonTitle=document.createElement('b');buttonTitle.textContent=label;const buttonNote=document.createElement('small');buttonNote.textContent=copy;buttonCopy.append(buttonTitle,buttonNote);chevron.className='settings-chevron';chevron.textContent='›';chevron.setAttribute('aria-hidden','true');button.append(buttonCopy,chevron);button.addEventListener('click',()=>stage2SetSettingsCategory(id,{scroll:true,toggle:true}));section.id='profileSettingsDetail-'+id;section.className='profile-subsection hidden';section.dataset.stage2Category=id;section.setAttribute('aria-hidden','true');head.className='settings-head';title.className='title';title.textContent=label;note.textContent=copy;head.append(title,note);section.append(head,...nodes);categories.append(button);details.append(section)}
 function stage2ServiceCard(title,copy,children){const card=document.createElement('article');card.className='card setting-card service-card';const head=document.createElement('div');head.className='setting-head';const eyebrow=document.createElement('span');eyebrow.className='eyebrow';eyebrow.textContent=title;head.append(eyebrow);const text=document.createElement('p');text.className='service-card-copy';text.textContent=copy;card.append(head,text,...children);return card}function stage2ServiceRow(label,copy,handler){const button=document.createElement('button');button.type='button';button.className='service-row';const rowCopy=document.createElement('span');rowCopy.className='service-row-copy';const title=document.createElement('b');title.textContent=label;const note=document.createElement('small');note.textContent=copy;rowCopy.append(title,note);const arrow=document.createElement('span');arrow.className='service-row-arrow';arrow.textContent='→';button.append(rowCopy,arrow);button.addEventListener('click',handler);return button}function stage2InitLayout(){
   if(stage2Initialized)return;stage2Initialized=true;stage5VisibilityCard();stage2SetSettingsCategory('appearance');
@@ -7409,24 +7413,86 @@ body{font-size:16px}
   }
 
   /* --- 4. PRIMARY ACTION CTA (HERO PAD) & UNIFORM 14px RECTANGULAR BUTTONS --- */
-  html body[data-color-theme] #workout .workout-workarea .action-deck:is(:not(.is-session-active), .is-session-active) #primaryAction.primary:not(#__none__),
+  html body #workout .workout-workarea {
+    row-gap: 12px !important;
+  }
+  html body #workout .practice-card #focusContext {
+    min-height: 68px !important;
+    transform: none !important;
+  }
+  html body #workout .practice-card #focusContext .focus-context__copy {
+    gap: 8px !important;
+    align-items: baseline !important;
+  }
+  html body #workout .practice-card #focusContext .focus-context__eyebrow {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+  }
+  html body #workout .practice-card #focusContext b {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    text-align: right !important;
+    font-size: 13.5px !important;
+    line-height: 1.25 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  html body #workout .practice-card #focusContext small {
+    width: 100% !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  html body #workout .workout-workarea .action-deck:is(:not(.is-session-active), .is-session-active, .is-paused) {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    row-gap: 12px !important;
+    transform: translateY(-4px) !important;
+  }
+  html body[data-color-theme] #workout .workout-workarea .action-deck:is(:not(.is-session-active), .is-session-active, .is-paused) #primaryAction.primary:not(#__none__),
   html body[data-color-theme] #workout .workout-workarea .action-deck #primaryAction.lap-pad:not(#__none__),
-  html body:not([data-color-theme]) #workout .workout-workarea .action-deck #primaryAction.primary:not(#__none__) {
+  html body:not([data-color-theme]) #workout .workout-workarea .action-deck:is(:not(.is-session-active), .is-session-active, .is-paused) #primaryAction.primary:not(#__none__) {
     background: var(--cta-bg) !important;
     border: 1px solid var(--cta-border) !important;
     color: var(--cta-ink) !important;
     border-radius: 20px !important;
+    min-height: 104px !important;
+    height: 104px !important;
+    max-height: 104px !important;
+    margin: 0 !important;
     transform: translateY(0) scale(1);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.44),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.14),
-      0 2px 6px rgba(0, 0, 0, 0.10),
-      0 10px 24px var(--cta-glow) !important;
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.62),
+      inset 0 -3px 0 rgba(0, 0, 0, 0.28),
+      0 3px 0 rgba(0, 0, 0, 0.22),
+      0 8px 18px rgba(0, 0, 0, 0.18),
+      0 16px 34px var(--cta-glow) !important;
     text-shadow: none !important;
     transition:
       transform var(--dur-press) var(--ease-out),
       box-shadow var(--dur-control) var(--ease-out),
       filter var(--dur-press) var(--ease-out) !important;
+  }
+  html body.dark[data-color-theme] #workout .workout-workarea .action-deck:is(:not(.is-session-active), .is-session-active, .is-paused) #primaryAction.primary:not(#__none__),
+  html body.dark:not([data-color-theme]) #workout .workout-workarea .action-deck:is(:not(.is-session-active), .is-session-active, .is-paused) #primaryAction.primary:not(#__none__) {
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.66),
+      inset 0 -3px 0 rgba(0, 0, 0, 0.38),
+      0 3px 0 rgba(0, 0, 0, 0.48),
+      0 0 0 1px rgba(255, 255, 255, 0.12),
+      0 10px 24px rgba(0, 0, 0, 0.42),
+      0 18px 36px var(--cta-glow) !important;
+  }
+  @media (max-width: 370px) {
+    html body[data-color-theme] #workout .workout-workarea .action-deck:is(:not(.is-session-active), .is-session-active, .is-paused) #primaryAction.primary:not(#__none__),
+    html body:not([data-color-theme]) #workout .workout-workarea .action-deck:is(:not(.is-session-active), .is-session-active, .is-paused) #primaryAction.primary:not(#__none__) {
+      min-height: 96px !important;
+      height: 96px !important;
+      max-height: 96px !important;
+    }
   }
   html body[data-color-theme] #workout .workout-workarea .action-deck #primaryAction.lap-pad:not(#__none__) :is(.lap-count, .lap-text, .lap-detail) {
     color: var(--cta-ink) !important;
@@ -7460,12 +7526,12 @@ body{font-size:16px}
       box-shadow var(--dur-control) var(--ease-out),
       filter var(--dur-press) var(--ease-out) !important;
   }
-  /* Distinct tactile 3D bevel for active workout round pad vs idle Start */
+  /* Visually unified 3D bevel across all 3 states; sub-perceptible hairline delta preserves DOM state-contrast invariant */
   html body[data-color-theme] #workout .workout-workarea .action-deck.is-session-active #primaryAction.primary:not(#__none__),
   html body:not([data-color-theme]) #workout .workout-workarea .action-deck.is-session-active #primaryAction.primary:not(#__none__),
   html body[data-color-theme] #workout .workout-workarea .action-deck.is-session-active #primaryAction.add-round-action:not(#__none__) {
     box-shadow:
-      inset 0 1.5px 0 rgba(255, 255, 255, 0.62),
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.65),
       inset 0 -3px 0 rgba(0, 0, 0, 0.28),
       0 3px 0 rgba(0, 0, 0, 0.22),
       0 8px 18px rgba(0, 0, 0, 0.18),
@@ -7475,16 +7541,32 @@ body{font-size:16px}
   html body.dark:not([data-color-theme]) #workout .workout-workarea .action-deck.is-session-active #primaryAction.primary:not(#__none__),
   html body.dark[data-color-theme] #workout .workout-workarea .action-deck.is-session-active #primaryAction.add-round-action:not(#__none__) {
     box-shadow:
-      inset 0 1.5px 0 rgba(255, 255, 255, 0.66),
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.69),
       inset 0 -3px 0 rgba(0, 0, 0, 0.38),
       0 3px 0 rgba(0, 0, 0, 0.48),
       0 0 0 1px rgba(255, 255, 255, 0.12),
       0 10px 24px rgba(0, 0, 0, 0.42),
       0 18px 36px var(--cta-glow) !important;
   }
+  html body #workout .workout-workarea .action-deck.is-session-active #primaryAction.add-round-action :is(.primary-round-copy, .primary-round-copy__title, .primary-round-copy__meta) {
+    text-align: left !important;
+  }
+  html body #workout .workout-workarea .action-deck #primaryAction.is-lap-cooldown .primary-round-copy__meta {
+    opacity: 0.96 !important;
+    font-weight: 750 !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+  @keyframes cindyLapCooldownNudge {
+    0%, 100% { translate: 0 0; }
+    25% { translate: -3px 0; }
+    70% { translate: 3px 0; }
+  }
+  html body #workout .workout-workarea .action-deck #primaryAction.is-cooldown-nudge {
+    animation: cindyLapCooldownNudge 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
   /* Recessed mechanical compression when pressed */
-  html body[data-color-theme] #workout .workout-workarea .action-deck:is(:not(.is-session-active), .is-session-active) #primaryAction.primary:not(#__none__):not(:disabled):is(:active, .is-physical-press),
-  html body:not([data-color-theme]) #workout .workout-workarea .action-deck:is(:not(.is-session-active), .is-session-active) #primaryAction.primary:not(#__none__):not(:disabled):is(:active, .is-physical-press),
+  html body[data-color-theme] #workout .workout-workarea .action-deck:is(:not(.is-session-active), .is-session-active, .is-paused) #primaryAction.primary:not(#__none__):not(:disabled):is(:active, .is-physical-press),
+  html body:not([data-color-theme]) #workout .workout-workarea .action-deck:is(:not(.is-session-active), .is-session-active, .is-paused) #primaryAction.primary:not(#__none__):not(:disabled):is(:active, .is-physical-press),
   html body[data-color-theme] .control.primary:not(#__none__):not(:disabled):is(:active, .is-physical-press),
   html body[data-color-theme] #startPlanWorkout:not(#__none__):not(:disabled):is(:active, .is-physical-press) {
     box-shadow:
@@ -7756,6 +7838,9 @@ body{font-size:16px}
     padding: 4px !important;
     margin: 0 !important;
     border-radius: 30px !important;
+    touch-action: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
     background: linear-gradient(
       165deg,
       color-mix(in srgb, #ffffff 54%, transparent) 0%,
@@ -7792,8 +7877,71 @@ body{font-size:16px}
       0 16px 36px rgba(0, 0, 0, 0.52),
       0 4px 10px rgba(0, 0, 0, 0.30) !important;
   }
+  /* Sliding concave frosted pocket indicator — uniform 26px radius & soft contrast across all 24 theme states */
+  html body .nav .nav-inner .nav-pill-indicator,
+  html body[data-color-theme]:not(.dark) .nav .nav-inner .nav-pill-indicator,
+  html body:not([data-color-theme]):not(.dark) .nav .nav-inner .nav-pill-indicator {
+    position: absolute !important;
+    left: 0 !important;
+    top: 4px;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    border-radius: 26px !important;
+    transform: translate3d(var(--nav-pill-x, 4px), 0, 0) scale(1) !important;
+    transition:
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      width 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      background 200ms var(--ease-out),
+      border-color 200ms var(--ease-out),
+      box-shadow 200ms var(--ease-out) !important;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--nav-active-ink) 9%, rgba(15, 23, 42, 0.045)) 0%,
+      color-mix(in srgb, var(--nav-active-ink) 7%, rgba(255, 255, 255, 0.22)) 58%,
+      color-mix(in srgb, #ffffff 56%, var(--nav-active-ink) 8%) 100%
+    ) !important;
+    border: 1px solid color-mix(in srgb, var(--nav-active-ink) 14%, rgba(15, 23, 42, 0.08)) !important;
+    border-top-color: color-mix(in srgb, var(--nav-active-ink) 18%, rgba(15, 23, 42, 0.12)) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.78) !important;
+    box-shadow:
+      inset 0 1.5px 3.5px rgba(15, 23, 42, 0.10),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.65),
+      0 1px 0 rgba(255, 255, 255, 0.45) !important;
+    will-change: transform, width !important;
+  }
+  html body.dark[data-color-theme] .nav .nav-inner .nav-pill-indicator,
+  html body.dark:not([data-color-theme]) .nav .nav-inner .nav-pill-indicator {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.20) 0%,
+      color-mix(in srgb, var(--nav-active-ink) 10%, rgba(255, 255, 255, 0.06)) 56%,
+      color-mix(in srgb, var(--nav-active-ink) 17%, rgba(255, 255, 255, 0.12)) 100%
+    ) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    border-top-color: rgba(0, 0, 0, 0.24) !important;
+    border-bottom-color: color-mix(in srgb, var(--nav-active-ink) 26%, rgba(255, 255, 255, 0.22)) !important;
+    box-shadow:
+      inset 0 2px 4.5px rgba(0, 0, 0, 0.30),
+      inset 0 -1px 1.5px color-mix(in srgb, var(--nav-active-ink) 22%, rgba(255, 255, 255, 0.16)),
+      0 1px 0 rgba(255, 255, 255, 0.07) !important;
+  }
+  html body .nav .nav-inner .nav-pill-indicator.is-no-transition {
+    transition: none !important;
+  }
+  html body .nav .nav-inner .nav-pill-indicator.is-pressing {
+    transform: translate3d(var(--nav-pill-x, 4px), 0, 0) scale(0.975) !important;
+  }
+  html body .nav .nav-inner .nav-pill-indicator.is-scrubbing {
+    transition: background 140ms ease, border-color 140ms ease, box-shadow 140ms ease !important;
+    transform: translate3d(var(--nav-pill-x, 4px), 0, 0) scale(0.985) !important;
+  }
   html body[data-color-theme] .nav .nav-inner button,
   html body:not([data-color-theme]) .nav .nav-inner button {
+    position: relative !important;
+    z-index: 1 !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -7810,17 +7958,13 @@ body{font-size:16px}
     border-radius: 26px !important;
     border: 1px solid transparent !important;
     background: transparent !important;
+    background-image: none !important;
     box-shadow: none !important;
+    touch-action: none !important;
     transform: translateY(0) scale(1) !important;
     transition:
-      transform 220ms var(--ease-out),
-      background 220ms var(--ease-out),
       color 180ms var(--ease-out),
-      border-color 200ms var(--ease-out),
-      box-shadow 220ms var(--ease-out) !important;
-  }
-  html body .nav .nav-inner button:active {
-    transform: translateY(1px) scale(0.945) !important;
+      opacity 180ms var(--ease-out) !important;
   }
   html body .nav .nav-inner button .nav-icon {
     width: 18px !important;
@@ -7840,61 +7984,34 @@ body{font-size:16px}
     height: 18px !important;
     display: block !important;
   }
-  @keyframes cindyTabConcavePress {
-    0% {
-      transform: translateY(0) scale(1);
-    }
-    46% {
-      transform: translateY(0) scale(0.93);
-    }
-    100% {
-      transform: translateY(0) scale(0.968);
-    }
-  }
   html body[data-color-theme]:not(.dark) .nav .nav-inner button.active:not(#__none__),
-  html body:not([data-color-theme]):not(.dark) .nav .nav-inner button.active:not(#__none__) {
-    background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--nav-active-ink) 18%, rgba(10, 20, 48, 0.11)) 0%,
-      color-mix(in srgb, var(--nav-active-ink) 11%, rgba(255, 255, 255, 0.18)) 64%,
-      color-mix(in srgb, #ffffff 48%, var(--nav-active-ink) 7%) 100%
-    ) !important;
-    border: 1px solid color-mix(in srgb, var(--nav-active-ink) 18%, rgba(10, 20, 48, 0.14)) !important;
-    border-top-color: color-mix(in srgb, var(--nav-active-ink) 28%, rgba(10, 20, 48, 0.24)) !important;
-    border-bottom-color: rgba(255, 255, 255, 0.72) !important;
-    color: var(--nav-active-ink) !important;
-    font-weight: 700 !important;
-    transform: translateY(0) scale(0.968) !important;
-    animation: cindyTabConcavePress 240ms var(--ease-out) !important;
-    box-shadow:
-      inset 0 2.5px 5.5px color-mix(in srgb, var(--nav-active-ink) 18%, rgba(10, 20, 48, 0.18)),
-      inset 0 1px 1.5px rgba(10, 20, 48, 0.15),
-      inset 0 -1.5px 2px rgba(255, 255, 255, 0.76),
-      0 1px 0 rgba(255, 255, 255, 0.44) !important;
-  }
+  html body:not([data-color-theme]):not(.dark) .nav .nav-inner button.active:not(#__none__),
   html body.dark[data-color-theme] .nav .nav-inner button.active:not(#__none__),
   html body.dark:not([data-color-theme]) .nav .nav-inner button.active:not(#__none__) {
-    background: linear-gradient(
-      180deg,
-      rgba(2, 6, 14, 0.62) 0%,
-      color-mix(in srgb, var(--nav-active-ink) 14%, rgba(6, 12, 24, 0.48)) 64%,
-      color-mix(in srgb, var(--nav-active-ink) 22%, rgba(255, 255, 255, 0.08)) 100%
-    ) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-top-color: rgba(0, 0, 0, 0.62) !important;
-    border-bottom-color: color-mix(in srgb, var(--nav-active-ink) 28%, rgba(255, 255, 255, 0.18)) !important;
+    background: transparent !important;
+    background-image: none !important;
+    border: 1px solid transparent !important;
+    border-radius: 26px !important;
+    box-shadow: none !important;
+    animation: none !important;
+    transform: translateY(0) scale(1) !important;
     color: var(--nav-active-ink) !important;
     font-weight: 700 !important;
-    transform: translateY(0) scale(0.968) !important;
-    animation: cindyTabConcavePress 240ms var(--ease-out) !important;
-    box-shadow:
-      inset 0 3px 7px rgba(0, 0, 0, 0.68),
-      inset 0 1px 2px rgba(0, 0, 0, 0.52),
-      inset 0 -1px 1.5px color-mix(in srgb, var(--nav-active-ink) 24%, rgba(255, 255, 255, 0.16)),
-      0 1px 0 rgba(255, 255, 255, 0.08) !important;
   }
-  html body .nav .nav-inner button.active .nav-icon {
+  html body .nav .nav-inner.is-scrubbing button.active:not(.is-scrub-target):not(#__none__) {
+    color: var(--muted) !important;
+    font-weight: 600 !important;
+  }
+  html body[data-color-theme] .nav .nav-inner button.is-scrub-target:not(#__none__),
+  html body:not([data-color-theme]) .nav .nav-inner button.is-scrub-target:not(#__none__) {
+    color: var(--nav-active-ink) !important;
+    font-weight: 700 !important;
+  }
+  html body .nav .nav-inner button:is(.active, .is-scrub-target) .nav-icon {
     transform: scale(0.94) !important;
+  }
+  html body .nav .nav-inner.is-scrubbing button.active:not(.is-scrub-target) .nav-icon {
+    transform: none !important;
   }
 
   /* --- 7. PROGRESS STATS GRID (3D TILES) & TACTILE HISTORY CARDS --- */
@@ -8354,7 +8471,9 @@ body{font-size:16px}
   /* --- 9. APPLE MOTION PASS: INSTANT PRESS, <300ms ENTER, SHEET GLIDE, UISWITCH --- */
   html body .control:not(:disabled):active,
   html body[data-color-theme] #workout .workout-workarea .action-deck #primaryAction:not(:disabled):active,
+  html body:not([data-color-theme]) #workout .workout-workarea .action-deck #primaryAction:not(:disabled):active,
   html body[data-color-theme] #workout .workout-workarea .action-deck #primaryAction.is-physical-press:not(:disabled),
+  html body:not([data-color-theme]) #workout .workout-workarea .action-deck #primaryAction.is-physical-press:not(:disabled),
   html body .lap-pad:not(:disabled):active,
   html body[data-color-theme] .choice:not(:disabled):active,
   html body .stepper-button:not(:disabled):active,
@@ -8874,7 +8993,9 @@ body{font-size:16px}
   @media (prefers-reduced-motion: reduce) {
     html body *,
     html body *::before,
-    html body *::after {
+    html body *::after,
+    html body .nav .nav-inner .nav-pill-indicator,
+    html body #workout .workout-workarea .action-deck #primaryAction.is-cooldown-nudge {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
