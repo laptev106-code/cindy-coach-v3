@@ -6970,6 +6970,9 @@ body{font-size:16px}
 
 
 
+
+
+
 <style id="cindy-apple-design-and-motion-2026">
   /* ==========================================================================
      CINDY COACH V3 — APPLE HIG DESIGN, MOBILE-NATIVE & FLUID MOTION STANDARD
@@ -7376,13 +7379,33 @@ body{font-size:16px}
     min-width: 44px !important;
     min-height: 44px !important;
     border-radius: 14px !important;
-    box-shadow: var(--apple-rim-top), 0 2px 8px rgba(10, 20, 48, 0.06) !important;
-    transition: transform var(--dur-press) var(--ease-out), background-color var(--dur-control) var(--ease-out), box-shadow var(--dur-control) var(--ease-out) !important;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, #ffffff 80%, var(--panel) 20%) 0%,
+      color-mix(in srgb, var(--panel) 94%, var(--ink) 6%) 100%
+    ) !important;
+    border: 1px solid color-mix(in srgb, var(--line) 82%, #ffffff) !important;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.94),
+      inset 0 -1.5px 0 rgba(10, 20, 48, 0.06),
+      0 2px 0 color-mix(in srgb, var(--line) 72%, rgba(10, 20, 48, 0.18)),
+      0 5px 12px rgba(10, 20, 48, 0.10) !important;
+    transition: transform var(--dur-press) var(--ease-out), background var(--dur-control) var(--ease-out), box-shadow var(--dur-control) var(--ease-out) !important;
   }
   html body.dark .top-icon,
   html body.dark #themeToggle,
   html body.dark #settingsShortcut {
-    box-shadow: var(--apple-rim-dark), 0 4px 12px rgba(0, 0, 0, 0.28) !important;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--panel) 84%, rgba(255, 255, 255, 0.16)) 0%,
+      color-mix(in srgb, var(--panel) 92%, #000000 8%) 100%
+    ) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.24),
+      inset 0 -1.5px 0 rgba(0, 0, 0, 0.42),
+      0 2px 0 rgba(0, 0, 0, 0.56),
+      0 6px 14px rgba(0, 0, 0, 0.42) !important;
   }
 
   /* --- 4. PRIMARY ACTION CTA (HERO PAD) & UNIFORM 14px RECTANGULAR BUTTONS --- */
@@ -7437,15 +7460,27 @@ body{font-size:16px}
       box-shadow var(--dur-control) var(--ease-out),
       filter var(--dur-press) var(--ease-out) !important;
   }
-  /* Distinct tactile glow for active workout round pad vs idle Start */
+  /* Distinct tactile 3D bevel for active workout round pad vs idle Start */
   html body[data-color-theme] #workout .workout-workarea .action-deck.is-session-active #primaryAction.primary:not(#__none__),
   html body:not([data-color-theme]) #workout .workout-workarea .action-deck.is-session-active #primaryAction.primary:not(#__none__),
   html body[data-color-theme] #workout .workout-workarea .action-deck.is-session-active #primaryAction.add-round-action:not(#__none__) {
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.54),
-      inset 0 -2px 0 rgba(0, 0, 0, 0.22),
-      0 5px 12px rgba(0, 0, 0, 0.16),
-      0 14px 32px var(--cta-glow) !important;
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.62),
+      inset 0 -3px 0 rgba(0, 0, 0, 0.28),
+      0 3px 0 rgba(0, 0, 0, 0.22),
+      0 8px 18px rgba(0, 0, 0, 0.18),
+      0 16px 34px var(--cta-glow) !important;
+  }
+  html body.dark[data-color-theme] #workout .workout-workarea .action-deck.is-session-active #primaryAction.primary:not(#__none__),
+  html body.dark:not([data-color-theme]) #workout .workout-workarea .action-deck.is-session-active #primaryAction.primary:not(#__none__),
+  html body.dark[data-color-theme] #workout .workout-workarea .action-deck.is-session-active #primaryAction.add-round-action:not(#__none__) {
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.66),
+      inset 0 -3px 0 rgba(0, 0, 0, 0.38),
+      0 3px 0 rgba(0, 0, 0, 0.48),
+      0 0 0 1px rgba(255, 255, 255, 0.12),
+      0 10px 24px rgba(0, 0, 0, 0.42),
+      0 18px 36px var(--cta-glow) !important;
   }
   /* Recessed mechanical compression when pressed */
   html body[data-color-theme] #workout .workout-workarea .action-deck:is(:not(.is-session-active), .is-session-active) #primaryAction.primary:not(#__none__):not(:disabled):is(:active, .is-physical-press),
@@ -7505,9 +7540,88 @@ body{font-size:16px}
   html body #closeFeedback:not(#__none__),
   html body #repeatLast:not(#__none__),
   html body #clearHistory:not(#__none__),
-  html body #roundButton:not(#__none__),
-  html body #voiceAction:not(#__none__),
-  html body #stopAction:not(#__none__) {
+  html body #voiceAction:not(#__none__) {
+    border-radius: 14px !important;
+  }
+  /* Preserve unified [ПАУЗА | ЗАВЕРШИТЬ] segmented capsule during active run; full 14px pill when paused */
+  html body #workout .workout-workarea .action-deck.is-session-active {
+    grid-template-columns: 62px minmax(0, 1fr) minmax(0, 1fr) !important;
+    column-gap: 0px !important;
+    row-gap: 12px !important;
+  }
+  html body #workout .workout-workarea .action-deck.is-session-active #voiceAction {
+    justify-self: start !important;
+    margin-right: 10px !important;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, #ffffff 80%, var(--panel) 20%) 0%,
+      color-mix(in srgb, var(--panel) 94%, var(--ink) 6%) 100%
+    ) !important;
+    border: 1px solid color-mix(in srgb, var(--line) 84%, #ffffff) !important;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.90),
+      inset 0 -1.5px 0 rgba(10, 20, 48, 0.06),
+      0 2px 0 color-mix(in srgb, var(--line) 74%, rgba(10, 20, 48, 0.18)),
+      0 5px 12px rgba(10, 20, 48, 0.08) !important;
+  }
+  html body.dark #workout .workout-workarea .action-deck.is-session-active #voiceAction {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--panel) 84%, rgba(255, 255, 255, 0.14)) 0%,
+      color-mix(in srgb, var(--panel) 92%, #000000 8%) 100%
+    ) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      inset 0 -1.5px 0 rgba(0, 0, 0, 0.42),
+      0 2px 0 rgba(0, 0, 0, 0.54),
+      0 6px 14px rgba(0, 0, 0, 0.36) !important;
+  }
+  html body #workout .workout-workarea .action-deck.is-session-active:not(.is-paused) #roundButton:not(#__none__) {
+    border-radius: 14px 0 0 14px !important;
+    border: 1px solid color-mix(in srgb, var(--line) 84%, #ffffff) !important;
+    border-right: 0.5px solid color-mix(in srgb, var(--line) 75%, transparent) !important;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, #ffffff 80%, var(--panel) 20%) 0%,
+      color-mix(in srgb, var(--panel) 94%, var(--ink) 6%) 100%
+    ) !important;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.90),
+      inset 0 -1.5px 0 rgba(10, 20, 48, 0.06),
+      0 2px 0 color-mix(in srgb, var(--line) 74%, rgba(10, 20, 48, 0.18)),
+      0 5px 12px rgba(10, 20, 48, 0.08) !important;
+  }
+  html body #workout .workout-workarea .action-deck.is-session-active:not(.is-paused) #stopAction:not(#__none__) {
+    border-radius: 0 14px 14px 0 !important;
+    border: 1px solid color-mix(in srgb, var(--line) 84%, #ffffff) !important;
+    border-left: 0.5px solid color-mix(in srgb, var(--line) 75%, transparent) !important;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, #ffffff 80%, var(--panel) 20%) 0%,
+      color-mix(in srgb, var(--panel) 94%, var(--ink) 6%) 100%
+    ) !important;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.90),
+      inset 0 -1.5px 0 rgba(10, 20, 48, 0.06),
+      0 2px 0 color-mix(in srgb, var(--line) 74%, rgba(10, 20, 48, 0.18)),
+      0 5px 12px rgba(10, 20, 48, 0.08) !important;
+  }
+  html body.dark #workout .workout-workarea .action-deck.is-session-active:not(.is-paused) #roundButton:not(#__none__),
+  html body.dark #workout .workout-workarea .action-deck.is-session-active:not(.is-paused) #stopAction:not(#__none__) {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--panel) 84%, rgba(255, 255, 255, 0.14)) 0%,
+      color-mix(in srgb, var(--panel) 92%, #000000 8%) 100%
+    ) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      inset 0 -1.5px 0 rgba(0, 0, 0, 0.42),
+      0 2px 0 rgba(0, 0, 0, 0.54),
+      0 6px 14px rgba(0, 0, 0, 0.36) !important;
+  }
+  html body #workout .workout-workarea .action-deck.is-session-active.is-paused #stopAction:not(#__none__) {
     border-radius: 14px !important;
   }
   html body .coach-card .coach-actions .control.secondary,
@@ -7534,16 +7648,14 @@ body{font-size:16px}
   }
   html body[data-color-theme] .choice.selected:not(#__none__),
   html body[data-color-theme] .segmented .choice.selected:not(#__none__),
-  html body[data-color-theme] .choice[aria-pressed="true"]:not(#__none__),
-  html body[data-color-theme] #profileSettingsCategories .choice.selected:not(#__none__) {
+  html body[data-color-theme] .choice[aria-pressed="true"]:not(#__none__) {
     animation: none !important;
     transform: translateY(0) scale(1) !important;
     box-shadow: var(--apple-rim-top), 0 3px 10px rgba(10, 20, 48, 0.12) !important;
   }
   html body.dark[data-color-theme] .choice.selected:not(#__none__),
   html body.dark[data-color-theme] .segmented .choice.selected:not(#__none__),
-  html body.dark[data-color-theme] .choice[aria-pressed="true"]:not(#__none__),
-  html body.dark[data-color-theme] #profileSettingsCategories .choice.selected:not(#__none__) {
+  html body.dark[data-color-theme] .choice[aria-pressed="true"]:not(#__none__) {
     box-shadow: var(--apple-rim-dark), 0 4px 14px rgba(0, 0, 0, 0.32) !important;
   }
 
@@ -7602,9 +7714,9 @@ body{font-size:16px}
     box-shadow: none !important;
   }
 
-  /* --- 6. FLOATING CAPSULE MESSENGER TAB BAR (TELEGRAM / INSTAGRAM / WHATSAPP PILL) --- */
+  /* --- 6. FLOATING FROSTED CAPSULE TAB BAR (RAISED + REAL MATTE GLASS + CONCAVE ACTIVE POCKET) --- */
   html body .shell {
-    padding-bottom: calc(88px + env(safe-area-inset-bottom)) !important;
+    padding-bottom: calc(102px + env(safe-area-inset-bottom)) !important;
   }
   html body .nav,
   html body[data-color-theme] .nav,
@@ -7613,7 +7725,7 @@ body{font-size:16px}
     z-index: 25 !important;
     left: max(16px, env(safe-area-inset-left)) !important;
     right: max(16px, env(safe-area-inset-right)) !important;
-    bottom: max(10px, calc(env(safe-area-inset-bottom) + 6px)) !important;
+    bottom: max(20px, calc(env(safe-area-inset-bottom) + 14px)) !important;
     width: auto !important;
     max-width: none !important;
     display: flex !important;
@@ -7644,15 +7756,19 @@ body{font-size:16px}
     padding: 4px !important;
     margin: 0 !important;
     border-radius: 30px !important;
-    background: color-mix(in srgb, var(--panel) 84%, transparent) !important;
-    backdrop-filter: blur(24px) saturate(185%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(185%) !important;
-    border: 1px solid color-mix(in srgb, #ffffff 74%, var(--line)) !important;
+    background: linear-gradient(
+      165deg,
+      color-mix(in srgb, #ffffff 54%, transparent) 0%,
+      color-mix(in srgb, var(--panel) 42%, transparent) 100%
+    ) !important;
+    backdrop-filter: blur(26px) saturate(210%) !important;
+    -webkit-backdrop-filter: blur(26px) saturate(210%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.72) !important;
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.90),
-      inset 0 -1.5px 3px rgba(10, 20, 48, 0.07),
-      0 10px 24px rgba(10, 20, 48, 0.13),
-      0 2px 6px rgba(10, 20, 48, 0.06) !important;
+      inset 0 1px 0 rgba(255, 255, 255, 0.88),
+      inset 0 -1.5px 3px rgba(10, 20, 48, 0.08),
+      0 12px 28px rgba(10, 20, 48, 0.16),
+      0 3px 8px rgba(10, 20, 48, 0.07) !important;
     pointer-events: auto !important;
   }
   html body .nav .nav-inner::before,
@@ -7662,12 +7778,19 @@ body{font-size:16px}
   }
   html body.dark .nav .nav-inner,
   html body.dark[data-color-theme] .nav .nav-inner {
-    background: color-mix(in srgb, var(--panel) 78%, rgba(6, 14, 24, 0.52)) !important;
-    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    background: linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--panel) 40%, rgba(28, 38, 56, 0.42)) 0%,
+      rgba(8, 14, 24, 0.46) 100%
+    ) !important;
+    backdrop-filter: blur(28px) saturate(195%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(195%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.20) !important;
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.15),
-      0 14px 34px rgba(0, 0, 0, 0.48),
-      0 3px 8px rgba(0, 0, 0, 0.28) !important;
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.35),
+      0 16px 36px rgba(0, 0, 0, 0.52),
+      0 4px 10px rgba(0, 0, 0, 0.30) !important;
   }
   html body[data-color-theme] .nav .nav-inner button,
   html body:not([data-color-theme]) .nav .nav-inner button {
@@ -7688,16 +7811,16 @@ body{font-size:16px}
     border: 1px solid transparent !important;
     background: transparent !important;
     box-shadow: none !important;
-    transform: translateY(0) !important;
+    transform: translateY(0) scale(1) !important;
     transition:
-      transform var(--dur-press) var(--ease-out),
-      background var(--dur-control) var(--ease-out),
-      color var(--dur-control) var(--ease-out),
-      border-color var(--dur-control) var(--ease-out),
-      box-shadow var(--dur-control) var(--ease-out) !important;
+      transform 220ms var(--ease-out),
+      background 220ms var(--ease-out),
+      color 180ms var(--ease-out),
+      border-color 200ms var(--ease-out),
+      box-shadow 220ms var(--ease-out) !important;
   }
   html body .nav .nav-inner button:active {
-    transform: scale(0.96) !important;
+    transform: translateY(1px) scale(0.945) !important;
   }
   html body .nav .nav-inner button .nav-icon {
     width: 18px !important;
@@ -7710,57 +7833,83 @@ body{font-size:16px}
     justify-content: center !important;
     flex: 0 0 auto !important;
     transform: none !important;
-    transition: transform var(--dur-control) var(--ease-out) !important;
+    transition: transform 200ms var(--ease-out) !important;
   }
   html body .nav .nav-inner button .nav-icon svg {
     width: 18px !important;
     height: 18px !important;
     display: block !important;
   }
+  @keyframes cindyTabConcavePress {
+    0% {
+      transform: translateY(0) scale(1);
+    }
+    46% {
+      transform: translateY(0) scale(0.93);
+    }
+    100% {
+      transform: translateY(0) scale(0.968);
+    }
+  }
   html body[data-color-theme]:not(.dark) .nav .nav-inner button.active:not(#__none__),
   html body:not([data-color-theme]):not(.dark) .nav .nav-inner button.active:not(#__none__) {
     background: linear-gradient(
       180deg,
-      color-mix(in srgb, #ffffff 97%, var(--nav-active-ink) 3%) 0%,
-      color-mix(in srgb, #ffffff 89%, var(--nav-active-ink) 11%) 56%,
-      color-mix(in srgb, var(--panel) 78%, var(--nav-active-ink) 22%) 100%
+      color-mix(in srgb, var(--nav-active-ink) 18%, rgba(10, 20, 48, 0.11)) 0%,
+      color-mix(in srgb, var(--nav-active-ink) 11%, rgba(255, 255, 255, 0.18)) 64%,
+      color-mix(in srgb, #ffffff 48%, var(--nav-active-ink) 7%) 100%
     ) !important;
-    border: 1px solid color-mix(in srgb, #ffffff 74%, var(--nav-active-ink) 26%) !important;
+    border: 1px solid color-mix(in srgb, var(--nav-active-ink) 18%, rgba(10, 20, 48, 0.14)) !important;
+    border-top-color: color-mix(in srgb, var(--nav-active-ink) 28%, rgba(10, 20, 48, 0.24)) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.72) !important;
     color: var(--nav-active-ink) !important;
     font-weight: 700 !important;
-    transform: translateY(0) !important;
+    transform: translateY(0) scale(0.968) !important;
+    animation: cindyTabConcavePress 240ms var(--ease-out) !important;
     box-shadow:
-      inset 0 2px 1px rgba(255, 255, 255, 0.98),
-      inset 0 -2.5px 4px color-mix(in srgb, var(--nav-active-ink) 14%, rgba(10, 20, 48, 0.08)),
-      0 4px 10px color-mix(in srgb, var(--nav-active-ink) 22%, rgba(10, 20, 48, 0.14)),
-      0 1px 2px rgba(10, 20, 48, 0.12) !important;
+      inset 0 2.5px 5.5px color-mix(in srgb, var(--nav-active-ink) 18%, rgba(10, 20, 48, 0.18)),
+      inset 0 1px 1.5px rgba(10, 20, 48, 0.15),
+      inset 0 -1.5px 2px rgba(255, 255, 255, 0.76),
+      0 1px 0 rgba(255, 255, 255, 0.44) !important;
   }
   html body.dark[data-color-theme] .nav .nav-inner button.active:not(#__none__),
   html body.dark:not([data-color-theme]) .nav .nav-inner button.active:not(#__none__) {
     background: linear-gradient(
       180deg,
-      color-mix(in srgb, var(--nav-active-ink) 34%, rgba(255, 255, 255, 0.22)) 0%,
-      color-mix(in srgb, var(--nav-active-ink) 22%, rgba(255, 255, 255, 0.08)) 52%,
-      color-mix(in srgb, var(--nav-active-ink) 14%, rgba(4, 10, 20, 0.78)) 100%
+      rgba(2, 6, 14, 0.62) 0%,
+      color-mix(in srgb, var(--nav-active-ink) 14%, rgba(6, 12, 24, 0.48)) 64%,
+      color-mix(in srgb, var(--nav-active-ink) 22%, rgba(255, 255, 255, 0.08)) 100%
     ) !important;
-    border: 1px solid color-mix(in srgb, var(--nav-active-ink) 48%, rgba(255, 255, 255, 0.26)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-top-color: rgba(0, 0, 0, 0.62) !important;
+    border-bottom-color: color-mix(in srgb, var(--nav-active-ink) 28%, rgba(255, 255, 255, 0.18)) !important;
     color: var(--nav-active-ink) !important;
     font-weight: 700 !important;
-    transform: translateY(0) !important;
+    transform: translateY(0) scale(0.968) !important;
+    animation: cindyTabConcavePress 240ms var(--ease-out) !important;
     box-shadow:
-      inset 0 2px 1px rgba(255, 255, 255, 0.34),
-      inset 0 -3px 6px rgba(0, 0, 0, 0.58),
-      0 5px 14px rgba(0, 0, 0, 0.55),
-      0 1px 3px color-mix(in srgb, var(--nav-active-ink) 28%, transparent) !important;
+      inset 0 3px 7px rgba(0, 0, 0, 0.68),
+      inset 0 1px 2px rgba(0, 0, 0, 0.52),
+      inset 0 -1px 1.5px color-mix(in srgb, var(--nav-active-ink) 24%, rgba(255, 255, 255, 0.16)),
+      0 1px 0 rgba(255, 255, 255, 0.08) !important;
   }
   html body .nav .nav-inner button.active .nav-icon {
-    transform: scale(1.04) !important;
+    transform: scale(0.94) !important;
   }
 
-  /* --- 7. PROGRESS STATS GRID: ZERO CLIPPING & BALANCED 2x3 MOBILE LAYOUT --- */
+  /* --- 7. PROGRESS STATS GRID (3D TILES) & TACTILE HISTORY CARDS --- */
   html body .progress-activity-card {
     overflow: hidden !important;
-    box-shadow: var(--apple-shadow-card) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.85),
+      0 2px 0 color-mix(in srgb, var(--line) 76%, rgba(10, 20, 48, 0.14)),
+      var(--apple-shadow-card) !important;
+  }
+  html body.dark .progress-activity-card {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.16),
+      0 2px 0 rgba(0, 0, 0, 0.52),
+      0 12px 30px rgba(0, 0, 0, 0.42) !important;
   }
   html body .progress-stats-grid {
     display: grid !important;
@@ -7781,6 +7930,30 @@ body{font-size:16px}
     padding: 12px 11px !important;
     border-radius: 14px !important;
     overflow: hidden !important;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, #ffffff 82%, var(--paper) 18%) 0%,
+      color-mix(in srgb, var(--paper) 92%, var(--panel) 8%) 100%
+    ) !important;
+    border: 1px solid color-mix(in srgb, var(--line) 80%, #ffffff) !important;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.94),
+      inset 0 -1.5px 0 rgba(10, 20, 48, 0.05),
+      0 2px 0 color-mix(in srgb, var(--line) 72%, rgba(10, 20, 48, 0.15)),
+      0 4px 10px rgba(10, 20, 48, 0.06) !important;
+  }
+  html body.dark .progress-stat-tile {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--panel) 78%, rgba(255, 255, 255, 0.11)) 0%,
+      color-mix(in srgb, var(--paper) 84%, #000000 16%) 100%
+    ) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.19),
+      inset 0 -1.5px 0 rgba(0, 0, 0, 0.36),
+      0 2px 0 rgba(0, 0, 0, 0.46),
+      0 5px 12px rgba(0, 0, 0, 0.28) !important;
   }
   html body .progress-stat-tile span,
   html body .progress-stat-tile small {
@@ -7795,6 +7968,39 @@ body{font-size:16px}
   html body .progress-activity-card .activity-badge {
     font-size: 11px !important;
     padding: 4px 10px !important;
+  }
+  html body #progressHistorySection .history-card:not(#__none__),
+  html body #progressAnalytics .achievements-section:not(#__none__) {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, #ffffff 74%, var(--panel) 26%) 0%,
+      color-mix(in srgb, var(--panel) 95%, var(--ink) 5%) 100%
+    ) !important;
+    border: 1px solid color-mix(in srgb, var(--line) 82%, #ffffff) !important;
+    border-radius: 18px !important;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.90),
+      inset 0 -1.5px 0 rgba(10, 20, 48, 0.05),
+      0 2px 0 color-mix(in srgb, var(--line) 74%, rgba(10, 20, 48, 0.16)),
+      0 6px 16px rgba(10, 20, 48, 0.08) !important;
+    transition: transform var(--dur-press) var(--ease-out), box-shadow var(--dur-control) var(--ease-out) !important;
+  }
+  html body.dark #progressHistorySection .history-card:not(#__none__),
+  html body.dark #progressAnalytics .achievements-section:not(#__none__) {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--panel) 84%, rgba(255, 255, 255, 0.12)) 0%,
+      color-mix(in srgb, var(--panel) 94%, #000000 6%) 100%
+    ) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.20),
+      inset 0 -1.5px 0 rgba(0, 0, 0, 0.38),
+      0 2px 0 rgba(0, 0, 0, 0.50),
+      0 8px 20px rgba(0, 0, 0, 0.36) !important;
+  }
+  html body #progressHistorySection .history-card summary:active {
+    transform: scale(0.988) !important;
   }
 
   /* --- 8. PROFILE HERO, COACH CARDS (ZERO DECORATIVE RINGS), PALETTE 3x4, HAPTICS 2x2 --- */
@@ -7994,23 +8200,72 @@ body{font-size:16px}
   html body .profile-stats-card .development-path span {
     font-size: 11px !important;
   }
-  html body #profileSettingsCategories {
+  /* --- PROFILE SETTINGS IN-PLACE ACCORDION (INTERLEAVED LIKE WORKOUT HISTORY) + 3D VOLUME --- */
+  html body #profileSettingsSection {
     display: flex !important;
     flex-direction: column !important;
-    gap: 10px !important;
+    gap: 0 !important;
   }
-  html body #profileSettingsCategories .choice {
+  html body #profileSettingsCategories,
+  html body #profileSettingsDetails {
+    display: contents !important;
+  }
+  html body #profileSettingsCategories .choice:not(#__none__) {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
     justify-content: space-between !important;
     gap: 12px !important;
     width: 100% !important;
-    min-height: 62px !important;
+    min-height: 58px !important;
     height: auto !important;
     padding: 13px 15px !important;
-    border-radius: 18px !important;
+    margin-bottom: 10px !important;
+    border-radius: 16px !important;
     text-align: left !important;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, #ffffff 78%, var(--panel) 22%) 0%,
+      color-mix(in srgb, var(--panel) 95%, var(--ink) 5%) 100%
+    ) !important;
+    border: 1px solid color-mix(in srgb, var(--line) 82%, #ffffff) !important;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.92),
+      inset 0 -1.5px 0 rgba(10, 20, 48, 0.05),
+      0 2px 0 color-mix(in srgb, var(--line) 72%, rgba(10, 20, 48, 0.16)),
+      0 5px 12px rgba(10, 20, 48, 0.08) !important;
+  }
+  html body.dark #profileSettingsCategories .choice:not(#__none__) {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--panel) 82%, rgba(255, 255, 255, 0.14)) 0%,
+      color-mix(in srgb, var(--panel) 92%, #000000 8%) 100%
+    ) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      inset 0 -1.5px 0 rgba(0, 0, 0, 0.40),
+      0 2px 0 rgba(0, 0, 0, 0.54),
+      0 6px 14px rgba(0, 0, 0, 0.38) !important;
+  }
+  html body #profileSettingsCategories .choice:is(.selected, [aria-expanded="true"]):not(#__none__) {
+    margin-bottom: 6px !important;
+    background: linear-gradient(135deg, var(--primary-a, #1d2a4d), var(--primary-b, #0a1430)) !important;
+    color: var(--primary-ink, #ffffff) !important;
+    border-color: color-mix(in srgb, var(--primary-b, #0a1430) 72%, rgba(255, 255, 255, 0.28)) !important;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.34),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.26),
+      0 2px 0 rgba(0, 0, 0, 0.22),
+      0 7px 18px rgba(10, 20, 48, 0.18) !important;
+  }
+  html body.dark #profileSettingsCategories .choice:is(.selected, [aria-expanded="true"]):not(#__none__) {
+    border-color: rgba(255, 255, 255, 0.26) !important;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.32),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.42),
+      0 2px 0 rgba(0, 0, 0, 0.56),
+      0 8px 20px rgba(0, 0, 0, 0.42) !important;
   }
   html body #profileSettingsCategories .choice .settings-choice-copy {
     flex: 1 1 auto !important;
@@ -8029,11 +8284,11 @@ body{font-size:16px}
   }
   html body #profileSettingsCategories .choice.selected .settings-choice-copy small,
   html body #profileSettingsCategories .choice[aria-expanded="true"] .settings-choice-copy small {
-    color: rgba(255, 255, 255, 0.80) !important;
+    color: rgba(255, 255, 255, 0.84) !important;
   }
   html body.dark #profileSettingsCategories .choice.selected .settings-choice-copy small,
   html body.dark #profileSettingsCategories .choice[aria-expanded="true"] .settings-choice-copy small {
-    color: rgba(255, 255, 255, 0.82) !important;
+    color: rgba(255, 255, 255, 0.86) !important;
   }
   html body #profileSettingsCategories .choice .settings-chevron {
     display: inline-flex !important;
@@ -8050,10 +8305,27 @@ body{font-size:16px}
     line-height: 1 !important;
     font-style: normal !important;
     padding-bottom: 2px !important;
-    transition: transform var(--dur-control) var(--ease-out), background-color var(--dur-control) var(--ease-out) !important;
+    background: color-mix(in srgb, var(--ink) 7%, transparent) !important;
+    transition: background-color var(--dur-control) var(--ease-out), color var(--dur-control) var(--ease-out) !important;
   }
-  html body #profileSettingsCategories .choice[aria-expanded="true"] .settings-chevron {
-    padding-bottom: 6px !important;
+  html body.dark #profileSettingsCategories .choice .settings-chevron {
+    background: rgba(255, 255, 255, 0.10) !important;
+  }
+  html body:not(.dark) #profileSettingsCategories .choice[aria-expanded="true"] .settings-chevron {
+    background: rgba(255, 255, 255, 0.90) !important;
+    color: #111111 !important;
+    transform: none !important;
+    padding-bottom: 8px !important;
+  }
+  html body.dark #profileSettingsCategories .choice[aria-expanded="true"] .settings-chevron {
+    background: rgba(255, 255, 255, 0.22) !important;
+    color: #ffffff !important;
+    transform: none !important;
+    padding-bottom: 8px !important;
+  }
+  html body #profileSettingsDetails > section:not(.hidden) {
+    margin-top: -2px !important;
+    margin-bottom: 14px !important;
   }
 
   /* Feedback Modal Polish */
@@ -8149,15 +8421,16 @@ body{font-size:16px}
   @keyframes cindyAppleDetailEnter {
     from {
       opacity: 0;
-      transform: translate3d(0, 8px, 0);
+      transform: translate3d(0, -6px, 0) scaleY(0.96);
     }
     to {
       opacity: 1;
-      transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0) scaleY(1);
     }
   }
-  html body #profileSettingsDetails > section:not(.hidden) {
-    animation: cindyAppleDetailEnter 210ms var(--ease-out) both !important;
+  html body #profileSettingsDetails > section:not(.hidden):not(.is-closing) {
+    transform-origin: top center !important;
+    animation: cindyAppleDetailEnter 230ms var(--ease-drawer) both !important;
   }
 
   @keyframes cindyAppleBackdropIn {
@@ -8354,16 +8627,24 @@ body{font-size:16px}
       0 14px 34px rgba(0, 0, 0, 0.36) !important;
   }
 
-  /* Nested Glass Sub-tiles */
+  /* Nested Glass Sub-tiles (3D Tactile Crystal Tiles) */
   html body[data-color-theme="glass"] :is(.progress-stat-tile, .profile-metric, .achievement, .development-path, .lap-item) {
-    background: rgba(255, 255, 255, 0.44) !important;
-    border-color: rgba(255, 255, 255, 0.72) !important;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75) !important;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.56) 0%, rgba(232, 249, 254, 0.36) 100%) !important;
+    border-color: rgba(255, 255, 255, 0.78) !important;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.88),
+      inset 0 -1.5px 0 rgba(14, 116, 144, 0.08),
+      0 2px 0 rgba(14, 116, 144, 0.14),
+      0 4px 10px rgba(8, 54, 70, 0.06) !important;
   }
   html body.dark[data-color-theme="glass"] :is(.progress-stat-tile, .profile-metric, .achievement, .development-path, .lap-item) {
-    background: rgba(20, 56, 70, 0.40) !important;
-    border-color: rgba(165, 243, 252, 0.16) !important;
-    box-shadow: inset 0 1px 0 rgba(207, 250, 254, 0.14) !important;
+    background: linear-gradient(180deg, rgba(28, 74, 92, 0.48) 0%, rgba(12, 38, 49, 0.36) 100%) !important;
+    border-color: rgba(165, 243, 252, 0.20) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(207, 250, 254, 0.20),
+      inset 0 -1.5px 0 rgba(0, 0, 0, 0.36),
+      0 2px 0 rgba(0, 0, 0, 0.42),
+      0 5px 12px rgba(0, 0, 0, 0.26) !important;
   }
 
   /* Frosted Smoked-Crystal Practice Card & Zero Double-Box Behind Rep Squares */
@@ -8417,23 +8698,35 @@ body{font-size:16px}
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 2px 8px rgba(8, 54, 70, 0.05) !important;
   }
   html body.dark[data-color-theme="glass"] :is(.choice, .control.secondary, .top-icon, .setting-stepper, .exercise-chip, #profileSettingsCategories .choice) {
-    background: rgba(18, 50, 62, 0.48) !important;
+    background: linear-gradient(180deg, rgba(24, 66, 82, 0.54) 0%, rgba(12, 38, 48, 0.44) 100%) !important;
     backdrop-filter: blur(14px) saturate(170%) !important;
     -webkit-backdrop-filter: blur(14px) saturate(170%) !important;
-    border-color: rgba(165, 243, 252, 0.18) !important;
-    box-shadow: inset 0 1px 0 rgba(207, 250, 254, 0.14), 0 3px 10px rgba(0, 0, 0, 0.24) !important;
+    border-color: rgba(165, 243, 252, 0.22) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(207, 250, 254, 0.20),
+      inset 0 -1.5px 0 rgba(0, 0, 0, 0.36),
+      0 2px 0 rgba(0, 0, 0, 0.44),
+      0 4px 12px rgba(0, 0, 0, 0.28) !important;
   }
-  html body[data-color-theme="glass"] :is(.choice.selected, .segmented .choice.selected, .choice[aria-pressed="true"], #profileSettingsCategories .choice.selected, .exercise-chip.selected) {
+  html body[data-color-theme="glass"] :is(.choice.selected, .segmented .choice.selected, .choice[aria-pressed="true"], #profileSettingsCategories .choice.selected, #profileSettingsCategories .choice[aria-expanded="true"], .exercise-chip.selected) {
     background: linear-gradient(148deg, #214e5d 0%, #11303b 100%) !important;
     border-color: rgba(255, 255, 255, 0.44) !important;
     color: #ffffff !important;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 6px 16px rgba(17, 48, 59, 0.20) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.32),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.22),
+      0 2px 0 rgba(10, 32, 42, 0.24),
+      0 7px 16px rgba(17, 48, 59, 0.22) !important;
   }
-  html body.dark[data-color-theme="glass"] :is(.choice.selected, .segmented .choice.selected, .choice[aria-pressed="true"], #profileSettingsCategories .choice.selected, .exercise-chip.selected) {
-    background: linear-gradient(148deg, rgba(42, 92, 108, 0.78) 0%, rgba(20, 52, 64, 0.86) 100%) !important;
-    border-color: rgba(207, 238, 248, 0.36) !important;
+  html body.dark[data-color-theme="glass"] :is(.choice.selected, .segmented .choice.selected, .choice[aria-pressed="true"], #profileSettingsCategories .choice.selected, #profileSettingsCategories .choice[aria-expanded="true"], .exercise-chip.selected) {
+    background: linear-gradient(148deg, rgba(42, 92, 108, 0.80) 0%, rgba(20, 52, 64, 0.88) 100%) !important;
+    border-color: rgba(207, 238, 248, 0.38) !important;
     color: #f0f9fc !important;
-    box-shadow: inset 0 1px 0 rgba(224, 249, 255, 0.24), 0 6px 18px rgba(0, 0, 0, 0.32) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(224, 249, 255, 0.28),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.38),
+      0 2px 0 rgba(0, 0, 0, 0.48),
+      0 7px 18px rgba(0, 0, 0, 0.34) !important;
   }
   html body[data-color-theme="glass"] #profileSettingsCategories .choice:not(.selected) .settings-choice-copy small {
     color: #3c6573 !important;
@@ -8441,7 +8734,8 @@ body{font-size:16px}
   html body.dark[data-color-theme="glass"] #profileSettingsCategories .choice:not(.selected) .settings-choice-copy small {
     color: #9bc8d4 !important;
   }
-  html body[data-color-theme="glass"] #profileSettingsCategories .choice.selected .settings-choice-copy small {
+  html body[data-color-theme="glass"] #profileSettingsCategories .choice.selected .settings-choice-copy small,
+  html body[data-color-theme="glass"] #profileSettingsCategories .choice[aria-expanded="true"] .settings-choice-copy small {
     color: rgba(255, 255, 255, 0.86) !important;
   }
   html body[data-color-theme="glass"] #profileSettingsCategories .choice .settings-chevron {
@@ -8452,9 +8746,15 @@ body{font-size:16px}
     background: rgba(165, 243, 252, 0.14) !important;
     color: #a5f3fc !important;
   }
-  html body[data-color-theme="glass"] #profileSettingsCategories .choice.selected .settings-chevron {
-    background: rgba(255, 255, 255, 0.24) !important;
+  html body[data-color-theme="glass"]:not(.dark) #profileSettingsCategories .choice:is(.selected, [aria-expanded="true"]) .settings-chevron {
+    background: rgba(255, 255, 255, 0.90) !important;
+    color: #111111 !important;
+    transform: none !important;
+  }
+  html body.dark[data-color-theme="glass"] #profileSettingsCategories .choice:is(.selected, [aria-expanded="true"]) .settings-chevron {
+    background: rgba(255, 255, 255, 0.22) !important;
     color: #ffffff !important;
+    transform: none !important;
   }
 
   /* Frosted Builder Slots & Drag Handles + Frosted Toast & Active Workout Secondary/Stop */
@@ -8500,20 +8800,20 @@ body{font-size:16px}
 
   /* Liquid Glass Floating Capsule & Modals (Glass Theme Only) */
   html body[data-color-theme="glass"] .nav .nav-inner {
-    background: linear-gradient(160deg, rgba(255, 255, 255, 0.72) 0%, rgba(232, 249, 254, 0.52) 100%) !important;
-    backdrop-filter: blur(28px) saturate(200%) !important;
-    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.88) !important;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.44) 0%, rgba(226, 247, 253, 0.32) 100%) !important;
+    backdrop-filter: blur(28px) saturate(215%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(215%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.84) !important;
     box-shadow:
-      inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.94),
       inset 0 -1px 0 rgba(14, 116, 144, 0.08),
-      0 12px 32px rgba(8, 56, 72, 0.16),
+      0 14px 34px rgba(8, 56, 72, 0.16),
       0 3px 8px rgba(8, 56, 72, 0.06) !important;
   }
   html body.dark[data-color-theme="glass"] .nav .nav-inner {
-    background: linear-gradient(160deg, rgba(16, 52, 66, 0.64) 0%, rgba(6, 24, 34, 0.58) 100%) !important;
-    backdrop-filter: blur(28px) saturate(190%) !important;
-    -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+    background: linear-gradient(160deg, rgba(16, 54, 68, 0.44) 0%, rgba(6, 24, 34, 0.36) 100%) !important;
+    backdrop-filter: blur(28px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
     border: 1px solid rgba(165, 243, 252, 0.28) !important;
     box-shadow:
       inset 0 1.5px 0 rgba(224, 249, 255, 0.24),
