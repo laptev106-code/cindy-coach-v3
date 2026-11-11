@@ -15,6 +15,13 @@
       ['pointerdown','keydown','touchstart'].forEach(type=>{
         window.addEventListener(type,getAudioContext,{once:true,passive:true});
       });
+      if(typeof document!=='undefined'&&typeof document.addEventListener==='function'){
+        document.addEventListener('visibilitychange',()=>{
+          if(document.visibilityState==='visible'&&audioContext&&audioContext.state==='suspended'){
+            audioContext.resume().catch(()=>{});
+          }
+        });
+      }
     }
     const haptic=(kind)=>{
       const config=typeof getConfig==='function'?getConfig():null;

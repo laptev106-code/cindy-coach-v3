@@ -89,6 +89,7 @@ function createBrowserLikeSandbox(){
     querySelector(){return createElement();},
     querySelectorAll(){return [];},
     createElement(){return createElement();},
+    createElementNS(){return createElement();},
     createTextNode(text){const node=createElement();node.textContent=String(text??'');node.nodeValue=String(text??'');return node;},
     createTreeWalker(root){const nodes=[];const walk=(node)=>{if(!node)return;for(const child of (node.children||[])){if(child&&('nodeValue' in child)&&child.nodeValue!=null)nodes.push(child);walk(child)}};walk(root);let index=0;return{nextNode(){return index<nodes.length?nodes[index++]:null;}};},
     addEventListener(type,fn){listeners.set(type,fn);},
