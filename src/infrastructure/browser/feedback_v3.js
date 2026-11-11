@@ -2,6 +2,20 @@
   'use strict';
   const create=({getConfig})=>{
     let audioContext=null;
+    const getAudioContext=()=>{
+      try{
+        const A=window.AudioContext||window.webkitAudioContext;
+        if(!A)return null;
+        if(!audioContext)audioContext=new A();
+        if(audioContext.state==='suspended')audioContext.resume().catch(()=>{});
+        return audioContext;
+      }catch(_){return null;}
+    };
+    if(typeof window!=='undefined'&&typeof window.addEventListener==='function'){
+      ['pointerdown','keydown','touchstart'].forEach(type=>{
+        window.addEventListener(type,getAudioContext,{once:true,passive:true});
+      });
+    }
     const haptic=(kind)=>{
       const config=typeof getConfig==='function'?getConfig():null;
       if(!navigator.vibrate||!config?.hapticMode)return;
@@ -13,22 +27,27 @@
       const config=typeof getConfig==='function'?getConfig():null;
       if(!config?.sound)return;
       try{
-        const A=window.AudioContext||window.webkitAudioContext;
-        if(!A)return;
-        audioContext=audioContext||new A();
-        if(audioContext.state==='suspended')audioContext.resume();
-        const now=audioContext.currentTime;
-        sequence.forEach(([frequency,at,length,volume])=>{
-          const oscillator=audioContext.createOscillator(),gain=audioContext.createGain();
-          oscillator.type='sine';
-          oscillator.frequency.value=frequency;
-          gain.gain.setValueAtTime(volume,now+at);
-          gain.gain.exponentialRampToValueAtTime(.001,now+at+length);
-          oscillator.connect(gain);
-          gain.connect(audioContext.destination);
-          oscillator.start(now+at);
-          oscillator.stop(now+at+length+.01);
-        });
+        const ctx=getAudioContext();
+        if(!ctx)return;
+        const play=()=>{
+          const now=ctx.currentTime;
+          sequence.forEach(([frequency,at,length,volume])=>{
+            const oscillator=ctx.createOscillator(),gain=ctx.createGain();
+            oscillator.type='sine';
+            oscillator.frequency.value=frequency;
+            gain.gain.setValueAtTime(Math.max(0.001,volume),now+at);
+            gain.gain.exponentialRampToValueAtTime(.0001,now+at+length);
+            oscillator.connect(gain);
+            gain.connect(ctx.destination);
+            oscillator.start(now+at);
+            oscillator.stop(now+at+length+.02);
+          });
+        };
+        if(ctx.state==='suspended'){
+          ctx.resume().then(play).catch(()=>{});
+        }else{
+          play();
+        }
       }catch(_){}
     };
     const feedback=(kind='lap')=>{
@@ -36,12 +55,24 @@
       haptic(kind);
       if(!config)return;
       if(kind==='cue'){
-        const tone={click:[[880,0,.025,.017]],soft:[[560,0,.07,.019]],double:[[720,0,.025,.016],[880,.07,.025,.014]],tone:[[680,0,.1,.018]]}[config.cueTone]||[];
+        const tone={
+          click:[[1200,0,.03,.32]],
+          soft:[[560,0,.09,.30]],
+          double:[[720,0,.035,.28],[880,.07,.04,.30]],
+          tone:[[680,0,.12,.32]]
+        }[config.cueTone]||[[560,0,.09,.30]];
         toneSequence(tone);
         return;
       }
-      if(kind==='pace'){toneSequence([[640,0,.055,.015]]);return;}
-      toneSequence(kind==='finish'?[[780,0,.1,.025]]:kind==='start'?[[520,0,.07,.018]]:[[620,0,.09,.024]]);
+      if(kind==='pace'){toneSequence([[640,0,.06,.26]]);return;}
+      if(kind==='pause'){toneSequence([[520,0,.07,.28],[420,.08,.09,.25]]);return;}
+      if(kind==='voice-start'){toneSequence([[880,0,.04,.25]]);return;}
+      if(kind==='voice-recognized'){toneSequence([[660,0,.04,.28],[880,.05,.07,.30]]);return;}
+      toneSequence(
+        kind==='finish'?[[520,0,.08,.30],[660,.09,.08,.32],[880,.18,.22,.38]]:
+        kind==='start'?[[520,0,.08,.32],[780,.09,.14,.35]]:
+        [[660,0,.09,.35]]
+      );
     };
     return Object.freeze({haptic,toneSequence,feedback});
   };

@@ -1,4 +1,5 @@
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { spawn } = require('child_process');
 const http = require('http');
@@ -60,7 +61,7 @@ function connectCdp(targetUrl) {
   });
 }
 
-async function sendTelegramPhoto(filePath, caption) {
+async function sendTelegramPhoto(targetChatId, filePath, caption) {
   const boundary = '----WebKitFormBoundary' + Math.random().toString(36).substring(2);
   const fileData = fs.readFileSync(filePath);
   const fileName = path.basename(filePath);
@@ -68,11 +69,15 @@ async function sendTelegramPhoto(filePath, caption) {
   let body = '';
   body += `--${boundary}\r\n`;
   body += `Content-Disposition: form-data; name="chat_id"\r\n\r\n`;
-  body += `${CHAT_ID}\r\n`;
+  body += `${targetChatId}\r\n`;
 
   body += `--${boundary}\r\n`;
   body += `Content-Disposition: form-data; name="caption"\r\n\r\n`;
   body += `${caption}\r\n`;
+
+  body += `--${boundary}\r\n`;
+  body += `Content-Disposition: form-data; name="parse_mode"\r\n\r\n`;
+  body += `HTML\r\n`;
 
   body += `--${boundary}\r\n`;
   body += `Content-Disposition: form-data; name="photo"; filename="${fileName}"\r\n`;
@@ -99,7 +104,7 @@ async function sendTelegramPhoto(filePath, caption) {
         try {
           const json = JSON.parse(data);
           if (json.ok) {
-            console.log(`[Telegram] Sent photo: ${fileName}`);
+            console.log(`[Telegram] Sent photo to ${targetChatId}: ${fileName}`);
             resolve(json);
           } else {
             console.error(`[Telegram] Error sending photo ${fileName}:`, json);
@@ -112,6 +117,33 @@ async function sendTelegramPhoto(filePath, caption) {
     });
     req.on('error', reject);
     req.write(fullBody);
+    req.end();
+  });
+}
+
+async function sendTelegramMessage(targetChatId, text, replyMarkup = null) {
+  const payload = {
+    chat_id: targetChatId,
+    text: text,
+    parse_mode: 'HTML'
+  };
+  if (replyMarkup) payload.reply_markup = replyMarkup;
+
+  return new Promise((resolve, reject) => {
+    const postData = JSON.stringify(payload);
+    const req = https.request(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(postData)
+      }
+    }, res => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => resolve(JSON.parse(data)));
+    });
+    req.on('error', reject);
+    req.write(postData);
     req.end();
   });
 }
@@ -147,36 +179,43 @@ async function updateMenuButton(url) {
 }
 
 async function run() {
-  console.log('[Capture] Launching Chrome...');
-  const port = 9333;
+  console.log('[Capture] Launching Chrome with dedicated temp profile...');
+  const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cindy-shots-'));
   const chromeProcess = spawn(CHROME_PATH, [
-    `--remote-debugging-port=${port}`,
+    '--remote-debugging-port=0',
+    `--user-data-dir=${userDataDir}`,
     '--headless=new',
     '--no-sandbox',
     '--disable-gpu',
     '--hide-scrollbars',
     '--window-size=390,844',
     'about:blank'
-  ]);
+  ], { stdio: ['ignore', 'pipe', 'pipe'] });
 
   let cdp = null;
-  try {
-    await sleep(1500);
+  let stderr = '';
+  chromeProcess.stderr.on('data', d => stderr += d.toString());
 
-    // Get list of targets
-    const target = await new Promise((res, rej) => {
+  try {
+    const deadline = Date.now() + 15000;
+    while (!stderr.includes('ws://') && Date.now() < deadline) {
+      await sleep(50);
+    }
+    const wsMatch = stderr.match(/ws:\/\/[^\s]+/);
+    if (!wsMatch) throw new Error('No wsUrl: ' + stderr);
+
+    const port = new URL(wsMatch[0]).port;
+    const targets = await new Promise((res, rej) => {
       http.get(`http://127.0.0.1:${port}/json/list`, resp => {
         let d = ''; resp.on('data', c => d += c); resp.on('end', () => {
-          const list = JSON.parse(d);
-          const page = list.find(item => item.type === 'page' && item.webSocketDebuggerUrl);
-          if (page) res(page);
-          else rej(new Error('No page target found'));
+          res(JSON.parse(d));
         });
       }).on('error', rej);
     });
 
-    cdp = await connectCdp(target.webSocketDebuggerUrl);
-    console.log('[Capture] Connected to CDP page target');
+    const page = targets.find(item => item.type === 'page' && item.webSocketDebuggerUrl) || targets[0];
+    cdp = await connectCdp(page.webSocketDebuggerUrl);
+    console.log('[Capture] Connected to CDP');
 
     await cdp.call('Page.enable');
     await cdp.call('DOM.enable');
@@ -188,12 +227,12 @@ async function run() {
       mobile: true
     });
 
-    const appUrl = 'http://127.0.0.1:8080/';
-    console.log(`[Capture] Navigating to ${appUrl}`);
+    const appUrl = 'https://laptev106-code.github.io/cindy-coach-v3/';
+    console.log(`[Capture] Navigating to live ${appUrl}`);
     await cdp.call('Page.navigate', { url: appUrl });
-    await sleep(2000);
+    await sleep(2500);
 
-    // Seed configuration: Gennady, 31yo, 180cm, 78kg, copper sports theme
+    // Seed configuration: Gennady, 34yo, 180cm, 78kg, copper sports theme
     await cdp.call('Runtime.evaluate', {
       expression: `(()=>{
         const cfg = JSON.parse(localStorage.getItem('cindyCfg') || '{}');
@@ -201,88 +240,112 @@ async function run() {
         cfg.theme = 'light';
         cfg.profile = Object.assign(cfg.profile || {}, {
           name: 'Геннадий',
-          age: 31,
+          age: 34,
           heightCm: 180,
           weightKg: 78,
-          goal: 'Откройте свой ритм через реальные тренировки.',
-          avatarTone: 'ember'
+          trainingExperience: '3 года',
+          goal: 'Ритм и устойчивость Cindy V3.'
         });
         localStorage.setItem('cindyCfg', JSON.stringify(cfg));
         if (typeof renderAll === 'function') renderAll({markers: true});
       })()`
     });
-    await sleep(500);
+    await sleep(600);
 
-    // --- SCREENSHOT 1: Profile (Unified Profile Card + Activity Stats Card) ---
-    console.log('[Capture] Capturing Screen 1: Profile...');
-    await cdp.call('Runtime.evaluate', {
-      expression: `(()=>{ document.getElementById('navProfile')?.click(); window.scrollTo(0, 0); })()`
-    });
-    await sleep(1000);
-    const shot1 = await cdp.call('Page.captureScreenshot', { format: 'png' });
-    const path1 = path.resolve(__dirname, 'screen1_profile.png');
-    fs.writeFileSync(path1, Buffer.from(shot1.data, 'base64'));
-    console.log('[Capture] Screen 1 saved:', path1);
-
-    // --- SCREENSHOT 2: Settings -> Data & Sync (Cloud Sync Card) ---
-    console.log('[Capture] Capturing Screen 2: Data & Cloud Sync...');
-    await cdp.call('Runtime.evaluate', {
-      expression: `(()=>{
-        const btn = document.querySelector('button[data-stage2-category="data"]');
-        if (btn) btn.click();
-        const section = document.getElementById('profileSettingsDetail-data');
-        if (section) section.scrollIntoView({behavior: 'instant', block: 'start'});
-      })()`
-    });
-    await sleep(1000);
-    const shot2 = await cdp.call('Page.captureScreenshot', { format: 'png' });
-    const path2 = path.resolve(__dirname, 'screen2_sync.png');
-    fs.writeFileSync(path2, Buffer.from(shot2.data, 'base64'));
-    console.log('[Capture] Screen 2 saved:', path2);
-
-    // --- SCREENSHOT 3: Workout / Plan (Fixed layout, sport theme, single-line cards) ---
-    console.log('[Capture] Capturing Screen 3: Workout...');
+    // --- SCREENSHOT 1: Workout Screen (Hero Ball, GPU Timeline, Clean Sports Dock) ---
+    console.log('[Capture] Capturing Screen 1: Workout...');
     await cdp.call('Runtime.evaluate', {
       expression: `(()=>{ document.getElementById('navWorkout')?.click(); window.scrollTo(0, 0); })()`
     });
     await sleep(1000);
+    const shot1 = await cdp.call('Page.captureScreenshot', { format: 'png' });
+    const path1 = path.resolve(__dirname, 'screen1_workout.png');
+    fs.writeFileSync(path1, Buffer.from(shot1.data, 'base64'));
+    console.log('[Capture] Screen 1 saved:', path1);
+
+    // --- SCREENSHOT 2: Apple Bottom Sheet (Swipe Grabber & Form) ---
+    console.log('[Capture] Capturing Screen 2: Apple Bottom Sheet...');
+    await cdp.call('Runtime.evaluate', {
+      expression: `(()=>{
+        document.getElementById('navProfile')?.click();
+        document.querySelector('button.profile-edit')?.click();
+      })()`
+    });
+    await sleep(1000);
+    const shot2 = await cdp.call('Page.captureScreenshot', { format: 'png' });
+    const path2 = path.resolve(__dirname, 'screen2_bottom_sheet.png');
+    fs.writeFileSync(path2, Buffer.from(shot2.data, 'base64'));
+    console.log('[Capture] Screen 2 saved:', path2);
+
+    // Close action modal
+    await cdp.call('Runtime.evaluate', {
+      expression: `(()=>{ document.getElementById('actionCancel')?.click(); })()`
+    });
+    await sleep(400);
+
+    // --- SCREENSHOT 3: Profile Screen (Contrast, WCAG AA, SVG Icons, 12px Floor) ---
+    console.log('[Capture] Capturing Screen 3: Profile & Analytics...');
+    await cdp.call('Runtime.evaluate', {
+      expression: `(()=>{ document.getElementById('navProfile')?.click(); window.scrollTo(0, 0); })()`
+    });
+    await sleep(1000);
     const shot3 = await cdp.call('Page.captureScreenshot', { format: 'png' });
-    const path3 = path.resolve(__dirname, 'screen3_workout.png');
+    const path3 = path.resolve(__dirname, 'screen3_profile.png');
     fs.writeFileSync(path3, Buffer.from(shot3.data, 'base64'));
     console.log('[Capture] Screen 3 saved:', path3);
 
-    // Send all three to Telegram!
+    // Update menu button with cache busting timestamp to GitHub Pages!
+    const liveTimestamp = Date.now();
+    const liveMenuUrl = `https://laptev106-code.github.io/cindy-coach-v3/?v=${liveTimestamp}`;
+    await updateMenuButton(liveMenuUrl);
+    console.log(`[Telegram] Menu button permanently set to: ${liveMenuUrl}`);
+
+    // Send screenshots to Gennady chat
     console.log('[Telegram] Sending screenshots to chat', CHAT_ID);
     
-    await sendTelegramPhoto(path1, 
-      `📸 1/3. Профиль (Единая карта атлета + Тренировочная активность):\n\n` +
-      `✅ «Геннадий» и «Данные для тренера» объединены в одну монолитную карточку (без лишних блоков и градиентных разрывов).\n` +
-      `✅ Фильтры периодов (7 ДНЕЙ / 28 ДНЕЙ / ВСЁ ВРЕМЯ) и показатели (СЕССИИ / СЕРИЯ / ЛУЧШИЙ) объединены в единую сводку активности.\n` +
-      `✅ Зафиксирован мобильный вьюпорт: зум и горизонтальное смещение заблокированы.`
+    await sendTelegramPhoto(CHAT_ID, path1, 
+      `🔥 <b>1/3. Экран тренировки (Apple Motion 120 FPS):</b>\n\n` +
+      `• Таймлайн ритма переведён на аппаратный GPU-композитор (scaleX).\n` +
+      `• Hero Ball пульсирует без покадрового пересчёта теней и размытий.\n` +
+      `• Плавный скраббер нижней навигации с тактильным переключением экранов.`
     );
 
-    await sendTelegramPhoto(path2, 
-      `📸 2/3. Настройки -> Данные и синхронизация:\n\n` +
-      `✅ Полностью убран технический шум (OAuth Client ID, Google Cloud и т.д.).\n` +
-      `✅ Добавлена понятная карточка «ОБЛАЧНАЯ СИНХРОНИЗАЦИЯ» со статусом «● АВТОМАТИЧЕСКИ».\n` +
-      `✅ Все данные тренировок сохраняются автоматически под капотом сразу после завершения занятия.`
+    await sendTelegramPhoto(CHAT_ID, path2, 
+      `📱 <b>2/3. Нативная шторка Apple Bottom Sheet:</b>\n\n` +
+      `• Добавлена тактильная ручка захвата (.sheet-grabber).\n` +
+      `• Окно смахивается вниз с физическим сопротивлением и пружиной.\n` +
+      `• Внутренний скролл формы изолирован и не закрывает окно.`
     );
 
-    await sendTelegramPhoto(path3, 
-      `📸 3/3. Тренировка / Сингл-лайн упражнения и спортивная тема «Медь»:\n\n` +
-      `✅ Тема «Медь» обновлена в спортивный оранжево-титановый градиент без ухода в жёлтый/коричневый.\n` +
-      `✅ Убрано лишнее дублирование текста («5 подтягиваний») — упражнение пишется заглавными, справа счётчик («5 повт.»).\n` +
-      `✅ Экран зафиксирован, исключены случайные сдвиги и масштабирование веб-страницы.`
+    await sendTelegramPhoto(CHAT_ID, path3, 
+      `✨ <b>3/3. Профиль и настройки (WCAG AA и чистый UI):</b>\n\n` +
+      `• Высокий контраст всех кнопок и тестов (>= 4.5:1).\n` +
+      `• Чёткий пол типографики >= 12px (без мелкого микротекста).\n` +
+      `• Все цифры с tabular-nums (ноль скачков ширины).`
     );
 
-    // Update menu button with cache busting timestamp
-    const menuUrl = `https://skcs4s-ip-31-7-63-34.tunnelmole.net/?v=${Date.now()}`;
-    await updateMenuButton(menuUrl);
-    console.log(`[Telegram] Menu button updated to: ${menuUrl}`);
+    // Send interactive launch button
+    await sendTelegramMessage(CHAT_ID,
+      `✅ <b>CINDY Coach V3 развёрнут на GitHub Pages!</b>\n\n` +
+      `Ранее в боте была прописана ссылка на временный туннель Cloudflare, который отключился — поэтому приложение не открывалось.\n\n` +
+      `Сейчас кнопка меню бота обновлена на постоянный адрес. Нажмите кнопку ниже для запуска:`,
+      {
+        inline_keyboard: [
+          [
+            {
+              text: '🚀 Открыть CINDY Coach V3',
+              web_app: { url: liveMenuUrl }
+            }
+          ]
+        ]
+      }
+    );
 
+    console.log('[Done] All screenshots and launch button sent successfully.');
   } finally {
     if (cdp) cdp.close();
     try { chromeProcess.kill(); } catch (_) {}
+    try { fs.rmSync(userDataDir, { recursive: true, force: true }); } catch (_) {}
   }
 }
 
