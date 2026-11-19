@@ -1696,6 +1696,181 @@ body[data-color-theme] #profileSettingsCategories .choice[aria-expanded="true"] 
     .next-workout-spec__item span:last-child{font-size:13px}
   }
   @media(prefers-reduced-motion:reduce){.next-workout-spec{scroll-behavior:auto}}
+
+/* --- TRANSLUCENCY & GLASS BLUR TOGGLE --- */
+html body[data-glass-blur="off"],
+html body[data-glass-blur="off"] *,
+html body[data-glass-blur="off"] *::before,
+html body[data-glass-blur="off"] *::after,
+html body[data-glass-blur="off"] .nav .nav-inner,
+html body[data-glass-blur="off"][data-color-theme] .nav .nav-inner,
+html body[data-glass-blur="off"]:not([data-color-theme]) .nav .nav-inner,
+html body[data-glass-blur="off"] :is(.card, .setting-card, .practice-card, .result-sheet, .modal, .action-sheet, .feedback-sheet) {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+html body:not([data-glass-blur="off"]) .nav .nav-inner,
+html body:not([data-glass-blur="off"])[data-color-theme] .nav .nav-inner {
+  backdrop-filter: blur(14px) saturate(130%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(130%) !important;
+}
+html body:not([data-glass-blur="off"])[data-color-theme="glass"] :is(.card:not(.practice-card), .setting-card, .coach-card, .profile-hero, .progress-activity-card, .result-sheet, .action-sheet, .feedback-sheet) {
+  backdrop-filter: blur(12px) saturate(130%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(130%) !important;
+  transform: translateZ(0);
+}
+/* Eliminate heavy nested blurs on child elements inside cards */
+html body[data-color-theme="glass"] :is(.exercise-total, .choice, .control.secondary, .setting-stepper, .lap-item, .result-stats div, .editor-field, .lap-editor-row, .sync-state) {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* --- SMOOTH PROFILE SETTINGS ACCORDION --- */
+#profileSettingsCategories .choice .settings-chevron { display: inline-block !important; font-style: normal !important; line-height: 1 !important; transform: none !important; }
+#profileSettingsCategories .choice.selected .settings-chevron, #profileSettingsCategories .choice[aria-expanded="true"] .settings-chevron { transform: none !important; }
+#profileSettingsDetails > section:not(.hidden) {
+  animation: cindySettingsAccordionOpen 0.28s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+#profileSettingsDetails > section.is-closing {
+  display: block !important;
+  animation: cindySettingsAccordionClose 0.20s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  pointer-events: none !important;
+}
+@keyframes cindySettingsAccordionOpen {
+  from { opacity: 0; transform: translate3d(0, -8px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes cindySettingsAccordionClose {
+  from { opacity: 1; transform: translate3d(0, 0, 0); }
+  to { opacity: 0; transform: translate3d(0, -6px, 0); }
+}
+
+/* --- WORKOUT ORB CONCENTRIC LIVING WAVES --- */
+#workout .practice-card.is-live::before,
+#practiceCard.is-live::before {
+  display: block !important;
+  border: 1.5px solid var(--wave-color, rgba(255, 255, 255, 0.45)) !important;
+  background: radial-gradient(circle at 50% 50%, var(--wave-color-soft, rgba(255, 255, 255, 0.24)) 0%, color-mix(in srgb, var(--wave-color-soft, rgba(255,255,255,0.18)) 45%, transparent) 40%, transparent 74%) !important;
+  animation: kineticOrbLivingWaves 3.2s cubic-bezier(0.16, 0.8, 0.24, 1) infinite !important;
+}
+@keyframes kineticOrbLivingWaves {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.90;
+    box-shadow: 0 0 0 0 var(--wave-color),
+                0 0 0 0 var(--wave-color-soft),
+                0 0 20px var(--hero-orb-glow);
+  }
+  32% {
+    opacity: 0.70;
+    box-shadow: 0 0 0 16px var(--wave-color),
+                0 0 0 34px var(--wave-color-soft),
+                0 0 38px var(--hero-orb-glow);
+  }
+  64% {
+    opacity: 0.38;
+    box-shadow: 0 0 0 36px var(--wave-color-soft),
+                0 0 0 60px color-mix(in srgb, var(--wave-color-soft) 40%, transparent),
+                0 0 54px var(--hero-orb-glow);
+  }
+  100% {
+    transform: scale(3.1);
+    opacity: 0;
+    box-shadow: 0 0 0 74px transparent,
+                0 0 0 108px transparent,
+                0 0 78px transparent;
+  }
+}
+
+/* --- PROGRESS ACTIVITY HEAD & COMPACT WORKOUT LOG SPACING --- */
+.progress-activity-head {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  margin-bottom: 12px !important;
+}
+.progress-activity-title-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+.activity-info-btn {
+  display: inline-grid !important;
+  place-items: center !important;
+  width: 22px !important;
+  height: 22px !important;
+  padding: 0 !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 50% !important;
+  background: var(--paper) !important;
+  color: var(--muted) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  transition: color 0.18s ease, border-color 0.18s ease, transform 0.18s ease !important;
+}
+.activity-info-btn:active {
+  transform: scale(0.92) !important;
+}
+.progress-activity-periods {
+  display: flex !important;
+  gap: 4px !important;
+}
+.progress-activity-periods .choice {
+  min-height: 28px !important;
+  padding: 3px 8px !important;
+  font-size: 9px !important;
+  letter-spacing: 0.02em !important;
+  border-radius: 8px !important;
+}
+#progress #progressHistorySection {
+  margin-top: 14px !important;
+}
+#progress #progressHistorySection .history-card {
+  margin-bottom: 8px !important;
+}
+#progress #progressHistorySection .history-card summary {
+  min-height: 56px !important;
+  padding: 10px 14px !important;
+}
+#progress #progressHistorySection .history-details {
+  gap: 6px !important;
+  padding: 0 10px 10px !important;
+}
+#progress #progressHistorySection .history-stack {
+  gap: 6px !important;
+}
+
+
+/* Sleek compact Profile Period Selector & Zero Duplication */
+#profile .profile-stats-card {
+  padding: 12px 14px !important;
+  margin-top: 10px !important;
+  margin-bottom: 12px !important;
+}
+#profile .profile-stats-card .profile-stats-card-head {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 8px !important;
+}
+#profile .profile-period {
+  gap: 5px !important;
+  margin-top: 4px !important;
+  margin-bottom: 10px !important;
+}
+#profile .profile-period .choice {
+  min-height: 32px !important;
+  padding: 4px 8px !important;
+  font-size: 10px !important;
+  border-radius: 9px !important;
+  letter-spacing: 0.03em !important;
+}
+#profile .profile-stats-card .development-path {
+  margin-top: 6px !important;
+}
+
 </style>
 <style id="cindy-lite-coach-visibility-v1">
   /* The Lite presentation flag must not override persisted Coach authority.
@@ -3195,23 +3370,7 @@ body{font-size:16px}
     pointer-events: none !important;
   }
 
-  #profileSettingsCategories .choice .settings-chevron {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 28px !important;
-    height: 28px !important;
-    flex: 0 0 28px !important;
-    border-radius: 50% !important;
-    text-align: center !important;
-    line-height: 1 !important;
-    font-size: 15px !important;
-    font-weight: 700 !important;
-    font-style: normal !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease !important;
-  }
+  #profileSettingsCategories .choice .settings-chevron { display: inline-block !important; font-style: normal !important; line-height: 1 !important; transform: none !important; }
 
   /* Hide redundant duplicate section titles inside unfolded accordion drawer */
   #profileSettingsDetails > section .settings-head {
@@ -7629,27 +7788,8 @@ body{font-size:16px}
   html body.dark #profileSettingsCategories .choice[aria-expanded="true"] .settings-choice-copy small {
     color: rgba(255, 255, 255, 0.86) !important;
   }
-  html body #profileSettingsCategories .choice .settings-chevron {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex: 0 0 30px !important;
-    width: 30px !important;
-    height: 30px !important;
-    margin: 0 !important;
-    align-self: center !important;
-    border-radius: 999px !important;
-    font-size: 18px !important;
-    font-weight: 700 !important;
-    line-height: 1 !important;
-    font-style: normal !important;
-    padding-bottom: 2px !important;
-    background: color-mix(in srgb, var(--ink) 7%, transparent) !important;
-    transition: background-color var(--dur-control) var(--ease-out), color var(--dur-control) var(--ease-out) !important;
-  }
-  html body.dark #profileSettingsCategories .choice .settings-chevron {
-    background: rgba(255, 255, 255, 0.10) !important;
-  }
+  html body #profileSettingsCategories .choice .settings-chevron { display: inline-block !important; font-style: normal !important; line-height: 1 !important; transform: none !important; }
+  html body.dark #profileSettingsCategories .choice .settings-chevron { display: inline-block !important; font-style: normal !important; line-height: 1 !important; transform: none !important; }
   html body:not(.dark) #profileSettingsCategories .choice[aria-expanded="true"] .settings-chevron {
     background: rgba(255, 255, 255, 0.90) !important;
     color: #111111 !important;
@@ -8163,14 +8303,8 @@ body{font-size:16px}
   html body[data-color-theme="glass"] #profileSettingsCategories .choice[aria-expanded="true"] .settings-choice-copy small {
     color: rgba(255, 255, 255, 0.86) !important;
   }
-  html body[data-color-theme="glass"] #profileSettingsCategories .choice .settings-chevron {
-    background: rgba(14, 116, 144, 0.12) !important;
-    color: #0e7490 !important;
-  }
-  html body.dark[data-color-theme="glass"] #profileSettingsCategories .choice .settings-chevron {
-    background: rgba(165, 243, 252, 0.14) !important;
-    color: #a5f3fc !important;
-  }
+  html body[data-color-theme="glass"] #profileSettingsCategories .choice .settings-chevron { display: inline-block !important; font-style: normal !important; line-height: 1 !important; transform: none !important; }
+  html body.dark[data-color-theme="glass"] #profileSettingsCategories .choice .settings-chevron { display: inline-block !important; font-style: normal !important; line-height: 1 !important; transform: none !important; }
   html body[data-color-theme="glass"]:not(.dark) #profileSettingsCategories .choice:is(.selected, [aria-expanded="true"]) .settings-chevron {
     background: rgba(255, 255, 255, 0.90) !important;
     color: #111111 !important;
@@ -9409,6 +9543,7 @@ body{font-size:16px}
 </div><div id="profileSettingsDetails">
 <section class="profile-subsection" id="profileSettingsDetail-appearance" data-stage2-category="appearance" aria-hidden="false">
 <div class="settings-head"><h2 class="title">Внешний вид</h2><p></p></div><article class="card setting-card"><div class="setting-head"><span class="eyebrow">ВНЕШНИЙ ВИД</span><small id="themeValue">Светлая тема</small></div><div class="segmented"><button class="choice" id="lightTheme" type="button">СВЕТЛАЯ</button><button class="choice" id="darkTheme" type="button">ТЁМНАЯ</button></div><div class="theme-palette" id="colorThemeChoices" aria-label="Цветовая тема"><button class="choice selected" type="button" data-color-theme-choice="flux" aria-pressed="true"><i class="palette-dot flux" aria-hidden="true"></i>ФЛЮКС</button><button class="choice" type="button" data-color-theme-choice="cobalt" aria-pressed="false"><i class="palette-dot cobalt" aria-hidden="true"></i>КОБАЛЬТ</button><button class="choice" type="button" data-color-theme-choice="pulse" aria-pressed="false"><i class="palette-dot pulse" aria-hidden="true"></i>ПУЛЬС</button><button class="choice" type="button" data-color-theme-choice="spidey" aria-pressed="false"><i class="palette-dot spidey" aria-hidden="true"></i>СПАЙДИ</button><button class="choice" type="button" data-color-theme-choice="cyber" aria-pressed="false"><i class="palette-dot cyber" aria-hidden="true"></i>МЯТА</button><button class="choice" type="button" data-color-theme-choice="miami" aria-pressed="false"><i class="palette-dot miami" aria-hidden="true"></i>МАЙАМИ</button><button class="choice" type="button" data-color-theme-choice="aurora" aria-pressed="false"><i class="palette-dot aurora" aria-hidden="true"></i>АВРОРА</button><button class="choice" type="button" data-color-theme-choice="blue" aria-pressed="false"><i class="palette-dot blue" aria-hidden="true"></i>ЛЁД</button><button class="choice" type="button" data-color-theme-choice="forest" aria-pressed="false"><i class="palette-dot forest" aria-hidden="true"></i>ЛЕС</button><button class="choice" type="button" data-color-theme-choice="plum" aria-pressed="false"><i class="palette-dot plum" aria-hidden="true"></i>СЛИВА</button><button class="choice" type="button" data-color-theme-choice="glass" aria-pressed="false"><i class="palette-dot glass" aria-hidden="true"></i>СТЕКЛО</button><button class="choice" type="button" data-color-theme-choice="lava" aria-pressed="false"><i class="palette-dot lava" aria-hidden="true"></i>ЛАВА</button></div></article>
+<article class="card setting-card" id="glassBlurCard"><div class="toggle-row"><div><b>Эффект стекла и прозрачности</b><small>Полупрозрачные карточки и матовое размытие нижней панели (отключите для максимальной производительности на слабых смартфонах).</small></div><label class="switch"><input id="glassBlurSwitch" type="checkbox" checked aria-label="Включить эффект стекла и прозрачности"><span class="slider" aria-hidden="true"></span></label></div></article>
 </section>
 <section class="profile-subsection hidden" id="profileSettingsDetail-interface" data-stage2-category="interface" aria-hidden="true">
 <div class="settings-head"><h2 class="title">Интерфейс</h2><p></p></div>
@@ -9474,6 +9609,7 @@ body{font-size:16px}
   <div class="modal hidden" id="resultModal" role="dialog" aria-modal="true" aria-labelledby="resultHeading"><section class="result-sheet"><div class="sheet-grabber" aria-hidden="true"><span></span></div><div class="eyebrow">ТРЕНИРОВКА ЗАВЕРШЕНА</div><h2 id="resultHeading">0 кругов</h2><p class="record-callout hidden" id="recordCallout"></p><section class="totals exercise-totals result-exercise-totals" id="resultExerciseTotals" aria-label="Итог по упражнениям"></section><section class="result-stats"><div><span>ДЛИТЕЛЬНОСТЬ</span><b id="resultDuration">0:00</b></div><div><span>СРЕДНИЙ КРУГ</span><b id="resultAverage">—</b></div><div><span>ЛУЧШИЙ КРУГ</span><b id="resultBestLap">—</b></div></section><p class="result-note" id="resultNote"></p><div class="result-actions"><button class="control primary" id="newWorkout" type="button">ОК</button></div></section></div>
   <div class="modal hidden" id="actionModal" role="dialog" aria-modal="true" aria-labelledby="actionTitle"><section class="result-sheet action-sheet"><div class="sheet-grabber" aria-hidden="true"><span></span></div><div class="eyebrow" id="actionKicker">ДЕЙСТВИЕ</div><h2 class="sheet-title" id="actionTitle">Подтвердите действие</h2><p class="result-note" id="actionCopy"></p><div class="sheet-body" id="actionBody"></div><div class="result-actions" id="actionButtons"></div></section></div>
   <div class="modal hidden" id="feedbackModal" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle"><section class="result-sheet action-sheet feedback-sheet"><div class="sheet-grabber" aria-hidden="true"><span></span></div><div class="eyebrow" id="feedbackKicker">ОБРАТНАЯ СВЯЗЬ</div><h2 class="sheet-title" id="feedbackTitle">Обращение и диагностика</h2><p class="result-note" id="feedbackNote">Сформируйте текст обращения с версией приложения и данными устройства — его можно сразу скопировать и отправить разработчику.</p><div class="segmented three feedback-types" id="feedbackTypeChoices"><button class="choice selected" data-fb-type="feature" type="button">ИДЕЯ</button><button class="choice" data-fb-type="error" type="button">ОШИБКА</button><button class="choice" data-fb-type="contact" type="button">ВОПРОС</button></div><div class="custom-entry feedback-entry"><textarea class="feedback-textarea" id="feedbackText" rows="4" placeholder="Опишите предложение, найденную ошибку или вопрос..." maxlength="1000"></textarea></div><div class="result-actions" style="margin-top:14px;"><button class="control secondary" id="closeFeedback" type="button">ОТМЕНА</button><button class="control primary" id="sendFeedback" type="button">СКОПИРОВАТЬ ТЕКСТ</button></div></section></div>
+  <div class="modal hidden" id="activityInfoModal" role="dialog" aria-modal="true" aria-labelledby="activityInfoTitle"><section class="result-sheet action-sheet"><div class="sheet-grabber" aria-hidden="true"><span></span></div><div class="eyebrow">БИОМЕХАНИКА И НАГРУЗКА</div><h2 class="sheet-title" id="activityInfoTitle">Как рассчитывается активность</h2><p class="result-note" id="activityInfoNote">Формула связывает повторения с весом и ростом атлета: <code>W = ∑(повт × сложность) × (вес/75) × (рост/175)</code>. Атлет совершает реальную физическую работу против силы тяжести с учётом длины рычагов конечностей.</p><div class="sheet-body" id="activityInfoBody" style="margin-top:14px;"></div><div class="result-actions" style="margin-top:16px;"><button class="control primary" id="closeActivityInfo" type="button" style="width:100%;">ПОНЯТНО</button></div></section></div>
 
   <!-- CINDY_V10_HISTORY_FIXTURE_DAY5_V1 disabled for MVP candidate. -->
 <script src="./src/domain/exercises/exercise_catalog_v3.js"></script>
@@ -9530,7 +9666,7 @@ body{font-size:16px}
     const persistencePort=window.CINDYLocalStorageV3.create({storage:window.localStorage,now:()=>Date.now(),notify:message=>notify(message),onDiagnostic:diagnostic=>{window.__cindyStorageDiagnostic=diagnostic},onFailureUntil:until=>{storageFailureUntil=until}});
     const repositories=window.CINDYRepositoriesV3.create({storagePort:persistencePort,codecs:{config:{fallback:defaults},session:{fallback:null},history:{fallback:[]},cloud:{fallback:cloudDefaults}}});
     const configRepository=repositories.config,sessionRepository=repositories.session,historyRepository=repositories.history,cloudRepository=repositories.cloud;
-function normalizeConfig(raw){const x=raw&&typeof raw==='object'?raw:{},legacyHaptics=x.haptics!==false,hapticMode=[0,1,2,3].includes(Number(x.hapticMode))?Number(x.hapticMode):(legacyHaptics?2:0),mode=['time','rounds','combined'].includes(x.mode)?x.mode:'time',composition=normalizeComposition(x.composition);const rawPro=x.proWorkout&&typeof x.proWorkout==='object'?x.proWorkout:null,proWorkout=rawPro?{composition:normalizeComposition(rawPro.composition,composition)}:null,templates=normalizeTemplates(x.templates,proWorkout),programs=normalizePrograms(x.programs,templates),programState=normalizeProgramState(x.programState,programs),pending=normalizeSource(x.pendingSource),pendingSource=pending&&pending.programId&&!(programState.activeProgramId===pending.programId&&programState.currentDayIndex===pending.dayIndex)?null:pending,profile=normalizeProfile(x.profile),equipment=normalizeEquipment(x.equipment),coachExcludedVariantIds=normalizeCoachExcludedVariants(x.coachExcludedVariantIds);return{version:8,mode,minutes:clamp(x.minutes,...LIMITS.minutes,20),target:clamp(x.target,...LIMITS.target,20),longGoal:clamp(x.longGoal,...LIMITS.goal,clamp(x.target,...LIMITS.goal,20)),theme:x.theme==='dark'?'dark':'light',performanceMode:['auto','sport','full'].includes(x.performanceMode)?x.performanceMode:'auto',colorTheme:['flux','cobalt','pulse','spidey','cyber','miami','aurora','blue','forest','plum','glass','lava'].includes(x.colorTheme)?x.colorTheme:'flux',language:['ru','en'].includes(x.language)?x.language:'ru',sound:x.sound!==false,hapticMode,cueInterval:[0,1,2,5].includes(Number(x.cueInterval))?Number(x.cueInterval):0,cueTone:['click','soft','double','tone'].includes(x.cueTone)?x.cueTone:'soft',composition,proWorkout,paceGuidance:Boolean(x.paceGuidance),templates,programs,programState,pendingSource,profile,equipment,coachExcludedVariantIds,userRestrictions:cloneCoachConstraintObject(x.userRestrictions),excludedExerciseIds:normalizeCoachExcludedExercises(x.excludedExerciseIds),forbiddenCombinations:normalizeCoachForbiddenCombinations(x.forbiddenCombinations),experienceMode:x.experienceMode==='pro'?'pro':'simple',coachEnabledChoice:x.coachEnabledChoice==='user'?'user':'default',coachEnabled:x.coachEnabledChoice==='user'?x.coachEnabled===true:true}}
+function normalizeConfig(raw){const x=raw&&typeof raw==='object'?raw:{},legacyHaptics=x.haptics!==false,hapticMode=[0,1,2,3].includes(Number(x.hapticMode))?Number(x.hapticMode):(legacyHaptics?2:0),mode=['time','rounds','combined'].includes(x.mode)?x.mode:'time',composition=normalizeComposition(x.composition);const rawPro=x.proWorkout&&typeof x.proWorkout==='object'?x.proWorkout:null,proWorkout=rawPro?{composition:normalizeComposition(rawPro.composition,composition)}:null,templates=normalizeTemplates(x.templates,proWorkout),programs=normalizePrograms(x.programs,templates),programState=normalizeProgramState(x.programState,programs),pending=normalizeSource(x.pendingSource),pendingSource=pending&&pending.programId&&!(programState.activeProgramId===pending.programId&&programState.currentDayIndex===pending.dayIndex)?null:pending,profile=normalizeProfile(x.profile),equipment=normalizeEquipment(x.equipment),coachExcludedVariantIds=normalizeCoachExcludedVariants(x.coachExcludedVariantIds);return{version:8,mode,minutes:clamp(x.minutes,...LIMITS.minutes,20),target:clamp(x.target,...LIMITS.target,20),longGoal:clamp(x.longGoal,...LIMITS.goal,clamp(x.target,...LIMITS.goal,20)),theme:x.theme==='dark'?'dark':'light',glassBlur:x.glassBlur!==false,performanceMode:['auto','sport','full'].includes(x.performanceMode)?x.performanceMode:'auto',colorTheme:['flux','cobalt','pulse','spidey','cyber','miami','aurora','blue','forest','plum','glass','lava'].includes(x.colorTheme)?x.colorTheme:'flux',language:['ru','en'].includes(x.language)?x.language:'ru',sound:x.sound!==false,hapticMode,cueInterval:[0,1,2,5].includes(Number(x.cueInterval))?Number(x.cueInterval):0,cueTone:['click','soft','double','tone'].includes(x.cueTone)?x.cueTone:'soft',composition,proWorkout,paceGuidance:Boolean(x.paceGuidance),templates,programs,programState,pendingSource,profile,equipment,coachExcludedVariantIds,userRestrictions:cloneCoachConstraintObject(x.userRestrictions),excludedExerciseIds:normalizeCoachExcludedExercises(x.excludedExerciseIds),forbiddenCombinations:normalizeCoachForbiddenCombinations(x.forbiddenCombinations),experienceMode:x.experienceMode==='pro'?'pro':'simple',coachEnabledChoice:x.coachEnabledChoice==='user'?'user':'default',coachEnabled:x.coachEnabledChoice==='user'?x.coachEnabled===true:true}}
     function loadConfig(){const raw=configRepository.load(),normalized=normalizeConfig(raw);try{if(JSON.stringify(raw)!==JSON.stringify(normalized))configRepository.save(normalized)}catch(_){}return normalized}function normalizeCloud(raw){const x=raw&&typeof raw==='object'?raw:{};return{version:1,clientId:typeof x.clientId==='string'?x.clientId.trim():'',fileId:typeof x.fileId==='string'?x.fileId:'',email:typeof x.email==='string'?x.email:'',updatedAt:Math.max(0,Number(x.updatedAt)||0)}}function loadCloud(){return normalizeCloud(cloudRepository.load())}function saveCloud(){return cloudRepository.save(cloud)}function markLocalChanged(){cloud.updatedAt=Date.now();return saveCloud()}function saveConfig(){if(!configRepository.save(config)){config=clonePersistedConfig(lastPersistedConfig||defaults);return false}lastPersistedConfig=clonePersistedConfig(config);markLocalChanged();try{if(typeof queueAutoSync==='function')queueAutoSync()}catch(_){}return true}
     function setCoachEnabled(enabled){const next=Boolean(enabled),previous=config,api=window.CindyCoachIntegration;config=normalizeConfig({...config,coachEnabled:next,coachEnabledChoice:'user'});let stateClosed=true;if(!next&&api&&typeof api.onPreferenceChange==='function'){try{stateClosed=api.onPreferenceChange(false,false)===true}catch(_){stateClosed=false}}if(!saveConfig()){if(next){config=previous}else{config=normalizeConfig({...clonePersistedConfig(lastPersistedConfig||defaults),coachEnabled:false,coachEnabledChoice:'user'})}coachTransitionStatus=next?'Не удалось сохранить включение тренера; действует безопасный режим OFF.':'Тренер выключен в этой вкладке, но выбор не сохранён.';renderAll({markers:true});notify(next?'Не удалось сохранить настройку. Тренер остаётся выключенным.':'Тренер выключен в этой вкладке, но настройку не удалось сохранить.');return false}if(next&&api&&typeof api.onPreferenceChange==='function'){let opened=false;try{opened=api.onPreferenceChange(true,true)===true}catch(_){}if(!opened){config=normalizeConfig({...config,coachEnabled:false,coachEnabledChoice:'user'});saveConfig();coachTransitionStatus='Тренер остаётся выключенным: закрытие незавершённого Coach-действия не подтверждено. Повторите попытку позже.';renderAll({markers:true});notify('Не удалось безопасно включить тренера. Он остаётся выключенным.');return false}}coachTransitionStatus=!next&&!stateClosed?'Тренер выключен, но закрытие незавершённого Coach-действия не подтверждено. Включение останется заблокировано до успешной проверки.':'';renderAll({markers:true});notify(next?'Тренер включён.':'Тренер выключен. Тренировки и история сохраняются.');return true}
     function usesClock(mode=session.mode){return mode!=='rounds'}function hasRoundGoal(mode=session.mode){return mode!=='time'}function freshSession(overrides=null){lastLapPress=0;const o=overrides&&typeof overrides==='object'?overrides:{},mode=['time','rounds','combined'].includes(o.mode)?o.mode:config.mode,plannedSeconds=Math.max(60,Math.min(10800,Number.isFinite(Number(o.plannedSeconds))?Number(o.plannedSeconds):config.minutes*60)),target=mode==='time'?0:clamp(o.target??config.target,...LIMITS.target,config.target),composition=cloneComposition(o.composition||config.composition),paceGuidance=mode==='combined'&&('paceGuidance' in o?Boolean(o.paceGuidance):Boolean(config.paceGuidance));return{version:7,status:'idle',mode,plannedSeconds,target,markerWindowSeconds:usesClock(mode)?plannedSeconds:Math.max(600,plannedSeconds),startedAt:null,accumulatedMs:0,rounds:0,composition,exerciseTotals:totalsFor(composition,0),total:legacyTotals(composition,0),laps:[],lastLapTotal:0,lastCueAt:0,lastPaceCueAt:0,paceGuidance,source:normalizeSource(o.source||config.pendingSource)}}
@@ -9553,16 +9689,17 @@ function detectEffectivePerformance(mode) {
   const pref = mode || (typeof config !== 'undefined' && config.performanceMode ? config.performanceMode : 'auto');
   if (pref === 'sport') return 'sport';
   if (pref === 'full') return 'full';
-  // Auto mode: evaluate device CPU cores, memory, and reduced motion / battery saver
-  const cores = typeof navigator !== 'undefined' && navigator.hardwareConcurrency ? navigator.hardwareConcurrency : 4;
   const memory = typeof navigator !== 'undefined' && navigator.deviceMemory ? navigator.deviceMemory : 4;
-  const powerSave = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (cores <= 4 || memory <= 3 || powerSave) return 'sport';
+  if (memory <= 1.5) return 'sport';
   return 'full';
 }
 
 function applyTheme(){
     const perfMode = detectEffectivePerformance(typeof config !== 'undefined' ? config.performanceMode : 'auto');
+    const isGlassBlur = typeof config !== 'undefined' && config.glassBlur !== false;
+    document.body.dataset.glassBlur = isGlassBlur ? 'on' : 'off';
+    const glassBlurSwitch = document.getElementById('glassBlurSwitch');
+    if (glassBlurSwitch) glassBlurSwitch.checked = isGlassBlur;
     document.body.dataset.performanceMode = perfMode;
     const perfValEl = document.getElementById('performanceValue');
     if (perfValEl) {
@@ -9743,7 +9880,7 @@ function profileMetric(label,value,copy){return window.CindyPresentationLeafV3.m
     if(!saved)return;closeAction();notify('Профиль, оборудование и ограничения сохранены.');
   })]});window.setTimeout(()=>name.focus(),20)
 }function stage2ProfileDataInner(profile){const wrap=document.createElement('div');wrap.className='profile-data-integrated';const head=document.createElement('div');head.className='setting-head profile-data-head';const label=document.createElement('span');label.className='eyebrow';label.textContent='ДАННЫЕ ДЛЯ ТРЕНЕРА';const note=document.createElement('small');note.textContent='Помогают точнее рассчитать нагрузку';head.append(label,note);const grid=document.createElement('div');grid.className='profile-data-grid';[['ВОЗРАСТ',profile.age?profile.age+' лет':'—'],['РОСТ',profile.heightCm?profile.heightCm+' см':'—'],['ВЕС',profile.weightKg?String(profile.weightKg).replace('.',',')+' кг':'—']].forEach(([labelText,value])=>{const cell=document.createElement('div');cell.className='profile-data-cell';const cellLabel=document.createElement('span');cellLabel.textContent=labelText;const cellValue=document.createElement('b');cellValue.textContent=value;cell.append(cellLabel,cellValue);grid.append(cell)});wrap.append(head,grid);return wrap}
-function renderProfile(){const host=$('profileContent');if(!host)return;const profile=config.profile,analytics=profileAnalytics(),level=profileLevel(analytics),context=profileContext(profile);host.replaceChildren();const head=document.createElement('div'),title=document.createElement('h1'),copy=document.createElement('p');head.className='profile-head';title.id='profileTitle';title.textContent='Профиль';copy.textContent='Ваш профиль и настройки приложения.';head.append(title,copy);host.append(head);const hero=document.createElement('article'),person=document.createElement('div'),avatar=document.createElement('div'),identity=document.createElement('div'),tag=document.createElement('span'),name=document.createElement('h2'),meta=document.createElement('p'),edit=actionButton('ИЗМЕНИТЬ','secondary',openProfileEditor);hero.className='card profile-hero';person.className='profile-person';avatar.className=`profile-avatar ${profile.avatarTone}`;avatar.textContent=profileInitial(profile.name);identity.className='profile-identity';tag.className='eyebrow';tag.textContent='ПРОФИЛЬ';name.textContent=profile.name||'Ваш профиль';meta.textContent=context||'Данные профиля необязательны';edit.classList.add('profile-edit');identity.append(tag,name,meta);person.append(avatar,identity,edit);hero.append(person);const divider=document.createElement('div');divider.className='profile-card-divider';hero.append(divider);hero.append(stage2ProfileDataInner(profile));host.append(hero);const statsCard=document.createElement('article');statsCard.className='card profile-stats-card';const statsHead=document.createElement('div');statsHead.className='profile-stats-card-head';const statsTag=document.createElement('span');statsTag.className='eyebrow';statsTag.textContent='ТРЕНИРОВОЧНАЯ АКТИВНОСТЬ';const statsNote=document.createElement('small');statsNote.textContent='Сводка за выбранный период';statsHead.append(statsTag,statsNote);const periods=document.createElement('div');periods.className='segmented three profile-period';[['week','7 ДНЕЙ'],['month','28 ДНЕЙ'],['all','ВСЁ ВРЕМЯ']].forEach(([id,label])=>{const button=document.createElement('button');button.type='button';button.className=`choice${profilePeriod===id?' selected':''}`;button.textContent=label;button.addEventListener('click',()=>{profilePeriod=id;renderProfile()});periods.append(button)});const path=document.createElement('div');path.className='development-path';[['СЕССИИ',analytics.total],['СЕРИЯ',analytics.streak?`${analytics.streak} дн.`:'—'],['ЛУЧШИЙ',analytics.bestRounds?roundsText(analytics.bestRounds):'—']].forEach(([label,value])=>{const cell=document.createElement('div'),small=document.createElement('span'),bold=document.createElement('b');small.textContent=label;bold.textContent=value;cell.append(small,bold);path.append(cell)});statsCard.append(statsHead,periods,path);host.append(statsCard);const summary=document.createElement('article'),summaryBody=document.createElement('div'),summaryTag=document.createElement('span'),summaryTitle=document.createElement('b'),summaryCopy=document.createElement('p'),badge=document.createElement('div');summary.className='card profile-summary progress-legacy-analytics-hidden';summaryTag.className='eyebrow';summaryTag.textContent='ФИЗИЧЕСКАЯ ФОРМА';summaryTitle.textContent=level.title;summaryCopy.textContent=analytics.total?`${level.copy} ${analytics.sessions?`За выбранный период: ${analytics.sessions} ${trainingWord(analytics.sessions)}.`:'Нет тренировок в выбранном периоде.'}`:'Карта сформируется после первой завершённой тренировки.';badge.className='profile-level';badge.textContent=level.title.toUpperCase();summaryBody.append(summaryTag,summaryTitle,summaryCopy);summary.append(summaryBody,badge);host.append(summary);const metricHead=document.createElement('div'),metricTitle=document.createElement('h2'),metricCopy=document.createElement('span');metricHead.className='profile-section';metricTitle.textContent='Показатели';metricCopy.textContent='Только измеримые данные Cindy';metricHead.append(metricTitle,metricCopy);host.append(metricHead);const metrics=document.createElement('div');metrics.className='profile-metrics';metrics.append(profileMetric('СИЛА',analytics.strength!==null?`${Math.round(analytics.strength)} ед.`:'—','лучший объём Cindy'),profileMetric('ВЫНОСЛИВОСТЬ',analytics.endurance!==null?roundsText(Math.round(analytics.endurance)):'—','медиана кругов'),profileMetric('СКОРОСТЬ',analytics.bestLap!==null?time(analytics.bestLap):'—','лучший завершённый круг'),profileMetric('НАГРУЗКА / МИН',analytics.power!==null?`${Math.round(analytics.power)} ед.`:'—','рабочий объём за минуту'),profileMetric('РИТМ ПАУЗ',analytics.recovery!==null?`${Math.max(1,Math.round(analytics.recovery))} дн.`:'—','типичный интервал занятий'),profileMetric('РЕГУЛЯРНОСТЬ',analytics.periodDays?`${analytics.activeDays}/${analytics.periodDays} дн.`:`${analytics.activeDays} дн.`,'активные тренировочные дни'));host.append(metrics);if(!analytics.total){const empty=document.createElement('p');empty.className='profile-empty';empty.textContent='Когда появится первая завершённая тренировка, здесь отразятся объём, ритм, скорость круга и регулярность.';host.append(empty)}else{const progressTitle=document.createElement('div'),heading=document.createElement('h2'),sub=document.createElement('span');progressTitle.className='profile-section';heading.textContent='Прогресс';sub.textContent=profilePeriod==='all'?'Вся сохранённая история':'Сравнение с предыдущим равным периодом';progressTitle.append(heading,sub);progressTitle.classList.add('progress-legacy-analytics-hidden');host.append(progressTitle);const delta=analytics.delta===null?'Нужен предыдущий период для сравнения.':analytics.delta>0?`Медиана кругов выросла на ${analytics.delta}.`:analytics.delta<0?`Медиана кругов изменилась на ${analytics.delta}.`:'Медиана кругов сохранилась.';const legacyDynamics=profileInsight('РЕАЛЬНАЯ ДИНАМИКА',analytics.bestRounds?`Лучший результат: ${roundsText(analytics.bestRounds)}`:'Собираем базу',`${delta} ${analytics.streak?`Текущая серия: ${analytics.streak} ${trainingWord(analytics.streak)} подряд.`:'Серия появится при последовательных днях.'}`);legacyDynamics.classList.add('progress-legacy-analytics-hidden');host.append(legacyDynamics);;if(analytics.forecast){host.append(profileInsight('ПРОГНОЗ РИТМА',`Если сохраните темп — около ${analytics.forecast.sessions} ${trainingWord(analytics.forecast.sessions)} за 28 дней.`,`Ориентир строится по ${analytics.forecast.activeDays} активным дням и медиане ${roundsText(Math.round(analytics.forecast.rounds||0))}. Это не обещание результата.`,'forecast'))}}renderProgressAchievements(host);if(profile.developmentView){const path=document.createElement('div');path.className='development-path';[['СЕССИИ',analytics.total],['СЕРИЯ',analytics.streak?`${analytics.streak} дн.`:'—'],['ЛУЧШИЙ',analytics.bestRounds?roundsText(analytics.bestRounds):'—']].forEach(([label,value])=>{const cell=document.createElement('div'),small=document.createElement('span'),bold=document.createElement('b');small.textContent=label;bold.textContent=value;cell.append(small,bold);path.append(cell)});host.append(path)}}
+function renderProfile(){const host=$('profileContent');if(!host)return;const profile=config.profile,analytics=profileAnalytics(),level=profileLevel(analytics),context=profileContext(profile);host.replaceChildren();const head=document.createElement('div'),title=document.createElement('h1'),copy=document.createElement('p');head.className='profile-head';title.id='profileTitle';title.textContent='Профиль';copy.textContent='Ваш профиль и настройки приложения.';head.append(title,copy);host.append(head);const hero=document.createElement('article'),person=document.createElement('div'),avatar=document.createElement('div'),identity=document.createElement('div'),tag=document.createElement('span'),name=document.createElement('h2'),meta=document.createElement('p'),edit=actionButton('ИЗМЕНИТЬ','secondary',openProfileEditor);hero.className='card profile-hero';person.className='profile-person';avatar.className=`profile-avatar ${profile.avatarTone}`;avatar.textContent=profileInitial(profile.name);identity.className='profile-identity';tag.className='eyebrow';tag.textContent='ПРОФИЛЬ';name.textContent=profile.name||'Ваш профиль';meta.textContent=context||'Данные профиля необязательны';edit.classList.add('profile-edit');identity.append(tag,name,meta);person.append(avatar,identity,edit);hero.append(person);const divider=document.createElement('div');divider.className='profile-card-divider';hero.append(divider);hero.append(stage2ProfileDataInner(profile));host.append(hero);const statsCard=document.createElement('article');statsCard.className='card profile-stats-card';const statsHead=document.createElement('div');statsHead.className='profile-stats-card-head';const statsTag=document.createElement('span');statsTag.className='eyebrow';statsTag.textContent='ТРЕНИРОВОЧНАЯ АКТИВНОСТЬ';const statsNote=document.createElement('small');statsNote.textContent='Сводка за выбранный период';statsHead.append(statsTag,statsNote);const periods=document.createElement('div');periods.className='segmented three profile-period';[['week','7 ДНЕЙ'],['month','28 ДНЕЙ'],['all','ВСЁ ВРЕМЯ']].forEach(([id,label])=>{const button=document.createElement('button');button.type='button';button.className=`choice${profilePeriod===id?' selected':''}`;button.textContent=label;button.addEventListener('click',()=>{profilePeriod=id;renderProfile()});periods.append(button)});const path=document.createElement('div');path.className='development-path';[['СЕССИИ',analytics.total],['СЕРИЯ',analytics.streak?`${analytics.streak} дн.`:'—'],['ЛУЧШИЙ',analytics.bestRounds?roundsText(analytics.bestRounds):'—']].forEach(([label,value])=>{const cell=document.createElement('div'),small=document.createElement('span'),bold=document.createElement('b');small.textContent=label;bold.textContent=value;cell.append(small,bold);path.append(cell)});statsCard.append(statsHead,periods);host.append(statsCard);const summary=document.createElement('article'),summaryBody=document.createElement('div'),summaryTag=document.createElement('span'),summaryTitle=document.createElement('b'),summaryCopy=document.createElement('p'),badge=document.createElement('div');summary.className='card profile-summary progress-legacy-analytics-hidden';summaryTag.className='eyebrow';summaryTag.textContent='ФИЗИЧЕСКАЯ ФОРМА';summaryTitle.textContent=level.title;summaryCopy.textContent=analytics.total?`${level.copy} ${analytics.sessions?`За выбранный период: ${analytics.sessions} ${trainingWord(analytics.sessions)}.`:'Нет тренировок в выбранном периоде.'}`:'Карта сформируется после первой завершённой тренировки.';badge.className='profile-level';badge.textContent=level.title.toUpperCase();summaryBody.append(summaryTag,summaryTitle,summaryCopy);summary.append(summaryBody,badge);host.append(summary);const metricHead=document.createElement('div'),metricTitle=document.createElement('h2'),metricCopy=document.createElement('span');metricHead.className='profile-section';metricTitle.textContent='Показатели';metricCopy.textContent='Только измеримые данные Cindy';metricHead.append(metricTitle,metricCopy);host.append(metricHead);const metrics=document.createElement('div');metrics.className='profile-metrics';metrics.append(profileMetric('СИЛА',analytics.strength!==null?`${Math.round(analytics.strength)} ед.`:'—','лучший объём Cindy'),profileMetric('ВЫНОСЛИВОСТЬ',analytics.endurance!==null?roundsText(Math.round(analytics.endurance)):'—','медиана кругов'),profileMetric('СКОРОСТЬ',analytics.bestLap!==null?time(analytics.bestLap):'—','лучший завершённый круг'),profileMetric('НАГРУЗКА / МИН',analytics.power!==null?`${Math.round(analytics.power)} ед.`:'—','рабочий объём за минуту'),profileMetric('РИТМ ПАУЗ',analytics.recovery!==null?`${Math.max(1,Math.round(analytics.recovery))} дн.`:'—','типичный интервал занятий'),profileMetric('РЕГУЛЯРНОСТЬ',analytics.periodDays?`${analytics.activeDays}/${analytics.periodDays} дн.`:`${analytics.activeDays} дн.`,'активные тренировочные дни'));host.append(metrics);if(!analytics.total){const empty=document.createElement('p');empty.className='profile-empty';empty.textContent='Когда появится первая завершённая тренировка, здесь отразятся объём, ритм, скорость круга и регулярность.';host.append(empty)}else{const progressTitle=document.createElement('div'),heading=document.createElement('h2'),sub=document.createElement('span');progressTitle.className='profile-section';heading.textContent='Прогресс';sub.textContent=profilePeriod==='all'?'Вся сохранённая история':'Сравнение с предыдущим равным периодом';progressTitle.append(heading,sub);progressTitle.classList.add('progress-legacy-analytics-hidden');host.append(progressTitle);const delta=analytics.delta===null?'Нужен предыдущий период для сравнения.':analytics.delta>0?`Медиана кругов выросла на ${analytics.delta}.`:analytics.delta<0?`Медиана кругов изменилась на ${analytics.delta}.`:'Медиана кругов сохранилась.';const legacyDynamics=profileInsight('РЕАЛЬНАЯ ДИНАМИКА',analytics.bestRounds?`Лучший результат: ${roundsText(analytics.bestRounds)}`:'Собираем базу',`${delta} ${analytics.streak?`Текущая серия: ${analytics.streak} ${trainingWord(analytics.streak)} подряд.`:'Серия появится при последовательных днях.'}`);legacyDynamics.classList.add('progress-legacy-analytics-hidden');host.append(legacyDynamics);;if(analytics.forecast){host.append(profileInsight('ПРОГНОЗ РИТМА',`Если сохраните темп — около ${analytics.forecast.sessions} ${trainingWord(analytics.forecast.sessions)} за 28 дней.`,`Ориентир строится по ${analytics.forecast.activeDays} активным дням и медиане ${roundsText(Math.round(analytics.forecast.rounds||0))}. Это не обещание результата.`,'forecast'))}}renderProgressAchievements(host);if(profile.developmentView){const path=document.createElement('div');path.className='development-path';[['СЕССИИ',analytics.total],['СЕРИЯ',analytics.streak?`${analytics.streak} дн.`:'—'],['ЛУЧШИЙ',analytics.bestRounds?roundsText(analytics.bestRounds):'—']].forEach(([label,value])=>{const cell=document.createElement('div'),small=document.createElement('span'),bold=document.createElement('b');small.textContent=label;bold.textContent=value;cell.append(small,bold);path.append(cell)});host.append(path)}}
 function applyLanguage(){
   const isEn=typeof config!=='undefined'&&config&&config.language==='en';
   document.documentElement.lang=isEn?'en':'ru';
@@ -9803,7 +9940,10 @@ function renderAll(options={}){applyLanguage();stage2InitLayout();applyTheme();r
 if(window.CindyScreenPresenterV3){window.CindyScreenPresenterV3.bind({workout:function(options){renderWorkout(options||{})},programs:function(){renderPrograms();stage5OrganizeTraining()},progress:function(options){renderProfile();renderHistory();stage5SyncVisibility();if(options&&options.focusHistory)window.setTimeout(()=>stage2Focus('progressHistorySection'),0)},profile:function(options){renderProfile();renderSettings();stage5SyncVisibility();if(options&&options.focusSettings)window.setTimeout(()=>{stage2SetSettingsCategory('interface');stage2Focus('profileSettingsSection')},0)}})}
     function setConfig(patch){if(active()){notify('Завершите или поставьте на паузу текущую тренировку, чтобы изменить формат.');return false}config=normalizeConfig({...config,...patch});if(!saveConfig()){renderAll({markers:true});return false}let pendingBaselinePreview=null;try{const coachApi=window.CindyCoachIntegration;if(coachApi&&typeof coachApi.onConfigMutation==='function')coachApi.onConfigMutation();if(coachApi&&typeof coachApi.state==='function'){const state=coachApi.state();if(state&&state.baselineAuthority&&typeof coachApi.previewBaselineTest==='function')pendingBaselinePreview=coachApi.previewBaselineTest()}}catch(_){ }session=pendingBaselinePreview&&pendingBaselinePreview.sessionRuntime?freshSession(pendingBaselinePreview.sessionRuntime):freshSession();latestMarkerId=null;renderAll({markers:true});return true}
     function custom(input,field,min,max,label){const value=clamp($(input).value,min,max,null);if(value===null){notify(`Введите число от ${min} до ${max}.`);$(input).focus();return}if(setConfig({[field]:value})){$(input).value='';notify(`${label}: ${value}.`)}}function saveGoogleClientId(){const id=$('googleClientId').value.trim();if(!/^\S+\.apps\.googleusercontent\.com$/.test(id)){googleMessage('error','Введите корректный Web OAuth Client ID из Google Cloud.');$('googleClientId').focus();return}googleToken='';googleTokenClient=null;cloud={...cloudDefaults,clientId:id,updatedAt:cloud.updatedAt};saveCloud();googleMessage('ready','OAuth Client ID сохранён. Можно подключить Google.');notify('OAuth Client ID сохранён.')}
-    $('primaryAction').addEventListener('click',primaryWorkoutAction);$('stopAction').addEventListener('click',confirmStop);$('roundButton').addEventListener('click',secondaryPauseAction);$('voiceAction').addEventListener('click',startVoiceRound);const roundPressButton=$('roundButton'),clearRoundPress=()=>roundPressButton.classList.remove('is-pressing');roundPressButton.addEventListener('pointerdown',()=>{if(!roundPressButton.disabled&&session.status==='running')roundPressButton.classList.add('is-pressing')});['pointerup','pointercancel','pointerleave'].forEach(type=>roundPressButton.addEventListener(type,clearRoundPress));$('repeatLast').addEventListener('click',repeatLast);$('themeToggle').addEventListener('click',()=>{config.theme=config.theme==='dark'?'light':'dark';saveConfig();renderAll()});$('settingsShortcut').addEventListener('click',()=>show('settings',{focusSettings:true}));const coachSwitch=$('coachEnabledSwitch');if(coachSwitch)coachSwitch.addEventListener('change',()=>{if(!setCoachEnabled(coachSwitch.checked))coachSwitch.checked=config.coachEnabled===true});const developmentSwitch=$('developmentViewSwitch');if(developmentSwitch)developmentSwitch.addEventListener('change',()=>{const before=config;if(!saveProfilePatch({developmentView:developmentSwitch.checked})){config=before;renderAll();return}notify(developmentSwitch.checked?'Показ прогресса включён.':'Показ прогресса скрыт.')});$('navWorkout').addEventListener('click',()=>show('workout'));$('navPrograms').addEventListener('click',()=>show('programs'));$('navProgress').addEventListener('click',()=>show('progress'));$('navProfile').addEventListener('click',()=>show('profile'));(()=>{
+    $('primaryAction').addEventListener('click',primaryWorkoutAction);$('stopAction').addEventListener('click',confirmStop);$('roundButton').addEventListener('click',secondaryPauseAction);$('voiceAction').addEventListener('click',startVoiceRound);const roundPressButton=$('roundButton'),clearRoundPress=()=>roundPressButton.classList.remove('is-pressing');roundPressButton.addEventListener('pointerdown',()=>{if(!roundPressButton.disabled&&session.status==='running')roundPressButton.classList.add('is-pressing')});['pointerup','pointercancel','pointerleave'].forEach(type=>roundPressButton.addEventListener(type,clearRoundPress));$('repeatLast').addEventListener('click',repeatLast);$('themeToggle').addEventListener('click',()=>{config.theme=config.theme==='dark'?'light':'dark';saveConfig();renderAll()});$('settingsShortcut').addEventListener('click',()=>show('settings',{focusSettings:true}));const coachSwitch=$('coachEnabledSwitch');if(coachSwitch)coachSwitch.addEventListener('change',()=>{if(!setCoachEnabled(coachSwitch.checked))coachSwitch.checked=config.coachEnabled===true});const developmentSwitch=$('developmentViewSwitch');if(developmentSwitch)developmentSwitch.addEventListener('change',()=>{const before=config;if(!saveProfilePatch({developmentView:developmentSwitch.checked})){config=before;renderAll();return}notify(developmentSwitch.checked?'Показ прогресса включён.':'Показ прогресса скрыт.')});
+const glassBlurSwitch=$('glassBlurSwitch');if(glassBlurSwitch)glassBlurSwitch.addEventListener('change',()=>{config=normalizeConfig({...config,glassBlur:glassBlurSwitch.checked});saveConfig();applyTheme();notify(config.glassBlur?'Эффект стекла включён.':'Эффект стекла отключён.')});
+$('closeActivityInfo')?.addEventListener('click',()=>{$('activityInfoModal')?.classList.add('hidden')});
+$('activityInfoModal')?.addEventListener('click',e=>{if(e.target===$('activityInfoModal'))$('activityInfoModal').classList.add('hidden')});$('navWorkout').addEventListener('click',()=>show('workout'));$('navPrograms').addEventListener('click',()=>show('programs'));$('navProgress').addEventListener('click',()=>show('progress'));$('navProfile').addEventListener('click',()=>show('profile'));(()=>{
   const navInner=document.querySelector('.nav .nav-inner');
   if(!navInner)return;
   let pill=navInner.querySelector('.nav-pill-indicator');
@@ -10294,20 +10434,64 @@ function stage2ServiceCard(title,copy,children){const card=document.createElemen
   initFeedbackHandlers();
 }
 
+let cindyProgressPeriod='all';
+function openActivityInfoModal(){
+  const modal=$('activityInfoModal'),body=$('activityInfoBody');if(!modal||!body)return;
+  const stats=deriveCindyStatistics();
+  const prof=config.profile||{},w=Number(prof.weightKg)||null,h=Number(prof.heightCm)||null;
+  const kW=w?w/75:1.0,kH=h?h/175:1.0,kBody=Math.round(kW*kH*100)/100;
+  const totalReps=stats.totalRepetitions||0,totalSec=stats.totalDurationSeconds||0;
+  const workJoules=totalReps*268*kBody,workKj=workJoules>0?Math.round(workJoules/1000):0;
+  const workMjr=workKj>=1000?(workKj/1000).toFixed(1)+' МДж':`${workKj} кДж`;
+  const avgWatts=totalSec>0&&workJoules>0?Math.round(workJoules/totalSec):0;
+  const kText=w||h?`${kBody.toFixed(2).replace('.',',')}×`:'1,00×';
+  const paramsNote=w&&h?`вес ${w} кг · рост ${h} см`:(w?`вес ${w} кг`:(h?`рост ${h} см`:'базовый атлет (75 кг / 175 см)'));
+  body.innerHTML=`<div class="progress-bio-metrics" style="margin-bottom:14px;"><div class="bio-metric"><span>ФИЗ. РАБОТА</span><b>${workMjr}</b><small>${totalReps>0?'полезная работа':'после тренировок'}</small></div><div class="bio-metric"><span>МОЩНОСТЬ</span><b>${avgWatts>0?avgWatts+' Вт':'—'}</b><small>средняя полезная</small></div><div class="bio-metric"><span>РЫЧАГ ТЕЛА</span><b>${kText}</b><small>${paramsNote}</small></div></div><div class="progress-bio-formula-desc"><p style="margin:0 0 8px;font-size:12px;line-height:1.45;color:var(--muted);"><b>Механическая работа:</b> Каждое повторение рассчитывается с учётом веса, роста и длины рычагов: <code>W = ∑(повт × сложность) × (вес/75) × (рост/175)</code>.</p><p style="margin:0 0 8px;font-size:12px;line-height:1.45;color:var(--muted);"><b>Полезная мощность:</b> Отношение механической работы к чистому времени выполнения упражнений в ваттах (Вт).</p><p style="margin:0;font-size:12px;line-height:1.45;color:var(--muted);"><b>Темп:</b> Среднее время одного круга Cindy за выбранный период.</p></div>`;
+  modal.classList.remove('hidden');
+}
 function renderProgressActivityDashboard(){
 window.renderProgressActivityDashboard=renderProgressActivityDashboard;
-  const stats=deriveCindyStatistics();
+  const allRecs=records();
+  const now=Date.now();
+  let filteredRecs=allRecs;
+  if(cindyProgressPeriod==='7'){
+    filteredRecs=allRecs.filter(r=>(Number(r.createdAt)||0)>=now-7*86400000);
+  }else if(cindyProgressPeriod==='30'){
+    filteredRecs=allRecs.filter(r=>(Number(r.createdAt)||0)>=now-30*86400000);
+  }
+  const stats=deriveCindyStatistics({history:filteredRecs});
   const card=document.createElement('article');
   card.className='card progress-activity-card';
   const head=document.createElement('div');
   head.className='progress-activity-head';
+  const titleGroup=document.createElement('div');
+  titleGroup.className='progress-activity-title-group';
   const tag=document.createElement('span');
   tag.className='eyebrow';
   tag.textContent='ТРЕНИРОВОЧНАЯ АКТИВНОСТЬ';
-  const badge=document.createElement('small');
-  badge.className='activity-badge';
-  badge.textContent='ВСЯ ИСТОРИЯ';
-  head.append(tag,badge);
+  const infoBtn=document.createElement('button');
+  infoBtn.type='button';
+  infoBtn.className='activity-info-btn';
+  infoBtn.setAttribute('aria-label','Как рассчитывается активность');
+  infoBtn.textContent='ℹ';
+  infoBtn.addEventListener('click',openActivityInfoModal);
+  titleGroup.append(tag,infoBtn);
+
+  const periodsGroup=document.createElement('div');
+  periodsGroup.className='progress-activity-periods segmented';
+  [['7','7 ДНЕЙ'],['30','30 ДНЕЙ'],['all','ВСЯ ИСТОРИЯ']].forEach(([id,label])=>{
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className=`choice${cindyProgressPeriod===id?' selected':''}`;
+    btn.textContent=label;
+    btn.addEventListener('click',()=>{
+      if(cindyProgressPeriod===id)return;
+      cindyProgressPeriod=id;
+      renderProgressAnalyticsV3();
+    });
+    periodsGroup.append(btn);
+  });
+  head.append(titleGroup,periodsGroup);
   card.append(head);
   const grid=document.createElement('div');
   grid.className='progress-stats-grid';
@@ -10345,20 +10529,6 @@ window.renderProgressActivityDashboard=renderProgressActivityDashboard;
     footer.innerHTML=`<span>ТЯГА: <b>${pulls}</b></span><span>ЖИМ: <b>${pushes}</b></span><span>ПРИСЕД: <b>${squats}</b></span>`;
     card.append(footer);
   }
-  const bioSection=document.createElement('div');
-  bioSection.className='progress-biomechanics-section';
-  const prof=config.profile||{}, w=Number(prof.weightKg)||null, h=Number(prof.heightCm)||null;
-  const kW=w?w/75:1.0, kH=h?h/175:1.0, kBody=Math.round(kW*kH*100)/100;
-  const totalReps=stats.totalRepetitions||0;
-  const totalSec=stats.totalDurationSeconds||0;
-  const workJoules=totalReps*268*kBody;
-  const workKj=workJoules>0?Math.round(workJoules/1000):0;
-  const workMjr=workKj>=1000?(workKj/1000).toFixed(1)+' МДж':`${workKj} кДж`;
-  const avgWatts=totalSec>0&&workJoules>0?Math.round(workJoules/totalSec):0;
-  const kText=w||h?`${kBody.toFixed(2).replace('.',',')}×`:'1,00×';
-  const paramsNote=w&&h?`вес ${w} кг · рост ${h} см`:(w?`вес ${w} кг`:(h?`рост ${h} см`:'базовый атлет (75 кг / 175 см)'));
-  bioSection.innerHTML=`<div class="progress-bio-head"><span class="eyebrow">БИОМЕХАНИКА И НАГРУЗКА</span><span class="bio-formula-badge">k = (W/75) × (H/175)</span></div><div class="progress-bio-metrics"><div class="bio-metric"><span>ФИЗ. РАБОТА</span><b>${workMjr}</b><small>${totalReps>0?'механическая работа':'после тренировок'}</small></div><div class="bio-metric"><span>МОЩНОСТЬ</span><b>${avgWatts>0?avgWatts+' Вт':'—'}</b><small>средняя полезная</small></div><div class="bio-metric"><span>РЫЧАГ ТЕЛА</span><b>${kText}</b><small>${paramsNote}</small></div></div><div class="progress-bio-formula-desc"><p>Формула связывает повторения с весом и ростом атлета: <code>W = ∑(повт × сложность) × (вес/75) × (рост/175)</code>. Атлет совершает реальную физическую работу против силы тяжести с учётом длины рычагов конечностей.</p></div>`;
-  card.append(bioSection);
   return card;
 }
 
