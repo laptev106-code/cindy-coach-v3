@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
   <meta name="theme-color" content="#f5f4ef">
   <title>CINDY Coach V3 — Умный тренер Cindy</title>
   <link rel="manifest" href="./manifest.webmanifest">
@@ -5689,12 +5689,119 @@ body{font-size:16px}
     border-radius: 22px !important;
     overflow: hidden !important;
   }
-  html body[data-color-theme] .theme-palette {
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    gap: 6px !important;
+  /* ==========================================================================
+     CINDY MASTER THEME & DISPLAY HUD ENGINE (2026)
+     - Universal 26px rounded display screen across all 12 themes (like FLUX)
+     - 16px separate rounded cockpit tiles for exercises
+     - 22px tactile primary button
+     - Top row: FLUX, COBALT (Image 1/3), PULSE (Image 2)
+     - Dual row: SPIDEY, MINT (CYBER), MIAMI, AURORA
+     - High-contrast single row: ICE (BLUE), FOREST, PLUM, GLASS, LAVA
+     ========================================================================== */
+  
+  /* Universal Screen HUD geometry (all 12 themes) */
+  html body #workout .workout-workarea #practiceCard,
+  html body #workout .workout-workarea .practice-card,
+  html body #practiceCard,
+  html body .practice-card {
+    border-radius: 26px !important;
+    overflow: hidden !important;
+  }
+  @media (max-width: 370px) {
+    html body #workout .workout-workarea #practiceCard,
+    html body #workout .workout-workarea .practice-card,
+    html body #practiceCard,
+    html body .practice-card {
+      border-radius: 22px !important;
+    }
   }
 
-  /* 2. THEME: COBALT (Глубокий синий #09318D + Белый #FFFFFF + Нежно-розовый #F59ACC) */
+  /* Universal Cockpit Tiles (all 12 themes) */
+  html body #workout .workout-workarea .practice-card #exerciseTotals,
+  html body #exerciseTotals {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+    padding: 0 !important;
+    margin-top: 14px !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  html body #workout .workout-workarea .practice-card #exerciseTotals .exercise-total,
+  html body #exerciseTotals .exercise-total {
+    border-radius: 16px !important;
+    padding: 8px 4px !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 3px 10px rgba(0, 0, 0, 0.35) !important;
+  }
+
+  /* Universal Primary CTA button shape */
+  html body .workout-workarea .action-deck #primaryAction,
+  html body .workout-workarea .action-deck #primaryAction.primary,
+  html body .action-deck #primaryAction.lap-pad,
+  html body .control.primary {
+    border-radius: 22px !important;
+    overflow: hidden !important;
+  }
+
+  /* Palette Grid: 3 columns x 4 rows for comfortable touch targets and zero clipping */
+  html body[data-color-theme] .theme-palette,
+  html body .theme-palette {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+  }
+  @media (min-width: 480px) {
+    html body[data-color-theme] .theme-palette,
+    html body .theme-palette {
+      grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    }
+  }
+
+  /* Palette Dots */
+  .palette-dot.flux { background: linear-gradient(135deg, #0A1430 0% 34%, #0297DE 34% 67%, #FC734D 67% 100%) !important; }
+  .palette-dot.cobalt { background: linear-gradient(135deg, #09318D 0% 34%, #FFFFFF 34% 67%, #F59ACC 67% 100%) !important; }
+  .palette-dot.pulse { background: linear-gradient(135deg, #0593C6 0% 34%, #FCFFFF 34% 67%, #DB3996 67% 100%) !important; }
+  .palette-dot.spidey { background: linear-gradient(135deg, #174ea6 0 50%, #e32636 50%) !important; }
+  .palette-dot.cyber { background: linear-gradient(135deg, #12181b 0 50%, #10b981 50%) !important; }
+  .palette-dot.miami { background: linear-gradient(135deg, #241038 0 50%, #06b6d4 50%) !important; }
+  .palette-dot.aurora { background: linear-gradient(135deg, #111638 0 50%, #22c55e 50%) !important; }
+  .palette-dot.blue { background: linear-gradient(135deg, #0c2345 0 50%, #3b8ef0 50%) !important; }
+  .palette-dot.forest { background: linear-gradient(135deg, #0f2e1f 0 50%, #38a169 50%) !important; }
+  .palette-dot.plum { background: linear-gradient(135deg, #290a38 0 50%, #b152eb 50%) !important; }
+  .palette-dot.glass { background: linear-gradient(135deg, #0e2d36 0 50%, #4dd0e1 50%) !important; }
+  .palette-dot.lava { background: linear-gradient(135deg, #330705 0 50%, #ff5e36 50%) !important; }
+
+  /* --------------------------------------------------------------------------
+     1. FLUX (Midnight Navy + Electric Cyan + Radiant Sports Orange #FC734D)
+     -------------------------------------------------------------------------- */
+  html body[data-color-theme="flux"] #practiceCard {
+    background: linear-gradient(142deg, #0e1c3e 0%, #0a1430 52%, #050b1b 100%) !important;
+    border: 1px solid rgba(2, 151, 222, 0.42) !important;
+    box-shadow: 0 18px 46px rgba(5, 11, 27, 0.45), inset 0 1.5px 0 rgba(2, 151, 222, 0.35), inset 0 -12px 24px rgba(0, 0, 0, 0.45) !important;
+    color: #ffffff !important;
+  }
+  html body.dark[data-color-theme="flux"] #practiceCard {
+    background: linear-gradient(142deg, #0d1836 0%, #081026 55%, #030610 100%) !important;
+    border: 1px solid rgba(2, 151, 222, 0.48) !important;
+    box-shadow: 0 20px 52px rgba(0, 0, 0, 0.8), inset 0 1.5px 0 rgba(56, 189, 248, 0.38), inset 0 -14px 28px rgba(0, 0, 0, 0.6) !important;
+  }
+  html body[data-color-theme="flux"] #exerciseTotals .exercise-total {
+    background: linear-gradient(180deg, rgba(14, 27, 61, 0.92) 0%, rgba(8, 16, 38, 0.96) 100%) !important;
+    border: 1px solid rgba(2, 151, 222, 0.36) !important;
+  }
+  html body[data-color-theme="flux"] .workout-workarea .action-deck #primaryAction,
+  html body[data-color-theme="flux"] .action-deck #primaryAction.lap-pad,
+  html body[data-color-theme="flux"] .control.primary {
+    background: linear-gradient(145deg, #FC734D 0%, #D24824 100%) !important;
+    border: 1px solid rgba(255, 235, 220, 0.45) !important;
+    color: #ffffff !important;
+    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.45), 0 8px 24px rgba(252, 115, 77, 0.42) !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     2. COBALT (Deep Blue #09318D + Pure White #FFFFFF + Soft Pink #F59ACC)
+     -------------------------------------------------------------------------- */
   html body[data-color-theme="cobalt"] {
     background: radial-gradient(circle at 90% -6%, rgba(9, 49, 141, 0.10), transparent 28rem),
                 radial-gradient(circle at 10% 45%, rgba(245, 154, 204, 0.08), transparent 24rem),
@@ -5721,16 +5828,14 @@ body{font-size:16px}
     box-shadow: 0 3px 12px rgba(245, 154, 204, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
     border-radius: 14px !important;
   }
-  html body[data-color-theme="cobalt"] #practiceCard,
-  html body[data-color-theme="cobalt"] .practice-card {
-    background: linear-gradient(145deg, #0e3ca8 0%, #09318D 55%, #04194d 100%) !important;
+  html body[data-color-theme="cobalt"] #practiceCard {
+    background: linear-gradient(142deg, #0e3ca8 0%, #09318D 55%, #04194d 100%) !important;
     border: 1px solid rgba(245, 154, 204, 0.38) !important;
     box-shadow: 0 18px 46px rgba(9, 49, 141, 0.36), inset 0 1.5px 0 rgba(255, 255, 255, 0.3), inset 0 -12px 24px rgba(0, 0, 0, 0.38) !important;
     color: #ffffff !important;
   }
-  html body.dark[data-color-theme="cobalt"] #practiceCard,
-  html body.dark[data-color-theme="cobalt"] .practice-card {
-    background: linear-gradient(145deg, #0c318a 0%, #072264 55%, #031036 100%) !important;
+  html body.dark[data-color-theme="cobalt"] #practiceCard {
+    background: linear-gradient(142deg, #0c318a 0%, #072264 55%, #031036 100%) !important;
     border: 1px solid rgba(245, 154, 204, 0.35) !important;
     box-shadow: 0 20px 52px rgba(0, 0, 0, 0.72), inset 0 1.5px 0 rgba(245, 154, 204, 0.28), inset 0 -14px 28px rgba(0, 0, 0, 0.55) !important;
     color: #ffffff !important;
@@ -5749,70 +5854,55 @@ body{font-size:16px}
   html body[data-color-theme="cobalt"] .workout-workarea .action-deck #primaryAction,
   html body[data-color-theme="cobalt"] .action-deck #primaryAction.lap-pad,
   html body[data-color-theme="cobalt"] .control.primary {
-    background: linear-gradient(145deg, #ffbce1 0%, #F59ACC 52%, #e06eb0 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.65) !important;
+    background: linear-gradient(145deg, #ffc0e5 0%, #F59ACC 52%, #df74aa 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.75) !important;
     color: #091b42 !important;
-    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.65), inset 0 -2px 0 rgba(120, 20, 75, 0.22), 0 8px 24px rgba(245, 154, 204, 0.45), 0 16px 32px rgba(9, 49, 141, 0.25) !important;
+    font-weight: 850 !important;
+    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.7), inset 0 -2px 0 rgba(120, 20, 75, 0.22), 0 8px 24px rgba(245, 154, 204, 0.45) !important;
   }
   html body[data-color-theme="cobalt"] .lap-pad .lap-count,
   html body[data-color-theme="cobalt"] .lap-pad .lap-text,
   html body[data-color-theme="cobalt"] .lap-pad .lap-detail { color: #091b42 !important; }
-  html body[data-color-theme="cobalt"] .action-deck #roundButton,
-  html body[data-color-theme="cobalt"] .control.secondary,
-  html body[data-color-theme="cobalt"] #voiceAction {
-    background: #ffffff !important;
-    border: 1.5px solid #09318D !important;
-    color: #09318D !important;
-    border-radius: 16px !important;
-  }
-  html body.dark[data-color-theme="cobalt"] .action-deck #roundButton,
-  html body.dark[data-color-theme="cobalt"] .control.secondary,
-  html body.dark[data-color-theme="cobalt"] #voiceAction {
-    background: #0c1f52 !important;
-    border: 1.5px solid #F59ACC !important;
-    color: #ffd4eb !important;
-    border-radius: 16px !important;
-  }
 
-  /* 3. THEME: PULSE (Небесно-голубой #0593C6 + Белый #FCFFFF + Ярко-розовый #DB3996) */
+  /* --------------------------------------------------------------------------
+     3. PULSE (Sky Blue #0593C6 + Crisp White #FCFFFF + Hot Pink #DB3996)
+     -------------------------------------------------------------------------- */
   html body[data-color-theme="pulse"] {
-    background: radial-gradient(circle at 90% -6%, rgba(5, 147, 198, 0.10), transparent 28rem),
+    background: radial-gradient(circle at 90% -6%, rgba(5, 147, 198, 0.12), transparent 28rem),
                 radial-gradient(circle at 10% 45%, rgba(219, 57, 150, 0.08), transparent 24rem),
                 #f4fbfd !important;
     color: #062d3d !important;
   }
   html body.dark[data-color-theme="pulse"] {
-    background: radial-gradient(circle at 90% -6%, rgba(5, 147, 198, 0.22), transparent 30rem),
-                radial-gradient(circle at 10% 45%, rgba(219, 57, 150, 0.12), transparent 24rem),
+    background: radial-gradient(circle at 90% -6%, rgba(5, 147, 198, 0.35), transparent 30rem),
+                radial-gradient(circle at 10% 45%, rgba(219, 57, 150, 0.10), transparent 24rem),
                 #041218 !important;
     color: #f2fcff !important;
   }
   html body[data-color-theme="pulse"] .nav button.active {
-    background: linear-gradient(145deg, #ffffff 0%, #e6f8fd 100%) !important;
+    background: linear-gradient(145deg, #ffffff 0%, #e6f7fc 100%) !important;
     border: 1.5px solid #0593C6 !important;
-    color: #0593C6 !important;
-    box-shadow: 0 2px 8px rgba(5, 147, 198, 0.22), inset 0 1px 0 #ffffff !important;
+    color: #0477a1 !important;
+    box-shadow: 0 2px 8px rgba(5, 147, 198, 0.2), inset 0 1px 0 #ffffff !important;
     border-radius: 14px !important;
   }
   html body.dark[data-color-theme="pulse"] .nav button.active {
-    background: linear-gradient(145deg, #0a3647 0%, #051c26 100%) !important;
+    background: linear-gradient(145deg, #062b3b 0%, #031720 100%) !important;
     border: 1.5px solid #DB3996 !important;
-    color: #ff7ac4 !important;
-    box-shadow: 0 3px 12px rgba(219, 57, 150, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+    color: #ff73c2 !important;
+    box-shadow: 0 3px 12px rgba(219, 57, 150, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
     border-radius: 14px !important;
   }
-  html body[data-color-theme="pulse"] #practiceCard,
-  html body[data-color-theme="pulse"] .practice-card {
-    background: linear-gradient(142deg, #0ba7df 0%, #0593C6 52%, #035c7d 100%) !important;
-    border: 1px solid rgba(252, 255, 255, 0.42) !important;
-    box-shadow: 0 18px 46px rgba(5, 147, 198, 0.34), inset 0 1.5px 0 rgba(252, 255, 255, 0.45), inset 0 -12px 24px rgba(0, 0, 0, 0.25) !important;
+  html body[data-color-theme="pulse"] #practiceCard {
+    background: linear-gradient(142deg, #0ba9e3 0%, #0593C6 55%, #03658a 100%) !important;
+    border: 1px solid rgba(252, 255, 255, 0.45) !important;
+    box-shadow: 0 18px 46px rgba(5, 147, 198, 0.36), inset 0 1.5px 0 rgba(252, 255, 255, 0.38), inset 0 -12px 24px rgba(0, 0, 0, 0.28) !important;
     color: #fcffff !important;
   }
-  html body.dark[data-color-theme="pulse"] #practiceCard,
-  html body.dark[data-color-theme="pulse"] .practice-card {
-    background: linear-gradient(142deg, #087ca6 0%, #045675 55%, #022c3d 100%) !important;
-    border: 1px solid rgba(40, 184, 235, 0.38) !important;
-    box-shadow: 0 20px 52px rgba(0, 0, 0, 0.72), inset 0 1.5px 0 rgba(124, 216, 247, 0.3), inset 0 -14px 28px rgba(0, 0, 0, 0.52) !important;
+  html body.dark[data-color-theme="pulse"] #practiceCard {
+    background: linear-gradient(142deg, #097da7 0%, #054861 55%, #022330 100%) !important;
+    border: 1px solid rgba(252, 255, 255, 0.32) !important;
+    box-shadow: 0 20px 52px rgba(0, 0, 0, 0.75), inset 0 1.5px 0 rgba(219, 57, 150, 0.35), inset 0 -14px 28px rgba(0, 0, 0, 0.55) !important;
     color: #fcffff !important;
   }
   html body[data-color-theme="pulse"] #practiceCard #timer { color: #fcffff !important; text-shadow: 0 2px 14px rgba(0, 45, 65, 0.28) !important; }
@@ -5821,185 +5911,290 @@ body{font-size:16px}
   html body[data-color-theme="pulse"] #practiceCard .pace-track { background: rgba(252, 255, 255, 0.26) !important; border: 1px solid rgba(252, 255, 255, 0.2) !important; }
   html body[data-color-theme="pulse"] #practiceCard .pace-track > i { background: linear-gradient(90deg, #fcffff 0%, #ff8acb 60%, #DB3996 100%) !important; }
   html body[data-color-theme="pulse"] #exerciseTotals .exercise-total {
-    background: linear-gradient(180deg, rgba(4, 96, 130, 0.72) 0%, rgba(3, 62, 85, 0.88) 100%) !important;
-    border: 1px solid rgba(252, 255, 255, 0.34) !important;
+    background: linear-gradient(180deg, rgba(8, 120, 160, 0.85) 0%, rgba(3, 70, 96, 0.94) 100%) !important;
+    border: 1px solid rgba(252, 255, 255, 0.36) !important;
   }
   html body[data-color-theme="pulse"] #exerciseTotals .exercise-total b { color: #fcffff !important; }
   html body[data-color-theme="pulse"] #exerciseTotals .exercise-total span { color: #e0f7ff !important; }
   html body[data-color-theme="pulse"] .workout-workarea .action-deck #primaryAction,
   html body[data-color-theme="pulse"] .action-deck #primaryAction.lap-pad,
   html body[data-color-theme="pulse"] .control.primary {
-    background: linear-gradient(145deg, #f352af 0%, #DB3996 52%, #a81c6b 100%) !important;
-    border: 1px solid rgba(255, 225, 242, 0.5) !important;
+    background: linear-gradient(145deg, #ff52b2 0%, #DB3996 52%, #b01c72 100%) !important;
+    border: 1px solid rgba(255, 220, 240, 0.65) !important;
     color: #ffffff !important;
-    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.45), inset 0 -2px 0 rgba(0, 0, 0, 0.22), 0 8px 24px rgba(219, 57, 150, 0.42), 0 16px 32px rgba(5, 147, 198, 0.22) !important;
+    font-weight: 850 !important;
+    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.6), inset 0 -2px 0 rgba(100, 10, 60, 0.28), 0 8px 26px rgba(219, 57, 150, 0.45) !important;
   }
   html body[data-color-theme="pulse"] .lap-pad .lap-count,
   html body[data-color-theme="pulse"] .lap-pad .lap-text,
   html body[data-color-theme="pulse"] .lap-pad .lap-detail { color: #ffffff !important; }
-  html body[data-color-theme="pulse"] .action-deck #roundButton,
-  html body[data-color-theme="pulse"] .control.secondary,
-  html body[data-color-theme="pulse"] #voiceAction {
-    background: #fcffff !important;
-    border: 1.5px solid #0593C6 !important;
-    color: #0593C6 !important;
-    border-radius: 16px !important;
+
+  /* --------------------------------------------------------------------------
+     4. SPIDEY (Comic Blue & Crimson Red)
+     -------------------------------------------------------------------------- */
+  html body[data-color-theme="spidey"] #practiceCard {
+    background: linear-gradient(142deg, #18336d 0%, #0f224a 55%, #071229 100%) !important;
+    border: 1px solid rgba(255, 110, 126, 0.38) !important;
+    color: #ffffff !important;
   }
-  html body.dark[data-color-theme="pulse"] .action-deck #roundButton,
-  html body.dark[data-color-theme="pulse"] .control.secondary,
-  html body.dark[data-color-theme="pulse"] #voiceAction {
-    background: #082836 !important;
-    border: 1.5px solid #28b8eb !important;
-    color: #7cd8f7 !important;
-    border-radius: 16px !important;
+  html body.dark[data-color-theme="spidey"] #practiceCard {
+    background: linear-gradient(142deg, #12244d 0%, #091530 55%, #040917 100%) !important;
+    border: 1px solid rgba(255, 110, 126, 0.32) !important;
+    color: #ffffff !important;
+  }
+  html body[data-color-theme="spidey"] #exerciseTotals .exercise-total {
+    background: rgba(15, 34, 74, 0.85) !important;
+    border: 1px solid rgba(255, 110, 126, 0.35) !important;
+  }
+  html body[data-color-theme="spidey"] #exerciseTotals .exercise-total b { color: #ffffff !important; }
+  html body[data-color-theme="spidey"] #exerciseTotals .exercise-total span { color: #ffd5da !important; }
+  html body[data-color-theme="spidey"] .workout-workarea .action-deck #primaryAction,
+  html body[data-color-theme="spidey"] .action-deck #primaryAction.lap-pad,
+  html body[data-color-theme="spidey"] .control.primary {
+    background: linear-gradient(145deg, #ff4d5e 0%, #d82335 55%, #9e1020 100%) !important;
+    border: 1px solid rgba(255, 220, 225, 0.55) !important;
+    color: #ffffff !important;
+    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.45), 0 8px 24px rgba(216, 35, 53, 0.42) !important;
   }
 
-  /* 4. HIGH-CONTRAST SINGLE-COLOR THEMES (Screen deep & rich vs Button bright & punchy) */
-  /* ICE (ЛЁД) - Light & Dark */
+  /* --------------------------------------------------------------------------
+     5. CYBER / MINT (Obsidian Charcoal & Radiant Emerald Mint)
+     -------------------------------------------------------------------------- */
+  html body[data-color-theme="cyber"] #practiceCard {
+    background: linear-gradient(142deg, #1f2a2e 0%, #12191c 55%, #090e10 100%) !important;
+    border: 1px solid rgba(52, 211, 153, 0.38) !important;
+    color: #f0fdf4 !important;
+  }
+  html body.dark[data-color-theme="cyber"] #practiceCard {
+    background: linear-gradient(142deg, #161e21 0%, #0b1012 55%, #050809 100%) !important;
+    border: 1px solid rgba(52, 211, 153, 0.30) !important;
+    color: #f0fdf4 !important;
+  }
+  html body[data-color-theme="cyber"] #exerciseTotals .exercise-total {
+    background: rgba(22, 34, 38, 0.85) !important;
+    border: 1px solid rgba(52, 211, 153, 0.32) !important;
+  }
+  html body[data-color-theme="cyber"] #exerciseTotals .exercise-total b { color: #f0fdf4 !important; }
+  html body[data-color-theme="cyber"] #exerciseTotals .exercise-total span { color: #a7f3d0 !important; }
+  html body[data-color-theme="cyber"] .workout-workarea .action-deck #primaryAction,
+  html body[data-color-theme="cyber"] .action-deck #primaryAction.lap-pad,
+  html body[data-color-theme="cyber"] .control.primary {
+    background: linear-gradient(145deg, #6ee7b7 0%, #10b981 55%, #059669 100%) !important;
+    border: 1px solid rgba(209, 250, 229, 0.65) !important;
+    color: #022c22 !important;
+    font-weight: 850 !important;
+    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.6), 0 8px 24px rgba(16, 185, 129, 0.42) !important;
+  }
+  html body[data-color-theme="cyber"] .lap-pad .lap-count,
+  html body[data-color-theme="cyber"] .lap-pad .lap-text,
+  html body[data-color-theme="cyber"] .lap-pad .lap-detail { color: #022c22 !important; }
+
+  /* --------------------------------------------------------------------------
+     6. MIAMI (Twilight Violet & Luminous Neon Cyan)
+     -------------------------------------------------------------------------- */
+  html body[data-color-theme="miami"] #practiceCard {
+    background: linear-gradient(142deg, #32154d 0%, #200c33 55%, #10051c 100%) !important;
+    border: 1px solid rgba(56, 189, 248, 0.38) !important;
+    color: #ffffff !important;
+  }
+  html body.dark[data-color-theme="miami"] #practiceCard {
+    background: linear-gradient(142deg, #240d38 0%, #160724 55%, #0a0212 100%) !important;
+    border: 1px solid rgba(56, 189, 248, 0.30) !important;
+    color: #ffffff !important;
+  }
+  html body[data-color-theme="miami"] #exerciseTotals .exercise-total {
+    background: rgba(36, 16, 56, 0.85) !important;
+    border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  }
+  html body[data-color-theme="miami"] #exerciseTotals .exercise-total b { color: #ffffff !important; }
+  html body[data-color-theme="miami"] #exerciseTotals .exercise-total span { color: #bae6fd !important; }
+  html body[data-color-theme="miami"] .workout-workarea .action-deck #primaryAction,
+  html body[data-color-theme="miami"] .action-deck #primaryAction.lap-pad,
+  html body[data-color-theme="miami"] .control.primary {
+    background: linear-gradient(145deg, #38bdf8 0%, #06b6d4 55%, #0891b2 100%) !important;
+    border: 1px solid rgba(224, 242, 254, 0.7) !important;
+    color: #082f49 !important;
+    font-weight: 850 !important;
+    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.65), 0 8px 24px rgba(6, 182, 212, 0.45) !important;
+  }
+  html body[data-color-theme="miami"] .lap-pad .lap-count,
+  html body[data-color-theme="miami"] .lap-pad .lap-text,
+  html body[data-color-theme="miami"] .lap-pad .lap-detail { color: #082f49 !important; }
+
+  /* --------------------------------------------------------------------------
+     7. AURORA (Deep Space Indigo & Glowing Aurora Green)
+     -------------------------------------------------------------------------- */
+  html body[data-color-theme="aurora"] #practiceCard {
+    background: linear-gradient(142deg, #1b204e 0%, #101436 55%, #07091f 100%) !important;
+    border: 1px solid rgba(134, 239, 172, 0.38) !important;
+    color: #ffffff !important;
+  }
+  html body.dark[data-color-theme="aurora"] #practiceCard {
+    background: linear-gradient(142deg, #121638 0%, #0a0d24 55%, #040612 100%) !important;
+    border: 1px solid rgba(134, 239, 172, 0.30) !important;
+    color: #ffffff !important;
+  }
+  html body[data-color-theme="aurora"] #exerciseTotals .exercise-total {
+    background: rgba(17, 22, 58, 0.85) !important;
+    border: 1px solid rgba(134, 239, 172, 0.32) !important;
+  }
+  html body[data-color-theme="aurora"] #exerciseTotals .exercise-total b { color: #ffffff !important; }
+  html body[data-color-theme="aurora"] #exerciseTotals .exercise-total span { color: #bbf7d0 !important; }
+  html body[data-color-theme="aurora"] .workout-workarea .action-deck #primaryAction,
+  html body[data-color-theme="aurora"] .action-deck #primaryAction.lap-pad,
+  html body[data-color-theme="aurora"] .control.primary {
+    background: linear-gradient(145deg, #86efac 0%, #22c55e 55%, #15803d 100%) !important;
+    border: 1px solid rgba(220, 252, 231, 0.7) !important;
+    color: #052e16 !important;
+    font-weight: 850 !important;
+    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.65), 0 8px 24px rgba(34, 197, 94, 0.45) !important;
+  }
+  html body[data-color-theme="aurora"] .lap-pad .lap-count,
+  html body[data-color-theme="aurora"] .lap-pad .lap-text,
+  html body[data-color-theme="aurora"] .lap-pad .lap-detail { color: #052e16 !important; }
+
+  /* --------------------------------------------------------------------------
+     8. BLUE / ICE (Deep Arctic Navy Screen vs Electric Sky-Cyan Button)
+     -------------------------------------------------------------------------- */
   html body[data-color-theme="blue"] #practiceCard {
-    background: linear-gradient(142deg, #163b6e 0%, #0d264a 60%, #071730 100%) !important;
-    border: 1px solid rgba(147, 197, 253, 0.35) !important;
+    background: linear-gradient(142deg, #143563 0%, #0c2345 55%, #05142b 100%) !important;
+    border: 1px solid rgba(147, 197, 253, 0.38) !important;
     color: #ffffff !important;
   }
   html body.dark[data-color-theme="blue"] #practiceCard {
-    background: linear-gradient(142deg, #0d264a 0%, #07162e 60%, #030b18 100%) !important;
-    border: 1px solid rgba(147, 197, 253, 0.3) !important;
+    background: linear-gradient(142deg, #0e274a 0%, #081830 55%, #030b17 100%) !important;
+    border: 1px solid rgba(147, 197, 253, 0.30) !important;
+    color: #ffffff !important;
   }
   html body[data-color-theme="blue"] #exerciseTotals .exercise-total {
-    background: rgba(15, 42, 82, 0.78) !important;
-    border: 1px solid rgba(147, 197, 253, 0.32) !important;
+    background: rgba(12, 35, 69, 0.85) !important;
+    border: 1px solid rgba(147, 197, 253, 0.34) !important;
   }
+  html body[data-color-theme="blue"] #exerciseTotals .exercise-total b { color: #ffffff !important; }
+  html body[data-color-theme="blue"] #exerciseTotals .exercise-total span { color: #bfdbfe !important; }
   html body[data-color-theme="blue"] .workout-workarea .action-deck #primaryAction,
   html body[data-color-theme="blue"] .action-deck #primaryAction.lap-pad,
   html body[data-color-theme="blue"] .control.primary {
     background: linear-gradient(145deg, #74b9ff 0%, #3b8ef0 55%, #1d6cd4 100%) !important;
-    border: 1px solid rgba(225, 242, 255, 0.6) !important;
+    border: 1px solid rgba(225, 242, 255, 0.7) !important;
     color: #ffffff !important;
-    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.45), 0 10px 24px rgba(59, 142, 240, 0.38) !important;
+    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.5), 0 10px 24px rgba(59, 142, 240, 0.42) !important;
   }
 
-  /* FOREST (ЛЕС) - Light & Dark */
+  /* --------------------------------------------------------------------------
+     9. FOREST (Deep Pine Shadow Screen vs Radiant Emerald Leaf Button)
+     -------------------------------------------------------------------------- */
   html body[data-color-theme="forest"] #practiceCard {
-    background: linear-gradient(142deg, #1b4d34 0%, #103322 60%, #081f14 100%) !important;
-    border: 1px solid rgba(134, 239, 172, 0.32) !important;
+    background: linear-gradient(142deg, #184730 0%, #0f2e1f 55%, #061910 100%) !important;
+    border: 1px solid rgba(134, 239, 172, 0.36) !important;
     color: #ffffff !important;
   }
   html body.dark[data-color-theme="forest"] #practiceCard {
-    background: linear-gradient(142deg, #113624 0%, #092116 60%, #04120b 100%) !important;
+    background: linear-gradient(142deg, #103322 0%, #092015 55%, #030d08 100%) !important;
     border: 1px solid rgba(134, 239, 172, 0.28) !important;
+    color: #ffffff !important;
   }
   html body[data-color-theme="forest"] #exerciseTotals .exercise-total {
-    background: rgba(16, 54, 35, 0.78) !important;
-    border: 1px solid rgba(134, 239, 172, 0.3) !important;
+    background: rgba(15, 46, 31, 0.85) !important;
+    border: 1px solid rgba(134, 239, 172, 0.32) !important;
   }
+  html body[data-color-theme="forest"] #exerciseTotals .exercise-total b { color: #ffffff !important; }
+  html body[data-color-theme="forest"] #exerciseTotals .exercise-total span { color: #bbf7d0 !important; }
   html body[data-color-theme="forest"] .workout-workarea .action-deck #primaryAction,
   html body[data-color-theme="forest"] .action-deck #primaryAction.lap-pad,
   html body[data-color-theme="forest"] .control.primary {
     background: linear-gradient(145deg, #68d391 0%, #38a169 55%, #22784b 100%) !important;
-    border: 1px solid rgba(220, 252, 231, 0.55) !important;
+    border: 1px solid rgba(220, 252, 231, 0.65) !important;
     color: #ffffff !important;
-    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.45), 0 10px 24px rgba(56, 161, 105, 0.38) !important;
+    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.5), 0 10px 24px rgba(56, 161, 105, 0.42) !important;
   }
 
-  /* PLUM (СЛИВА) - Deep dark plum screen vs Vibrant bright orchid-plum button */
+  /* --------------------------------------------------------------------------
+     10. PLUM (Deep Eggplant-Plum Screen vs Vivid Radiant Orchid Button)
+     -------------------------------------------------------------------------- */
   html body[data-color-theme="plum"] #practiceCard {
-    background: linear-gradient(142deg, #4b1866 0%, #2e0d40 60%, #1a0626 100%) !important;
-    border: 1px solid rgba(233, 213, 255, 0.34) !important;
+    background: linear-gradient(142deg, #44145c 0%, #290a38 55%, #15031e 100%) !important;
+    border: 1px solid rgba(233, 213, 255, 0.38) !important;
     color: #ffffff !important;
   }
   html body.dark[data-color-theme="plum"] #practiceCard {
-    background: linear-gradient(142deg, #35104a 0%, #1e072b 60%, #100317 100%) !important;
-    border: 1px solid rgba(216, 180, 254, 0.3) !important;
+    background: linear-gradient(142deg, #300d42 0%, #1c0626 55%, #0e0214 100%) !important;
+    border: 1px solid rgba(216, 180, 254, 0.30) !important;
+    color: #ffffff !important;
   }
   html body[data-color-theme="plum"] #exerciseTotals .exercise-total {
-    background: rgba(54, 16, 77, 0.78) !important;
-    border: 1px solid rgba(216, 180, 254, 0.32) !important;
+    background: rgba(45, 12, 64, 0.85) !important;
+    border: 1px solid rgba(216, 180, 254, 0.34) !important;
   }
+  html body[data-color-theme="plum"] #exerciseTotals .exercise-total b { color: #ffffff !important; }
+  html body[data-color-theme="plum"] #exerciseTotals .exercise-total span { color: #f3e8ff !important; }
   html body[data-color-theme="plum"] .workout-workarea .action-deck #primaryAction,
   html body[data-color-theme="plum"] .action-deck #primaryAction.lap-pad,
   html body[data-color-theme="plum"] .control.primary {
     background: linear-gradient(145deg, #d896ff 0%, #b152eb 55%, #8830bd 100%) !important;
-    border: 1px solid rgba(245, 225, 255, 0.6) !important;
+    border: 1px solid rgba(250, 235, 255, 0.7) !important;
     color: #ffffff !important;
-    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.5), 0 10px 26px rgba(177, 82, 235, 0.42) !important;
+    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.55), 0 10px 26px rgba(177, 82, 235, 0.48) !important;
   }
 
-  /* GLASS (СТЕКЛО) - Deep slate-cyan screen vs Bright frosted cyan button */
+  /* --------------------------------------------------------------------------
+     11. GLASS (Deep Smoky Mineral Teal Screen vs Luminous Frosted Cyan Button)
+     -------------------------------------------------------------------------- */
   html body[data-color-theme="glass"] #practiceCard {
-    background: linear-gradient(142deg, #1b4d5c 0%, #0f323d 60%, #081e26 100%) !important;
-    border: 1px solid rgba(165, 243, 252, 0.36) !important;
+    background: linear-gradient(142deg, #184552 0%, #0e2d36 55%, #061920 100%) !important;
+    border: 1px solid rgba(165, 243, 252, 0.38) !important;
     color: #ffffff !important;
   }
   html body.dark[data-color-theme="glass"] #practiceCard {
-    background: linear-gradient(142deg, #123642 0%, #0a222b 60%, #051318 100%) !important;
+    background: linear-gradient(142deg, #10303a 0%, #091e24 55%, #040e12 100%) !important;
     border: 1px solid rgba(165, 243, 252, 0.28) !important;
+    color: #ffffff !important;
   }
   html body[data-color-theme="glass"] #exerciseTotals .exercise-total {
-    background: rgba(16, 56, 68, 0.78) !important;
-    border: 1px solid rgba(165, 243, 252, 0.32) !important;
+    background: rgba(14, 45, 54, 0.85) !important;
+    border: 1px solid rgba(165, 243, 252, 0.34) !important;
   }
+  html body[data-color-theme="glass"] #exerciseTotals .exercise-total b { color: #ffffff !important; }
+  html body[data-color-theme="glass"] #exerciseTotals .exercise-total span { color: #cffafe !important; }
   html body[data-color-theme="glass"] .workout-workarea .action-deck #primaryAction,
   html body[data-color-theme="glass"] .action-deck #primaryAction.lap-pad,
   html body[data-color-theme="glass"] .control.primary {
     background: linear-gradient(145deg, #a5f3fc 0%, #4dd0e1 55%, #1e9eb3 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.7) !important;
+    border: 1px solid rgba(255, 255, 255, 0.75) !important;
     color: #082f3a !important;
-    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.65), 0 10px 24px rgba(77, 208, 225, 0.38) !important;
+    font-weight: 850 !important;
+    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.65), 0 10px 24px rgba(77, 208, 225, 0.42) !important;
   }
   html body[data-color-theme="glass"] .lap-pad .lap-count,
   html body[data-color-theme="glass"] .lap-pad .lap-text,
   html body[data-color-theme="glass"] .lap-pad .lap-detail { color: #082f3a !important; }
 
-  /* LAVA (ЛАВА) - Deep obsidian-crimson screen vs Blazing bright orange-ember button */
+  /* --------------------------------------------------------------------------
+     12. LAVA (Deep Obsidian Magma Screen vs Radiant Molten Orange-Ember Button)
+     -------------------------------------------------------------------------- */
   html body[data-color-theme="lava"] #practiceCard {
-    background: linear-gradient(142deg, #5e1410 0%, #380907 60%, #1c0302 100%) !important;
-    border: 1px solid rgba(253, 186, 116, 0.34) !important;
+    background: linear-gradient(142deg, #54110e 0%, #330705 55%, #180201 100%) !important;
+    border: 1px solid rgba(254, 215, 170, 0.38) !important;
     color: #ffffff !important;
   }
   html body.dark[data-color-theme="lava"] #practiceCard {
-    background: linear-gradient(142deg, #420c09 0%, #240504 60%, #120201 100%) !important;
+    background: linear-gradient(142deg, #3d0b09 0%, #220403 55%, #100100 100%) !important;
     border: 1px solid rgba(253, 186, 116, 0.28) !important;
+    color: #ffffff !important;
   }
   html body[data-color-theme="lava"] #exerciseTotals .exercise-total {
-    background: rgba(68, 12, 9, 0.8) !important;
-    border: 1px solid rgba(253, 186, 116, 0.3) !important;
+    background: rgba(58, 10, 8, 0.85) !important;
+    border: 1px solid rgba(253, 186, 116, 0.34) !important;
   }
+  html body[data-color-theme="lava"] #exerciseTotals .exercise-total b { color: #ffffff !important; }
+  html body[data-color-theme="lava"] #exerciseTotals .exercise-total span { color: #ffedd5 !important; }
   html body[data-color-theme="lava"] .workout-workarea .action-deck #primaryAction,
   html body[data-color-theme="lava"] .action-deck #primaryAction.lap-pad,
   html body[data-color-theme="lava"] .control.primary {
     background: linear-gradient(145deg, #ff9966 0%, #ff5e36 55%, #d63218 100%) !important;
-    border: 1px solid rgba(255, 235, 215, 0.6) !important;
+    border: 1px solid rgba(255, 237, 213, 0.7) !important;
     color: #ffffff !important;
-    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.45), 0 10px 26px rgba(255, 94, 54, 0.42) !important;
-  }
-
-  /* 5. TWO-TONE CONTRAST REINFORCEMENT (Spidey, Cyber/Mint, Miami, Aurora) */
-  html body[data-color-theme="spidey"] #exerciseTotals .exercise-total,
-  html body[data-color-theme="cyber"] #exerciseTotals .exercise-total,
-  html body[data-color-theme="miami"] #exerciseTotals .exercise-total,
-  html body[data-color-theme="aurora"] #exerciseTotals .exercise-total {
-    background: rgba(0, 0, 0, 0.24) !important;
-    border: 1px solid rgba(255, 255, 255, 0.22) !important;
-  }
-  html body[data-color-theme="spidey"] .workout-workarea .action-deck #primaryAction,
-  html body[data-color-theme="spidey"] .action-deck #primaryAction.lap-pad {
-    background: linear-gradient(145deg, #c8102e 0%, #940d21 100%) !important;
-    color: #ffffff !important;
-  }
-  html body[data-color-theme="cyber"] .workout-workarea .action-deck #primaryAction,
-  html body[data-color-theme="cyber"] .action-deck #primaryAction.lap-pad {
-    background: linear-gradient(145deg, #2ee59d 0%, #059669 100%) !important;
-    color: #ffffff !important;
-  }
-  html body[data-color-theme="miami"] .workout-workarea .action-deck #primaryAction,
-  html body[data-color-theme="miami"] .action-deck #primaryAction.lap-pad {
-    background: linear-gradient(145deg, #ff6384 0%, #e11d48 100%) !important;
-    color: #ffffff !important;
-  }
-  html body[data-color-theme="aurora"] .workout-workarea .action-deck #primaryAction,
-  html body[data-color-theme="aurora"] .action-deck #primaryAction.lap-pad {
-    background: linear-gradient(145deg, #34d399 0%, #059669 100%) !important;
-    color: #ffffff !important;
+    box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.5), 0 10px 26px rgba(255, 94, 54, 0.48) !important;
   }
 </style>
 <style id="cindy-apple-design-and-motion-2026">
@@ -6341,28 +6536,8 @@ body{font-size:16px}
     --nav-active-border: rgba(232, 144, 120, 0.28);
   }
 
-  html body[data-color-theme="copper"] {
-    --paper: #f8f3ee;
-    --cta-bg: linear-gradient(148deg, #b84920 0%, #7a290c 100%);
-    --cta-border: rgba(255, 224, 200, 0.40);
-    --cta-ink: #ffffff;
-    --cta-glow: rgba(122, 41, 12, 0.26);
-    --card-cta-bg: var(--cta-bg);
-    --card-cta-border: var(--cta-border);
-    --card-cta-ink: var(--cta-ink);
-    --card-cta-glow: rgba(122, 41, 12, 0.18);
-    --dot-grad: linear-gradient(135deg, #d97748, #8c2e0f);
-    --dot-ring: rgba(184, 73, 32, 0.24);
-    --nav-active-ink: #9c3614;
-    --nav-active-bg: rgba(156, 54, 20, 0.10);
-    --nav-active-border: rgba(156, 54, 20, 0.22);
-  }
-  html body.dark[data-color-theme="copper"] {
-    --paper: #14100f;
-    --nav-active-ink: #f5a584;
-    --nav-active-bg: rgba(232, 130, 92, 0.15);
-    --nav-active-border: rgba(232, 130, 92, 0.30);
-  }
+  
+  
 
   html body[data-color-theme="graphite"] {
     --paper: #f7f6f4;
@@ -6770,7 +6945,7 @@ body{font-size:16px}
   html body #workout #timer {
     font-variant-numeric: tabular-nums !important;
     font-feature-settings: "tnum" 1, "ss01" 1 !important;
-    letter-spacing: -0.045em !important;
+    letter-spacing: -0.02em !important;
     text-shadow: none !important;
   }
   html body .round-line b,
@@ -6805,7 +6980,7 @@ body{font-size:16px}
   }
   html body[data-color-theme] #workout .workout-workarea .practice-card #exerciseTotals .exercise-total span,
   html body:not([data-color-theme]) #workout .workout-workarea .practice-card #exerciseTotals .exercise-total span {
-    letter-spacing: -0.055em !important;
+    letter-spacing: 0.01em !important;
     font-weight: 700 !important;
     white-space: nowrap !important;
   }
@@ -6855,8 +7030,7 @@ body{font-size:16px}
     display: grid !important;
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     align-items: stretch !important;
-    width: min(100%, 364px) !important;
-    max-width: 364px !important;
+    width: calc(100% - 16px) !important; max-width: 400px !important; margin: 0 auto !important;
     min-height: 0 !important;
     height: auto !important;
     gap: 4px !important;
@@ -6871,8 +7045,8 @@ body{font-size:16px}
       color-mix(in srgb, #ffffff 54%, transparent) 0%,
       color-mix(in srgb, var(--panel) 42%, transparent) 100%
     ) !important;
-    backdrop-filter: blur(26px) saturate(210%) !important;
-    -webkit-backdrop-filter: blur(26px) saturate(210%) !important;
+    backdrop-filter: blur(10px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(140%) !important;
     border: 1px solid rgba(255, 255, 255, 0.72) !important;
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.88),
@@ -6893,8 +7067,8 @@ body{font-size:16px}
       color-mix(in srgb, var(--panel) 40%, rgba(28, 38, 56, 0.42)) 0%,
       rgba(8, 14, 24, 0.46) 100%
     ) !important;
-    backdrop-filter: blur(28px) saturate(195%) !important;
-    -webkit-backdrop-filter: blur(28px) saturate(195%) !important;
+    backdrop-filter: blur(10px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(140%) !important;
     border: 1px solid rgba(255, 255, 255, 0.20) !important;
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.22),
@@ -8226,20 +8400,8 @@ body{font-size:16px}
     --cta-glow: rgba(252, 115, 77, 0.42) !important;
     --card-cta-glow: rgba(226, 72, 30, 0.28) !important;
   }
-  html body[data-color-theme="copper"]:not(.dark) {
-    --muted: #5d5551 !important;
-    --ink-accent: #a63c16 !important;
-    --nav-active-ink: #a63c16 !important;
-    --cta-bg: linear-gradient(145deg, #c24213 0%, #832707 100%) !important;
-    --card-cta-bg: linear-gradient(145deg, #c24213 0%, #832707 100%) !important;
-    --cta-ink: #ffffff !important;
-    --card-cta-ink: #ffffff !important;
-  }
-  html body.dark[data-color-theme="copper"] {
-    --muted: #c2b6b0 !important;
-    --ink-accent: #f7a989 !important;
-    --nav-active-ink: #f7a989 !important;
-  }
+  
+  
   html body[data-color-theme="glass"]:not(.dark) {
     --muted: #3e5b64 !important;
     --ink-accent: #0a5f78 !important;
@@ -8259,29 +8421,21 @@ body{font-size:16px}
   html body :is(.setting-head .eyebrow, .coach-card .eyebrow, .coach-explain-row > span, .stepper-button, .composition-slot i, #progressAnalytics .achievement-line-head strong, #progressAnalytics .achievement-families-toggle, .activity-badge, .achievement-section-toggle > i, #progressAnalytics .progress-activity-footer b, .history-card summary > span, .route-top strong, .route-grid b, .workout-coach-brief > :is(.eyebrow, span.eyebrow), .program-section-head .control:not(.primary), .coach-card .coach-actions .control:not(.primary), .profile-edit, #profileSettingsCategories .choice:not(.selected):not([aria-expanded="true"]) .settings-chevron, .lang-code, .template-card .eyebrow, .program-card .eyebrow, .result-sheet .eyebrow, .history-details .record-composition, .history-details .lap-item b):not(#__none__) {
     color: var(--ink-accent) !important;
   }
-  html body[data-color-theme="copper"]:not(.dark) :is(.setting-stepper .stepper-button, .nav button.active, .profile-identity .eyebrow, .profile-insight .eyebrow, .coach-role-row b, .route-grid b, #progressAnalytics .progress-activity-footer b, .workout-coach-brief > :is(.eyebrow, span.eyebrow)):not(#__none__) {
-    color: #a63c16 !important;
-  }
+  
   html body:not(.dark) .control.stop:not(#__none__) {
     color: #b41d1d !important;
   }
   html body.dark .control.stop:not(#__none__) {
     color: #fca5a5 !important;
   }
-  html body[data-color-theme="copper"]:not(.dark) #workout .workout-workarea .practice-card {
-    background: linear-gradient(138deg, #4b1d15 0%, #7d2f18 56%, #8f3112 112%) !important;
-  }
+  
   html body[data-color-theme="glass"]:not(.dark) #workout .workout-workarea .practice-card {
     background: linear-gradient(142deg, #0b3949 0%, #115268 58%, #15627b 100%) !important;
   }
   html body[data-color-theme="glass"]:not(.dark) #workout .workout-workarea .practice-card #focusContext .focus-context__eyebrow:not(#__none__) {
     color: rgba(255, 255, 255, 0.94) !important;
   }
-  html body[data-color-theme="copper"] :is(.choice.selected, .segmented .choice.selected, #profile #profileSettingsCategories .choice.selected, #profile #profileSettingsCategories .choice[aria-expanded="true"], .exercise-chip.selected, .lap-badge):not(#__none__) {
-    background: linear-gradient(135deg, #a63c16 0%, #7d2506 100%) !important;
-    border-color: #6b1f05 !important;
-    color: #ffffff !important;
-  }
+  
   html body[data-color-theme="flux"] :is(.choice.selected, .segmented .choice.selected, #profile #profileSettingsCategories .choice.selected, #profile #profileSettingsCategories .choice[aria-expanded="true"], .exercise-chip.selected, .lap-badge):not(#__none__),
   html body:not([data-color-theme]) :is(.choice.selected, .segmented .choice.selected, #profile #profileSettingsCategories .choice.selected, #profile #profileSettingsCategories .choice[aria-expanded="true"], .exercise-chip.selected, .lap-badge):not(#__none__) {
     background: linear-gradient(135deg, #0297DE 0%, #0277b5 100%) !important;
@@ -8323,12 +8477,7 @@ body{font-size:16px}
     box-shadow: 0 1.5px 0 rgba(255, 255, 255, 0.6) inset, 0 -2.5px 0 rgba(0, 0, 0, 0.24) inset, 0 8px 24px rgba(252, 115, 77, 0.42), 0 16px 34px rgba(0, 0, 0, 0.28) !important;
     color: #ffffff !important;
   }
-  html body[data-color-theme="copper"]:not(.dark) #workout .workout-workarea .action-deck #primaryAction.primary,
-  html body[data-color-theme="copper"]:not(.dark) #workout .workout-workarea .action-deck #primaryAction.lap-pad,
-  html body[data-color-theme="copper"]:not(.dark) :is(.control.primary, #startPlanWorkout, #newWorkout):not(#__none__) {
-    background: linear-gradient(145deg, #c24213 0%, #832707 100%) !important;
-    color: #ffffff !important;
-  }
+  
 
   /* Exclusion checkbox rows >=44px tap target */
   html body #programs .exercise-exclusion-option {
@@ -9017,6 +9166,97 @@ body{font-size:16px}
   html body :is(.pro-save, .pro-workout .control):active {
     transform: translateY(1.5px) scale(0.985) !important;
   }
+
+  /* ==========================================================================
+     CINDY PERFORMANCE & MULTI-SCREEN ADAPTABILITY ENGINE (2026)
+     - Standard: mobile-native + better-typography + better-layout + animation-performance
+     - Flawless 60-120 FPS on budget Android, no font inflation, zero clipping
+     ========================================================================== */
+  html, body {
+    -webkit-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
+    -webkit-tap-highlight-color: transparent !important;
+    overscroll-behavior-y: none !important;
+  }
+  button, a, [role="button"], .choice, .control, .nav button {
+    touch-action: manipulation !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+  }
+  .title, .settings-head .title {
+    text-wrap: balance !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* Responsive Nav Button labels */
+  html body .nav .nav-inner button {
+    min-width: 0 !important;
+  }
+  html body .nav .nav-inner button .nav-label {
+    font-size: clamp(9px, 2.7vw, 11px) !important;
+    letter-spacing: -0.02em !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+  }
+
+  /* Exercise Totals counter boxes safety */
+  html body #exerciseTotals .exercise-total {
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+  html body #exerciseTotals .exercise-total span {
+    font-size: clamp(9px, 2.6vw, 11px) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    letter-spacing: 0.01em !important;
+  }
+
+  /* --- SPORT (MAX FPS) PERFORMANCE MODE OVERRIDES --- */
+  body[data-performance-mode="sport"] *,
+  body[data-performance-mode="sport"] *::before,
+  body[data-performance-mode="sport"] *::after {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  body[data-performance-mode="sport"] .nav .nav-inner {
+    background: var(--panel) !important;
+    border: 1px solid var(--line) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  body.dark[data-performance-mode="sport"] .nav .nav-inner {
+    background: #0d1527 !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.40) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  body[data-performance-mode="sport"] .card,
+  body[data-performance-mode="sport"] .practice-card,
+  body[data-performance-mode="sport"] .action-deck button,
+  body[data-performance-mode="sport"] .choice {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
+  }
+  body.dark[data-performance-mode="sport"] .card,
+  body.dark[data-performance-mode="sport"] .practice-card,
+  body.dark[data-performance-mode="sport"] .action-deck button,
+  body.dark[data-performance-mode="sport"] .choice {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
+  }
+  body[data-performance-mode="sport"] .practice-card::after,
+  body[data-performance-mode="sport"] .practice-card::before {
+    animation: none !important;
+    filter: none !important;
+  }
+
 </style>
 </head>
 <body data-cindy-build="coach-v3">
@@ -9061,6 +9301,7 @@ body{font-size:16px}
 </section>
 <section class="profile-subsection hidden" id="profileSettingsDetail-interface" data-stage2-category="interface" aria-hidden="true">
 <div class="settings-head"><h2 class="title">Интерфейс</h2><p></p></div>
+<article class="card setting-card" id="performanceSettingCard"><div class="setting-head"><span class="eyebrow">ГРАФИКА И ПРОИЗВОДИТЕЛЬНОСТЬ</span><small id="performanceValue">Авто (60 FPS)</small></div><div class="segmented" id="performanceChoices"><button class="choice selected" id="perfAuto" type="button" data-perf-choice="auto" aria-pressed="true">АВТО</button><button class="choice" id="perfSport" type="button" data-perf-choice="sport" aria-pressed="false">СПОРТ (MAX FPS)</button><button class="choice" id="perfFull" type="button" data-perf-choice="full" aria-pressed="false">ПРЕМИУМ</button></div></article>
 <article class="card setting-card" id="languageSettingCard"><div class="setting-head"><span class="eyebrow" id="langEyebrow">ЯЗЫК / LANGUAGE</span><small id="languageValue">Русский</small></div><div class="segmented" id="languageChoices"><button class="choice selected" id="langRu" type="button" data-language-choice="ru" aria-pressed="true"><span class="lang-code" aria-hidden="true">RU</span> РУССКИЙ</button><button class="choice" id="langEn" type="button" data-language-choice="en" aria-pressed="false"><span class="lang-code" aria-hidden="true">EN</span> ENGLISH</button></div></article>
 <article class="card setting-card" id="experienceCard"><div class="setting-head"><span class="eyebrow">РЕЖИМ ИНТЕРФЕЙСА</span><small id="experienceModeDesc">Классический вид без лишних настроек</small></div><div class="segmented"><button class="choice selected" id="experienceSimple" type="button" aria-pressed="true">КЛАССИКА</button><button class="choice" id="experiencePro" type="button" aria-pressed="false">ПРО</button></div></article>
 <article class="card setting-card coach-toggle" id="coachPreferenceCard"><div class="toggle-row"><div><b>Тренер CINDY</b><small>Адаптивный расчёт нагрузки, калибровка и анализ усталости на экранах «Тренировка» и «План».</small></div><label class="switch"><input id="coachEnabledSwitch" type="checkbox" aria-label="Включить тренера CINDY"><span class="slider" aria-hidden="true"></span></label></div><small id="coachPreferenceStatus" role="status" aria-live="polite"></small></article>
@@ -9142,7 +9383,7 @@ body{font-size:16px}
     const $=id=>document.getElementById(id), CINDY_LITE_BUILD=false, STORE={config:'cindyCfg',history:'cindyHistory',active:'cindyActiveSession',cloud:'cindyCloudSync'}, LIMITS={minutes:[1,180],target:[1,200],goal:[1,200],history:100,exerciseCount:[1,999]};
     const {EXERCISES,EXERCISE_MAP,STANDARD_COMPOSITION,EXERCISE_GUIDE,CINDY_FINAL_COACH_MATRIX,matrixVariantMeta,matrixVariantId,defaultVariantIdForBase,matrixVariantsForBase}=window.CINDYExerciseCatalogV3;
     const DRIVE_SCOPE='openid email https://www.googleapis.com/auth/drive.appdata', DRIVE_FILE='cindy-reframe.sync.v1.json', cloudDefaults={version:1,clientId:'',fileId:'',email:'',updatedAt:0};
-    const defaults={version:8,mode:'time',minutes:20,target:20,longGoal:20,theme:'light',colorTheme:'flux',language:'ru',sound:true,hapticMode:2,cueInterval:0,cueTone:'soft',composition:STANDARD_COMPOSITION,proWorkout:null,paceGuidance:false,templates:[],programs:[],programState:{activeProgramId:'',currentDayIndex:0,completedAt:null},pendingSource:null,profile:{name:'',age:null,heightCm:null,weightKg:null,goal:'',trainingExperience:'',avatarTone:'copper',developmentView:false,updatedAt:null},experienceMode:'simple',coachEnabledChoice:'default',coachEnabled:true};
+    const defaults={version:8,mode:'time',minutes:20,target:20,longGoal:20,theme:'light',colorTheme:'flux',performanceMode:'auto',language:'ru',sound:true,hapticMode:2,cueInterval:0,cueTone:'soft',composition:STANDARD_COMPOSITION,proWorkout:null,paceGuidance:false,templates:[],programs:[],programState:{activeProgramId:'',currentDayIndex:0,completedAt:null},pendingSource:null,profile:{name:'',age:null,heightCm:null,weightKg:null,goal:'',trainingExperience:'',avatarTone:'copper',developmentView:false,updatedAt:null},experienceMode:'simple',coachEnabledChoice:'default',coachEnabled:true};
     const COLOR_THEME_LABELS_EN=Object.freeze({flux:'FLUX',cobalt:'COBALT',pulse:'PULSE',spidey:'SPIDEY',cyber:'MINT',miami:'MIAMI',aurora:'AURORA',blue:'ICE',forest:'FOREST',plum:'PLUM',glass:'GLASS',lava:'LAVA'});
     const EXERCISE_NAMES_EN=Object.freeze({pull:{name:'Pull-ups',unit:'pull-up',plural:'pull-ups',short:'pulls',compact:'pulls'},push:{name:'Push-ups',unit:'push-up',plural:'push-ups',short:'push',compact:'push'},squat:{name:'Air Squats',unit:'squat',plural:'squats',short:'squats',compact:'squats'},abs:{name:'Core',unit:'rep',plural:'reps',short:'core',compact:'core'},dip:{name:'Dips',unit:'dip',plural:'dips',short:'dips',compact:'dips'},burpee:{name:'Burpees',unit:'burpee',plural:'burpees',short:'burpees',compact:'burpees'}});
     const VARIANT_NAMES_EN=Object.freeze({pull_pronated:'Classic Pull-ups',pull_supinated:'Chin-ups (Supinated)',pull_neutral:'Neutral Grip Pull-ups',pull_narrow_pronated:'Narrow Grip Pull-ups',pull_narrow_supinated:'Narrow Chin-ups',pull_wide_pronated:'Wide Grip Pull-ups',pull_eccentric:'Negative Pull-ups',pull_assisted_band:'Band-Assisted Pull-ups',pull_row_inverted:'Inverted Rows',push_classic:'Classic Push-ups',push_narrow:'Diamond / Narrow Push-ups',push_decline:'Decline Push-ups',push_knee:'Knee Push-ups',push_incline:'Incline Push-ups',push_wall:'Wall Push-ups',push_bench_dip_bent_knee:'Bench Dips (Bent Legs)',push_bench_dip_extended_leg:'Bench Dips (Straight Legs)',push_parallel_bar_dip:'Parallel Bar Dips',squat_classic:'Air Squats',squat_pause:'Pause Squats',squat_reverse_lunge:'Reverse Lunges',squat_supported_split:'Supported Split Squats',squat_support:'Assisted Squats',abs_dead_bug:'Dead Bug',abs_controlled_curlup:'Controlled Curl-ups',abs_reverse_crunch:'Reverse Crunches',abs_hanging_knee_raise:'Hanging Knee Raises',abs_hanging_leg_raise:'Hanging Leg Raises'});
@@ -9178,7 +9419,7 @@ body{font-size:16px}
     const persistencePort=window.CINDYLocalStorageV3.create({storage:window.localStorage,now:()=>Date.now(),notify:message=>notify(message),onDiagnostic:diagnostic=>{window.__cindyStorageDiagnostic=diagnostic},onFailureUntil:until=>{storageFailureUntil=until}});
     const repositories=window.CINDYRepositoriesV3.create({storagePort:persistencePort,codecs:{config:{fallback:defaults},session:{fallback:null},history:{fallback:[]},cloud:{fallback:cloudDefaults}}});
     const configRepository=repositories.config,sessionRepository=repositories.session,historyRepository=repositories.history,cloudRepository=repositories.cloud;
-function normalizeConfig(raw){const x=raw&&typeof raw==='object'?raw:{},legacyHaptics=x.haptics!==false,hapticMode=[0,1,2,3].includes(Number(x.hapticMode))?Number(x.hapticMode):(legacyHaptics?2:0),mode=['time','rounds','combined'].includes(x.mode)?x.mode:'time',composition=normalizeComposition(x.composition);const rawPro=x.proWorkout&&typeof x.proWorkout==='object'?x.proWorkout:null,proWorkout=rawPro?{composition:normalizeComposition(rawPro.composition,composition)}:null,templates=normalizeTemplates(x.templates,proWorkout),programs=normalizePrograms(x.programs,templates),programState=normalizeProgramState(x.programState,programs),pending=normalizeSource(x.pendingSource),pendingSource=pending&&pending.programId&&!(programState.activeProgramId===pending.programId&&programState.currentDayIndex===pending.dayIndex)?null:pending,profile=normalizeProfile(x.profile),equipment=normalizeEquipment(x.equipment),coachExcludedVariantIds=normalizeCoachExcludedVariants(x.coachExcludedVariantIds);return{version:8,mode,minutes:clamp(x.minutes,...LIMITS.minutes,20),target:clamp(x.target,...LIMITS.target,20),longGoal:clamp(x.longGoal,...LIMITS.goal,clamp(x.target,...LIMITS.goal,20)),theme:x.theme==='dark'?'dark':'light',colorTheme:['flux','cobalt','pulse','spidey','cyber','miami','aurora','blue','forest','plum','glass','lava'].includes(x.colorTheme)?x.colorTheme:'flux',language:['ru','en'].includes(x.language)?x.language:'ru',sound:x.sound!==false,hapticMode,cueInterval:[0,1,2,5].includes(Number(x.cueInterval))?Number(x.cueInterval):0,cueTone:['click','soft','double','tone'].includes(x.cueTone)?x.cueTone:'soft',composition,proWorkout,paceGuidance:Boolean(x.paceGuidance),templates,programs,programState,pendingSource,profile,equipment,coachExcludedVariantIds,userRestrictions:cloneCoachConstraintObject(x.userRestrictions),excludedExerciseIds:normalizeCoachExcludedExercises(x.excludedExerciseIds),forbiddenCombinations:normalizeCoachForbiddenCombinations(x.forbiddenCombinations),experienceMode:x.experienceMode==='pro'?'pro':'simple',coachEnabledChoice:x.coachEnabledChoice==='user'?'user':'default',coachEnabled:x.coachEnabledChoice==='user'?x.coachEnabled===true:true}}
+function normalizeConfig(raw){const x=raw&&typeof raw==='object'?raw:{},legacyHaptics=x.haptics!==false,hapticMode=[0,1,2,3].includes(Number(x.hapticMode))?Number(x.hapticMode):(legacyHaptics?2:0),mode=['time','rounds','combined'].includes(x.mode)?x.mode:'time',composition=normalizeComposition(x.composition);const rawPro=x.proWorkout&&typeof x.proWorkout==='object'?x.proWorkout:null,proWorkout=rawPro?{composition:normalizeComposition(rawPro.composition,composition)}:null,templates=normalizeTemplates(x.templates,proWorkout),programs=normalizePrograms(x.programs,templates),programState=normalizeProgramState(x.programState,programs),pending=normalizeSource(x.pendingSource),pendingSource=pending&&pending.programId&&!(programState.activeProgramId===pending.programId&&programState.currentDayIndex===pending.dayIndex)?null:pending,profile=normalizeProfile(x.profile),equipment=normalizeEquipment(x.equipment),coachExcludedVariantIds=normalizeCoachExcludedVariants(x.coachExcludedVariantIds);return{version:8,mode,minutes:clamp(x.minutes,...LIMITS.minutes,20),target:clamp(x.target,...LIMITS.target,20),longGoal:clamp(x.longGoal,...LIMITS.goal,clamp(x.target,...LIMITS.goal,20)),theme:x.theme==='dark'?'dark':'light',performanceMode:['auto','sport','full'].includes(x.performanceMode)?x.performanceMode:'auto',colorTheme:['flux','cobalt','pulse','spidey','cyber','miami','aurora','blue','forest','plum','glass','lava'].includes(x.colorTheme)?x.colorTheme:'flux',language:['ru','en'].includes(x.language)?x.language:'ru',sound:x.sound!==false,hapticMode,cueInterval:[0,1,2,5].includes(Number(x.cueInterval))?Number(x.cueInterval):0,cueTone:['click','soft','double','tone'].includes(x.cueTone)?x.cueTone:'soft',composition,proWorkout,paceGuidance:Boolean(x.paceGuidance),templates,programs,programState,pendingSource,profile,equipment,coachExcludedVariantIds,userRestrictions:cloneCoachConstraintObject(x.userRestrictions),excludedExerciseIds:normalizeCoachExcludedExercises(x.excludedExerciseIds),forbiddenCombinations:normalizeCoachForbiddenCombinations(x.forbiddenCombinations),experienceMode:x.experienceMode==='pro'?'pro':'simple',coachEnabledChoice:x.coachEnabledChoice==='user'?'user':'default',coachEnabled:x.coachEnabledChoice==='user'?x.coachEnabled===true:true}}
     function loadConfig(){const raw=configRepository.load(),normalized=normalizeConfig(raw);try{if(JSON.stringify(raw)!==JSON.stringify(normalized))configRepository.save(normalized)}catch(_){}return normalized}function normalizeCloud(raw){const x=raw&&typeof raw==='object'?raw:{};return{version:1,clientId:typeof x.clientId==='string'?x.clientId.trim():'',fileId:typeof x.fileId==='string'?x.fileId:'',email:typeof x.email==='string'?x.email:'',updatedAt:Math.max(0,Number(x.updatedAt)||0)}}function loadCloud(){return normalizeCloud(cloudRepository.load())}function saveCloud(){return cloudRepository.save(cloud)}function markLocalChanged(){cloud.updatedAt=Date.now();return saveCloud()}function saveConfig(){if(!configRepository.save(config)){config=clonePersistedConfig(lastPersistedConfig||defaults);return false}lastPersistedConfig=clonePersistedConfig(config);markLocalChanged();try{if(typeof queueAutoSync==='function')queueAutoSync()}catch(_){}return true}
     function setCoachEnabled(enabled){const next=Boolean(enabled),previous=config,api=window.CindyCoachIntegration;config=normalizeConfig({...config,coachEnabled:next,coachEnabledChoice:'user'});let stateClosed=true;if(!next&&api&&typeof api.onPreferenceChange==='function'){try{stateClosed=api.onPreferenceChange(false,false)===true}catch(_){stateClosed=false}}if(!saveConfig()){if(next){config=previous}else{config=normalizeConfig({...clonePersistedConfig(lastPersistedConfig||defaults),coachEnabled:false,coachEnabledChoice:'user'})}coachTransitionStatus=next?'Не удалось сохранить включение тренера; действует безопасный режим OFF.':'Тренер выключен в этой вкладке, но выбор не сохранён.';renderAll({markers:true});notify(next?'Не удалось сохранить настройку. Тренер остаётся выключенным.':'Тренер выключен в этой вкладке, но настройку не удалось сохранить.');return false}if(next&&api&&typeof api.onPreferenceChange==='function'){let opened=false;try{opened=api.onPreferenceChange(true,true)===true}catch(_){}if(!opened){config=normalizeConfig({...config,coachEnabled:false,coachEnabledChoice:'user'});saveConfig();coachTransitionStatus='Тренер остаётся выключенным: закрытие незавершённого Coach-действия не подтверждено. Повторите попытку позже.';renderAll({markers:true});notify('Не удалось безопасно включить тренера. Он остаётся выключенным.');return false}}coachTransitionStatus=!next&&!stateClosed?'Тренер выключен, но закрытие незавершённого Coach-действия не подтверждено. Включение останется заблокировано до успешной проверки.':'';renderAll({markers:true});notify(next?'Тренер включён.':'Тренер выключен. Тренировки и история сохраняются.');return true}
     function usesClock(mode=session.mode){return mode!=='rounds'}function hasRoundGoal(mode=session.mode){return mode!=='time'}function freshSession(overrides=null){lastLapPress=0;const o=overrides&&typeof overrides==='object'?overrides:{},mode=['time','rounds','combined'].includes(o.mode)?o.mode:config.mode,plannedSeconds=Math.max(60,Math.min(10800,Number.isFinite(Number(o.plannedSeconds))?Number(o.plannedSeconds):config.minutes*60)),target=mode==='time'?0:clamp(o.target??config.target,...LIMITS.target,config.target),composition=cloneComposition(o.composition||config.composition),paceGuidance=mode==='combined'&&('paceGuidance' in o?Boolean(o.paceGuidance):Boolean(config.paceGuidance));return{version:7,status:'idle',mode,plannedSeconds,target,markerWindowSeconds:usesClock(mode)?plannedSeconds:Math.max(600,plannedSeconds),startedAt:null,accumulatedMs:0,rounds:0,composition,exerciseTotals:totalsFor(composition,0),total:legacyTotals(composition,0),laps:[],lastLapTotal:0,lastCueAt:0,lastPaceCueAt:0,paceGuidance,source:normalizeSource(o.source||config.pendingSource)}}
@@ -9196,7 +9437,39 @@ function normalizeConfig(raw){const x=raw&&typeof raw==='object'?raw:{},legacyHa
       if(current>=goal)note='Ориентир достигнут. Задайте новый уровень, когда будете готовы.';else if(next<current)note+=': два результата ниже текущего уровня — рекомендация временно уменьшена на один круг.';else if(next>current)note+=': результаты устойчивы, следующий шаг — плюс один круг.';else if(list.length<3)note+=': данных пока мало, поэтому уровень не повышается.';else note+=': удерживайте этот уровень, пока результат не станет устойчивым.';const all=records().filter(x=>x.rounds>0),best=all.length?Math.max(...all.map(x=>x.rounds)):0;return{goal,current,next,percent:Math.round(Math.min(100,current/goal*100)),best,note}}
     function trainingWord(value){const n=Math.abs(Math.trunc(Number(value)||0))%100,last=n%10;if(n>10&&n<20)return'тренировок';if(last===1)return'тренировка';if(last>=2&&last<=4)return'тренировки';return'тренировок'}function templateModeText(template){if(template.mode==='rounds')return`цель ${roundsText(template.target)}`;if(template.mode==='combined')return`${roundsText(template.target)} · ${minutesText(template.minutes)}`;return minutesText(template.minutes)}function templates(){return config.templates||[]}function programs(){return config.programs||[]}function findTemplate(id){return templates().find(template=>template.id===id)||null}function findProgram(id){return programs().find(program=>program.id===id)||null}function programDay(program,index){return program&&program.days[index]||null}function templateInUse(id){return programs().some(program=>program.days.some(day=>day.kind==='template'&&day.templateId===id))}function applyTemplate(id,source=null){if(active()){notify('Завершите текущую тренировку перед выбором шаблона.');return false}const template=findTemplate(id);if(!template){notify('Шаблон не найден.');return false}config=normalizeConfig({...config,...templateSnapshot(template),pendingSource:normalizeSource({templateId:id,...(source||{})})});saveConfig();session=freshSession();latestMarkerId=null;renderAll({markers:true});show('workout');notify(`Готово: ${template.name}. Нажмите «НАЧАТЬ». `);return true}function applyCoachAdjustment(expectedFingerprint=null){const coachApi=window.CindyCoachIntegration;if(!coachApi||typeof coachApi.apply!=='function'){notify('Тренер пока недоступен.');return{ok:false,kind:'unavailable'}}const result=coachApi.apply(expectedFingerprint);if(!result||result.ok===false){if(result&&result.kind==='locked')notify('Сначала завершите текущую тренировку.');else if(result&&result.kind==='stale')notify('Рекомендация обновлена по текущим данным.');else notify('Сейчас нет изменения для применения.');return result||{ok:false,kind:'unavailable'}}return result}
 function set(id,value){$(id).textContent=String(value)}function notify(text){if(Date.now()<storageFailureUntil&&text!=='Данные не удалось сохранить на этом устройстве.')return;const e=$('toast');e.textContent=text;e.classList.add('visible');clearTimeout(toastHandle);toastHandle=setTimeout(()=>e.classList.remove('visible'),2200)}
-    const COLOR_THEME_LABELS={flux:'ФЛЮКС',cobalt:'КОБАЛЬТ',pulse:'ПУЛЬС',spidey:'СПАЙДИ',cyber:'МЯТА',miami:'МАЙАМИ',aurora:'АВРОРА',blue:'ЛЁД',forest:'ЛЕС',plum:'СЛИВА',glass:'СТЕКЛО',lava:'ЛАВА'};function applyTheme(){const colorTheme=['flux','cobalt','pulse','spidey','cyber','miami','aurora','blue','forest','plum','glass','lava'].includes(config.colorTheme)?config.colorTheme:'flux',isEn=typeof config!=='undefined'&&config&&config.language==='en';document.body.dataset.colorTheme=colorTheme;document.body.classList.toggle('dark',config.theme==='dark');const paper=getComputedStyle(document.body).getPropertyValue('--paper').trim()||(config.theme==='dark'?'#14100f':'#f8f3ee');document.documentElement.style.backgroundColor=paper;document.querySelector('meta[name="theme-color"]').setAttribute('content',paper); /* CINDY_ROOT_THEME_CANVAS_FIX */if(typeof window!=='undefined'&&window.Telegram&&window.Telegram.WebApp){try{if(typeof window.Telegram.WebApp.setHeaderColor==='function')window.Telegram.WebApp.setHeaderColor(paper);if(typeof window.Telegram.WebApp.setBackgroundColor==='function')window.Telegram.WebApp.setBackgroundColor(paper)}catch(_){}}$('themeToggle').setAttribute('aria-pressed',String(config.theme==='dark'));const themeName=config.theme==='dark'?(isEn?'Dark':'Тёмная'):(isEn?'Light':'Светлая'),paletteLabel=isEn?(COLOR_THEME_LABELS_EN[colorTheme]||colorTheme):COLOR_THEME_LABELS[colorTheme];set('themeValue',`${themeName} · ${paletteLabel}`);$('darkTheme').classList.toggle('selected',config.theme==='dark');$('lightTheme').classList.toggle('selected',config.theme!=='dark');document.querySelectorAll('[data-color-theme-choice]').forEach(button=>{const key=button.dataset.colorThemeChoice,selected=key===colorTheme,dot=button.querySelector('.palette-dot'),label=isEn?(COLOR_THEME_LABELS_EN[key]||key):COLOR_THEME_LABELS[key];button.classList.toggle('selected',selected);button.setAttribute('aria-pressed',String(selected));if(dot&&label&&button.textContent.trim()!==label){button.replaceChildren(dot,document.createTextNode(label))}})}
+    const COLOR_THEME_LABELS={flux:'ФЛЮКС',cobalt:'КОБАЛЬТ',pulse:'ПУЛЬС',spidey:'СПАЙДИ',cyber:'МЯТА',miami:'МАЙАМИ',aurora:'АВРОРА',blue:'ЛЁД',forest:'ЛЕС',plum:'СЛИВА',glass:'СТЕКЛО',lava:'ЛАВА'};
+function detectEffectivePerformance(mode) {
+  const pref = mode || (typeof config !== 'undefined' && config.performanceMode ? config.performanceMode : 'auto');
+  if (pref === 'sport') return 'sport';
+  if (pref === 'full') return 'full';
+  // Auto mode: evaluate device CPU cores, memory, and reduced motion / battery saver
+  const cores = typeof navigator !== 'undefined' && navigator.hardwareConcurrency ? navigator.hardwareConcurrency : 4;
+  const memory = typeof navigator !== 'undefined' && navigator.deviceMemory ? navigator.deviceMemory : 4;
+  const powerSave = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (cores <= 4 || memory <= 3 || powerSave) return 'sport';
+  return 'full';
+}
+
+function applyTheme(){
+    const perfMode = detectEffectivePerformance(typeof config !== 'undefined' ? config.performanceMode : 'auto');
+    document.body.dataset.performanceMode = perfMode;
+    const perfValEl = document.getElementById('performanceValue');
+    if (perfValEl) {
+      const modeKey = typeof config !== 'undefined' && config.performanceMode ? config.performanceMode : 'auto';
+      const isEn = typeof config !== 'undefined' && config.language === 'en';
+      const perfLabels = {
+        auto: isEn ? (perfMode === 'sport' ? 'Auto (Sport active)' : 'Auto (60 FPS)') : (perfMode === 'sport' ? 'Авто (включён Спорт)' : 'Авто (60 FPS)'),
+        sport: isEn ? 'Sport (Max FPS)' : 'Спорт (Макс. FPS)',
+        full: isEn ? 'Premium (Full FX)' : 'Премиум (полная графика)'
+      };
+      perfValEl.textContent = perfLabels[modeKey] || perfLabels.auto;
+    }
+    document.querySelectorAll('[data-perf-choice]').forEach(btn => {
+      const selected = btn.dataset.perfChoice === (typeof config !== 'undefined' && config.performanceMode ? config.performanceMode : 'auto');
+      btn.classList.toggle('selected', selected);
+      btn.setAttribute('aria-pressed', String(selected));
+    });
+const colorTheme=['flux','cobalt','pulse','spidey','cyber','miami','aurora','blue','forest','plum','glass','lava'].includes(config.colorTheme)?config.colorTheme:'flux',isEn=typeof config!=='undefined'&&config&&config.language==='en';document.body.dataset.colorTheme=colorTheme;document.body.classList.toggle('dark',config.theme==='dark');const paper=getComputedStyle(document.body).getPropertyValue('--paper').trim()||(config.theme==='dark'?'#14100f':'#f8f3ee');document.documentElement.style.backgroundColor=paper;document.querySelector('meta[name="theme-color"]').setAttribute('content',paper); /* CINDY_ROOT_THEME_CANVAS_FIX */if(typeof window!=='undefined'&&window.Telegram&&window.Telegram.WebApp){try{if(typeof window.Telegram.WebApp.setHeaderColor==='function')window.Telegram.WebApp.setHeaderColor(paper);if(typeof window.Telegram.WebApp.setBackgroundColor==='function')window.Telegram.WebApp.setBackgroundColor(paper)}catch(_){}}$('themeToggle').setAttribute('aria-pressed',String(config.theme==='dark'));const themeName=config.theme==='dark'?(isEn?'Dark':'Тёмная'):(isEn?'Light':'Светлая'),paletteLabel=isEn?(COLOR_THEME_LABELS_EN[colorTheme]||colorTheme):COLOR_THEME_LABELS[colorTheme];set('themeValue',`${themeName} · ${paletteLabel}`);$('darkTheme').classList.toggle('selected',config.theme==='dark');$('lightTheme').classList.toggle('selected',config.theme!=='dark');document.querySelectorAll('[data-color-theme-choice]').forEach(button=>{const key=button.dataset.colorThemeChoice,selected=key===colorTheme,dot=button.querySelector('.palette-dot'),label=isEn?(COLOR_THEME_LABELS_EN[key]||key):COLOR_THEME_LABELS[key];button.classList.toggle('selected',selected);button.setAttribute('aria-pressed',String(selected));if(dot&&label&&button.textContent.trim()!==label){button.replaceChildren(dot,document.createTextNode(label))}})}
     function googleMessage(kind,text){googleUi={kind,text};renderGoogle()}
     function hasTelegramCloudStorage(){return Boolean(typeof window!=='undefined'&&window.Telegram&&window.Telegram.WebApp&&window.Telegram.WebApp.initData&&window.Telegram.WebApp.CloudStorage&&typeof window.Telegram.WebApp.CloudStorage.setItem==='function')}
     function downloadLocalBackupJson(){const payload=snapshot(),json=JSON.stringify(payload,null,2),blob=new Blob([json],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a'),date=new Date().toISOString().slice(0,10);a.href=url;a.download=`cindy-backup-${date}.json`;document.body.append(a);a.click();window.setTimeout(()=>{a.remove();URL.revokeObjectURL(url)},250);cloud.updatedAt=Date.now();saveCloud();renderGoogle()}
@@ -9593,7 +9866,25 @@ if(window.CindyScreenPresenterV3){window.CindyScreenPresenterV3.bind({workout:fu
   else bootSync();
 })();
 function cindyBindSheetDismiss(modal,onDismiss){if(!modal||typeof window==='undefined')return;const sheet=modal.querySelector('.result-sheet, .action-sheet, .feedback-sheet');if(!sheet||modal.__cindySheetBound)return;modal.__cindySheetBound=true;let activeId=null,startX=0,startY=0,lastY=0,prevY=0,lastT=0,prevT=0,dragging=false,sheetH=360;const headerSel='.sheet-grabber, .result-sheet > .eyebrow, .result-sheet > h2, .result-sheet > .sheet-title, .result-sheet > .result-note';const blockSel='button, a, input, textarea, select, label, .sheet-body, .feedback-entry, .segmented';sheet.addEventListener('pointerdown',e=>{if(!e.isPrimary||(e.pointerType==='mouse'&&e.button!==0)||modal.classList.contains('hidden')||modal.classList.contains('is-sheet-closing'))return;const onGrabber=Boolean(e.target.closest&&e.target.closest('.sheet-grabber'));if(!onGrabber){if(e.target.closest&&e.target.closest(blockSel))return;if(!(e.target.closest&&e.target.closest(headerSel)))return;if(sheet.scrollTop>0)return}cindyResetSheetVisual(modal);activeId=e.pointerId;startX=e.clientX;startY=lastY=prevY=e.clientY;lastT=prevT=Date.now();dragging=false;sheetH=sheet.offsetHeight||(typeof sheet.getBoundingClientRect==='function'?sheet.getBoundingClientRect().height:360)||360});const onMove=e=>{if(activeId===null||e.pointerId!==activeId)return;const dx=e.clientX-startX,dy=e.clientY-startY;if(!dragging){if(dy<=5||dy<Math.abs(dx)*1.15)return;dragging=true;modal.classList.add('is-sheet-dragging');try{typeof sheet.setPointerCapture==='function'&&sheet.setPointerCapture(activeId)}catch(_){}}const now=Date.now();if(now-lastT>=8){prevY=lastY;prevT=lastT;lastY=e.clientY;lastT=now}else{lastY=e.clientY}const renderY=dy<0?Math.max(-24,dy*0.14):dy;sheet.style.transform=`translate3d(0,${renderY.toFixed(1)}px,0)`;modal.style.opacity=String(Math.max(0.18,1-(Math.max(0,renderY)/Math.max(220,sheetH))*0.65).toFixed(3));if(e.cancelable)e.preventDefault()};const onEnd=(commit,e)=>{if(activeId===null||(e&&e.pointerId!==activeId))return;const pid=activeId,wasDragging=dragging,dy=(e?e.clientY:lastY)-startY,vy=(lastY-prevY)/Math.max(8,lastT-prevT);activeId=null;dragging=false;try{typeof sheet.releasePointerCapture==='function'&&sheet.hasPointerCapture&&sheet.hasPointerCapture(pid)&&sheet.releasePointerCapture(pid)}catch(_){}modal.classList.remove('is-sheet-dragging');if(!wasDragging)return;if(commit&&(dy>Math.min(110,sheetH*0.28)||(dy>32&&vy>0.55))){modal.classList.add('is-sheet-closing');modal.style.removeProperty('opacity');sheet.style.removeProperty('transform');modal.__cindySheetTimer=window.setTimeout(()=>{modal.__cindySheetTimer=0;cindyResetSheetVisual(modal);onDismiss()},190)}else{modal.classList.add('is-sheet-settling');modal.style.removeProperty('opacity');sheet.style.removeProperty('transform');modal.__cindySheetTimer=window.setTimeout(()=>{modal.__cindySheetTimer=0;modal.classList.remove('is-sheet-settling')},240)}};window.addEventListener('pointermove',onMove,{passive:false});window.addEventListener('pointerup',e=>onEnd(true,e));window.addEventListener('pointercancel',e=>onEnd(false,e))}cindyBindSheetDismiss($('actionModal'),()=>closeAction());cindyBindSheetDismiss($('feedbackModal'),()=>{const closeBtn=$('closeFeedback');if(closeBtn)closeBtn.click();else{const m=$('feedbackModal');cindyResetSheetVisual(m);m?.classList.add('hidden')}});cindyBindSheetDismiss($('resultModal'),()=>reset());$('actionModal').addEventListener('click',event=>{if(event.target===$('actionModal'))closeAction()});$('feedbackModal')?.addEventListener('click',event=>{if(event.target===$('feedbackModal'))$('closeFeedback')?.click()});const physicalControlIds=['primaryAction','roundButton','stopAction','themeToggle'];physicalControlIds.map($).filter(Boolean).forEach(control=>{const setPressed=()=>{if(!control.disabled)control.classList.add('is-physical-press')},clearPressed=()=>control.classList.remove('is-physical-press');control.addEventListener('pointerdown',setPressed);['pointerup','pointercancel','pointerleave','blur'].forEach(type=>control.addEventListener(type,clearPressed));control.addEventListener('keydown',event=>{if((event.key==='Enter'||event.key===' ')&&!event.repeat)setPressed()});control.addEventListener('keyup',event=>{if(event.key==='Enter'||event.key===' ')clearPressed()})});
-    $('lightTheme').addEventListener('click',()=>{config.theme='light';saveConfig();renderAll()});$('darkTheme').addEventListener('click',()=>{config.theme='dark';saveConfig();renderAll()});document.querySelectorAll('[data-color-theme-choice]').forEach(button=>button.addEventListener('click',()=>{const colorTheme=button.dataset.colorThemeChoice;if(!['flux','cobalt','pulse','spidey','cyber','miami','aurora','blue','forest','plum','glass','lava'].includes(colorTheme)||colorTheme===config.colorTheme)return;config=normalizeConfig({...config,colorTheme});saveConfig();renderAll();notify(`Цветовая тема: ${COLOR_THEME_LABELS[colorTheme]}.`)}));$('timeMode').addEventListener('click',()=>setConfig({mode:'time'}));$('roundMode').addEventListener('click',()=>setConfig({mode:'rounds'}));$('combinedMode').addEventListener('click',()=>setConfig({mode:'combined'}));document.querySelectorAll('[data-minutes]').forEach(b=>b.addEventListener('click',()=>setConfig({minutes:Number(b.dataset.minutes)})));document.querySelectorAll('[data-target]').forEach(b=>b.addEventListener('click',()=>setConfig({target:Number(b.dataset.target)})));function stepConfig(field,delta,label){const value=clamp(config[field]+delta,...(field==='minutes'?LIMITS.minutes:field==='target'?LIMITS.target:LIMITS.goal),null);if(value!==null&&setConfig({[field]:value}))notify(`${label}: ${value}.`)}function bindHold(button,action){let hold=null,repeat=null,pressed=false;const clear=()=>{clearTimeout(hold);clearInterval(repeat);hold=null;repeat=null};button.addEventListener('pointerdown',event=>{pressed=true;event.preventDefault();action();hold=setTimeout(()=>{repeat=setInterval(action,115)},430)});['pointerup','pointercancel','pointerleave'].forEach(type=>button.addEventListener(type,clear));button.addEventListener('click',event=>{if(pressed){pressed=false;event.preventDefault();return}action()})}bindHold($('minutesMinus'),()=>stepConfig('minutes',-1,'Время'));bindHold($('minutesPlus'),()=>stepConfig('minutes',1,'Время'));bindHold($('targetMinus'),()=>stepConfig('target',-1,'Круги'));bindHold($('targetPlus'),()=>stepConfig('target',1,'Круги'));bindHold($('goalMinus'),()=>stepConfig('longGoal',-1,'Ориентир'));bindHold($('goalPlus'),()=>stepConfig('longGoal',1,'Ориентир'));$('paceGuidance').addEventListener('change',event=>setConfig({paceGuidance:event.target.checked}));$('saveProWorkout').addEventListener('click',savePro);$('runProWorkout').addEventListener('click',runPro);$('saveGoogleClient').addEventListener('click',saveGoogleClientId);$('connectGoogle').addEventListener('click',connectGoogle);$('syncGoogleNow').addEventListener('click',()=>syncGoogle());$('refreshGoogle').addEventListener('click',()=>syncGoogle());$('disconnectGoogle').addEventListener('click',disconnectGoogle);$('googleClientId').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveGoogleClientId()}});document.querySelectorAll('[data-language-choice]').forEach(button=>button.addEventListener('click',()=>{const lang=button.dataset.languageChoice;if(lang&&['ru','en'].includes(lang)&&lang!==config.language){setConfig({language:lang});notify(lang==='en'?'Language: English':'Язык: Русский')}}));$('soundEnabled').addEventListener('change',e=>{config.sound=e.target.checked;saveConfig();renderSettings();if(config.sound)feedback('start')});document.querySelectorAll('[data-cue]').forEach(button=>button.addEventListener('click',()=>{config=normalizeConfig({...config,cueInterval:Number(button.dataset.cue)});saveConfig();renderSettings();if(config.cueInterval>0)feedback('cue')}));document.querySelectorAll('[data-tone]').forEach(button=>button.addEventListener('click',()=>{config=normalizeConfig({...config,cueTone:button.dataset.tone});saveConfig();renderSettings();feedback('cue')}));document.querySelectorAll('[data-haptic]').forEach(button=>button.addEventListener('click',()=>{config=normalizeConfig({...config,hapticMode:Number(button.dataset.haptic)});saveConfig();renderSettings();if(config.hapticMode>0)haptic('cue')}));$('clearHistory').addEventListener('click',()=>{if(confirm('Удалить весь журнал тренировок?')){if(!historyRepository.remove()){notify('Не удалось очистить журнал.');return}markLocalChanged();try{const api=window.CindyCoachIntegration;if(api&&typeof api.onHistoryMutation==='function')api.onHistoryMutation({kind:'clear'})}catch(_){}renderAll();notify('Журнал очищен.')}});const exportBtn=$('exportLocalBackupBtn');if(exportBtn){exportBtn.addEventListener('click',()=>{const isEn=typeof config!=='undefined'&&config&&config.language==='en';try{const data=snapshot(),json=JSON.stringify(data,null,2),blob=new Blob([json],{type:'application/json'});const a=document.createElement('a'),d=new Date(),dateStr=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;a.href=URL.createObjectURL(blob);a.download=`cindy-coach-backup-${dateStr}.json`;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(a.href);notify(isEn?'Backup saved to device.':'Резервная копия сохранена на устройство.')}catch(_){notify(isEn?'Could not export backup.':'Не удалось экспортировать резервную копию.')}})}const importBtn=$('importLocalBackupBtn'),importInput=$('importLocalBackupInput');if(importBtn&&importInput){importBtn.addEventListener('click',()=>{const isEn=typeof config!=='undefined'&&config&&config.language==='en';if(active()){notify(isEn?'Finish the active workout before restoring a backup.':'Завершите текущую тренировку перед восстановлением копии.');return}importInput.click()});importInput.addEventListener('change',async()=>{const isEn=typeof config!=='undefined'&&config&&config.language==='en',file=importInput.files&&importInput.files[0];importInput.value='';if(!file)return;try{const text=await file.text(),parsed=JSON.parse(text);if(!parsed||typeof parsed!=='object'||(!parsed.config&&!Array.isArray(parsed.history)))throw new Error('invalid-backup');if(!Number.isFinite(Number(parsed.updatedAt)))parsed.updatedAt=Date.now();if(!acceptSnapshot(parsed,cloud.fileId||'')){notify(isEn?'Could not restore backup data.':'Не удалось восстановить данные из файла.');return}renderGoogle();notify(isEn?'Backup restored.':'Резервная копия восстановлена.')}catch(_){notify(isEn?'Invalid JSON backup file.':'Неверный формат файла резервной копии JSON.')}})}$('newWorkout').addEventListener('click',reset);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&session.status==='running'){takeWakeLock();schedule()}});window.addEventListener('pagehide',()=>{if(active())saveSession()});try{if(typeof navigator!=='undefined'&&navigator.storage&&typeof navigator.storage.persist==='function'){navigator.storage.persist().catch(()=>{})}}catch(_){}
+    
+  document.querySelectorAll('[data-perf-choice]').forEach(button => {
+    button.addEventListener('click', () => {
+      const mode = button.dataset.perfChoice;
+      if (!['auto', 'sport', 'full'].includes(mode) || mode === config.performanceMode) return;
+      config = normalizeConfig({ ...config, performanceMode: mode });
+      saveConfig();
+      renderAll();
+      const isEn = config.language === 'en';
+      const labels = {
+        auto: isEn ? 'Auto' : 'Автоматический',
+        sport: isEn ? 'Sport (Max FPS)' : 'Спорт (Максимальный FPS)',
+        full: isEn ? 'Premium' : 'Премиум'
+      };
+      notify(isEn ? `Graphics mode: ${labels[mode]}.` : `Режим графики: ${labels[mode]}.`);
+    });
+  });
+
+  $('lightTheme').addEventListener('click',()=>{config.theme='light';saveConfig();renderAll()});$('darkTheme').addEventListener('click',()=>{config.theme='dark';saveConfig();renderAll()});document.querySelectorAll('[data-color-theme-choice]').forEach(button=>button.addEventListener('click',()=>{const colorTheme=button.dataset.colorThemeChoice;if(!['flux','cobalt','pulse','spidey','cyber','miami','aurora','blue','forest','plum','glass','lava'].includes(colorTheme)||colorTheme===config.colorTheme)return;config=normalizeConfig({...config,colorTheme});saveConfig();renderAll();notify(`Цветовая тема: ${COLOR_THEME_LABELS[colorTheme]}.`)}));$('timeMode').addEventListener('click',()=>setConfig({mode:'time'}));$('roundMode').addEventListener('click',()=>setConfig({mode:'rounds'}));$('combinedMode').addEventListener('click',()=>setConfig({mode:'combined'}));document.querySelectorAll('[data-minutes]').forEach(b=>b.addEventListener('click',()=>setConfig({minutes:Number(b.dataset.minutes)})));document.querySelectorAll('[data-target]').forEach(b=>b.addEventListener('click',()=>setConfig({target:Number(b.dataset.target)})));function stepConfig(field,delta,label){const value=clamp(config[field]+delta,...(field==='minutes'?LIMITS.minutes:field==='target'?LIMITS.target:LIMITS.goal),null);if(value!==null&&setConfig({[field]:value}))notify(`${label}: ${value}.`)}function bindHold(button,action){let hold=null,repeat=null,pressed=false;const clear=()=>{clearTimeout(hold);clearInterval(repeat);hold=null;repeat=null};button.addEventListener('pointerdown',event=>{pressed=true;event.preventDefault();action();hold=setTimeout(()=>{repeat=setInterval(action,115)},430)});['pointerup','pointercancel','pointerleave'].forEach(type=>button.addEventListener(type,clear));button.addEventListener('click',event=>{if(pressed){pressed=false;event.preventDefault();return}action()})}bindHold($('minutesMinus'),()=>stepConfig('minutes',-1,'Время'));bindHold($('minutesPlus'),()=>stepConfig('minutes',1,'Время'));bindHold($('targetMinus'),()=>stepConfig('target',-1,'Круги'));bindHold($('targetPlus'),()=>stepConfig('target',1,'Круги'));bindHold($('goalMinus'),()=>stepConfig('longGoal',-1,'Ориентир'));bindHold($('goalPlus'),()=>stepConfig('longGoal',1,'Ориентир'));$('paceGuidance').addEventListener('change',event=>setConfig({paceGuidance:event.target.checked}));$('saveProWorkout').addEventListener('click',savePro);$('runProWorkout').addEventListener('click',runPro);$('saveGoogleClient').addEventListener('click',saveGoogleClientId);$('connectGoogle').addEventListener('click',connectGoogle);$('syncGoogleNow').addEventListener('click',()=>syncGoogle());$('refreshGoogle').addEventListener('click',()=>syncGoogle());$('disconnectGoogle').addEventListener('click',disconnectGoogle);$('googleClientId').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveGoogleClientId()}});document.querySelectorAll('[data-language-choice]').forEach(button=>button.addEventListener('click',()=>{const lang=button.dataset.languageChoice;if(lang&&['ru','en'].includes(lang)&&lang!==config.language){setConfig({language:lang});notify(lang==='en'?'Language: English':'Язык: Русский')}}));$('soundEnabled').addEventListener('change',e=>{config.sound=e.target.checked;saveConfig();renderSettings();if(config.sound)feedback('start')});document.querySelectorAll('[data-cue]').forEach(button=>button.addEventListener('click',()=>{config=normalizeConfig({...config,cueInterval:Number(button.dataset.cue)});saveConfig();renderSettings();if(config.cueInterval>0)feedback('cue')}));document.querySelectorAll('[data-tone]').forEach(button=>button.addEventListener('click',()=>{config=normalizeConfig({...config,cueTone:button.dataset.tone});saveConfig();renderSettings();feedback('cue')}));document.querySelectorAll('[data-haptic]').forEach(button=>button.addEventListener('click',()=>{config=normalizeConfig({...config,hapticMode:Number(button.dataset.haptic)});saveConfig();renderSettings();if(config.hapticMode>0)haptic('cue')}));$('clearHistory').addEventListener('click',()=>{if(confirm('Удалить весь журнал тренировок?')){if(!historyRepository.remove()){notify('Не удалось очистить журнал.');return}markLocalChanged();try{const api=window.CindyCoachIntegration;if(api&&typeof api.onHistoryMutation==='function')api.onHistoryMutation({kind:'clear'})}catch(_){}renderAll();notify('Журнал очищен.')}});const exportBtn=$('exportLocalBackupBtn');if(exportBtn){exportBtn.addEventListener('click',()=>{const isEn=typeof config!=='undefined'&&config&&config.language==='en';try{const data=snapshot(),json=JSON.stringify(data,null,2),blob=new Blob([json],{type:'application/json'});const a=document.createElement('a'),d=new Date(),dateStr=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;a.href=URL.createObjectURL(blob);a.download=`cindy-coach-backup-${dateStr}.json`;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(a.href);notify(isEn?'Backup saved to device.':'Резервная копия сохранена на устройство.')}catch(_){notify(isEn?'Could not export backup.':'Не удалось экспортировать резервную копию.')}})}const importBtn=$('importLocalBackupBtn'),importInput=$('importLocalBackupInput');if(importBtn&&importInput){importBtn.addEventListener('click',()=>{const isEn=typeof config!=='undefined'&&config&&config.language==='en';if(active()){notify(isEn?'Finish the active workout before restoring a backup.':'Завершите текущую тренировку перед восстановлением копии.');return}importInput.click()});importInput.addEventListener('change',async()=>{const isEn=typeof config!=='undefined'&&config&&config.language==='en',file=importInput.files&&importInput.files[0];importInput.value='';if(!file)return;try{const text=await file.text(),parsed=JSON.parse(text);if(!parsed||typeof parsed!=='object'||(!parsed.config&&!Array.isArray(parsed.history)))throw new Error('invalid-backup');if(!Number.isFinite(Number(parsed.updatedAt)))parsed.updatedAt=Date.now();if(!acceptSnapshot(parsed,cloud.fileId||'')){notify(isEn?'Could not restore backup data.':'Не удалось восстановить данные из файла.');return}renderGoogle();notify(isEn?'Backup restored.':'Резервная копия восстановлена.')}catch(_){notify(isEn?'Invalid JSON backup file.':'Неверный формат файла резервной копии JSON.')}})}$('newWorkout').addEventListener('click',reset);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&session.status==='running'){takeWakeLock();schedule()}});window.addEventListener('pagehide',()=>{if(active())saveSession()});try{if(typeof navigator!=='undefined'&&navigator.storage&&typeof navigator.storage.persist==='function'){navigator.storage.persist().catch(()=>{})}}catch(_){}
 
     // Stage 2: explicit, read-only bridge to the isolated pure Coach engine. No UI, persistence or application path.
 function currentCoachContext(){const persisted=clonePersistedConfig(config);return{mode:config.mode,minutes:config.minutes,target:config.target,profile:persisted.profile||{},formatPolicy:persisted.formatPolicy==='freeWithinAllowed'?'freeWithinAllowed':'fixed',allowedModes:Array.isArray(persisted.allowedModes)?persisted.allowedModes:['time','rounds','combined'],composition:cloneComposition(config.composition),pendingSource:cloneSource(config.pendingSource),equipment:normalizeEquipment(config.equipment),coachExcludedVariantIds:normalizeCoachExcludedVariants(config.coachExcludedVariantIds),programContext:cloneSource(config.programContext),userRestrictions:cloneCoachConstraintObject(config.userRestrictions),excludedExerciseIds:normalizeCoachExcludedExercises(config.excludedExerciseIds),forbiddenCombinations:normalizeCoachForbiddenCombinations(config.forbiddenCombinations)}}

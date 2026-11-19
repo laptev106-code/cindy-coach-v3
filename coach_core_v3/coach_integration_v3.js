@@ -24,7 +24,7 @@
   const V3_SOURCE_HASH = '024608c9a30091d1d85105fea25dc28444f8b171fce890d313924b07f0a6f046';
   const V3_BUILD_HASH = 'ef69c3217fb2b123cfc631483f3bc331df145a7eed5e9feeb1ec3c9734c49a04';
   const V3_RELEASE_SOURCE_HASH = 'a6606009a9be40c323d9e06b99bf359bca2905da574917faa7ec39e16ab37ae1';
-  const V3_RELEASE_BUILD_HASH = '9a9f57b7cb0625b9aeb5024eda3eeffff9b051810627e84178702a15e9aa5e52';
+  const V3_RELEASE_BUILD_HASH = 'aae3bf85d3914507989cf1a990d74e4e20f7b39a30e7ad6b121f38ef6ae80585';
 
   const clone = value => {
     if (value == null) return value;
