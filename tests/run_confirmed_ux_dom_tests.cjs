@@ -103,13 +103,25 @@ function connectCdp(targetUrl){
     assert.deepStrictEqual(await evaluate(`(()=>({mode:JSON.parse(localStorage.getItem('cindyCfg')||'{}').experienceMode,selected:document.getElementById('experiencePro').classList.contains('selected'),pressed:document.getElementById('experiencePro').getAttribute('aria-pressed'),body:document.body.dataset.experience}))()`),{mode:'pro',selected:true,pressed:'true',body:'pro'});
     const development=await evaluate(`document.getElementById('developmentViewSwitch').checked`);
     if(development)await click('#developmentViewSwitch');
-    await click('.profile-period button:nth-child(2)');
-    const periodCheck=await evaluate(`(()=>({off:JSON.parse(localStorage.getItem('cindyCfg')||'{}').profile.developmentView!==true,buttons:[...document.querySelectorAll('.profile-period button')].map(b=>({text:b.textContent.trim(),selected:b.classList.contains('selected'),visible:b.getBoundingClientRect().width>0}))}))()`);
-    assert(periodCheck.off,'development display is off for the independent period-filter check');assert.deepStrictEqual(periodCheck.buttons.map(x=>x.text),['7 ДНЕЙ','28 ДНЕЙ','ВСЁ ВРЕМЯ']);assert(periodCheck.buttons.every(x=>x.visible));assert(periodCheck.buttons[1].selected);
+    await click('#navProgress');
+    await click('.progress-activity-periods button:nth-child(2)');
+    const periodCheck=await evaluate(`(()=>({
+      off:JSON.parse(localStorage.getItem('cindyCfg')||'{}').profile.developmentView!==true,
+      buttons:[...document.querySelectorAll('.progress-activity-periods button')].map(b=>({
+        text:b.textContent.trim(),
+        selected:b.classList.contains('selected'),
+        visible:b.getBoundingClientRect().width>0
+      }))
+    }))()`);
+    assert(periodCheck.off,'development display is off for the independent period-filter check');
+    assert.deepStrictEqual(periodCheck.buttons.map(x=>x.text),['7 ДНЕЙ','30 ДНЕЙ','ВСЯ ИСТОРИЯ']);
+    assert(periodCheck.buttons.every(x=>x.visible));
+    assert(periodCheck.buttons[1].selected);
+    await click('#navProfile');
 
     await click('button[data-stage2-category="soundVoice"]');
     const soundBefore=await evaluate(`document.getElementById('soundEnabled').checked`);
-    await click('#soundEnabled');
+       await click('#soundEnabled');
     await waitFor(()=>evaluate(`document.getElementById('soundEnabled').checked!==${soundBefore}&&JSON.parse(localStorage.getItem('cindyCfg')||'{}').sound===document.getElementById('soundEnabled').checked`),{label:'sound setting persisted'});
     const soundAfter=await evaluate(`document.getElementById('soundEnabled').checked`);
     await reload();await click('#navProfile');await click('button[data-stage2-category="soundVoice"]');
