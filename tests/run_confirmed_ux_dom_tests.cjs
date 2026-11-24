@@ -84,6 +84,7 @@ function connectCdp(targetUrl){
     await click('#navProfile');
     await click('#lightTheme');
     await waitFor(()=>evaluate(`!document.body.classList.contains('dark')&&document.getElementById('lightTheme')?.classList.contains('selected')`),{timeout:4000,label:'explicit light theme selected'});
+    await cdp.call('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'no-preference'}]});
     await evaluate(`(()=>{window.__uxScrollCalls=[];const original=Element.prototype.scrollIntoView;Element.prototype.scrollIntoView=function(options){if(this.matches&&this.matches('.profile-subsection[data-stage2-category]'))window.__uxScrollCalls.push({id:this.dataset.stage2Category,behavior:options&&options.behavior});return original.call(this,options)}})()`);
     await click('button[data-stage2-category="interface"]',{keyboard:true});
     await waitFor(()=>evaluate(`document.querySelector('.profile-subsection[data-stage2-category="interface"]')?.getAttribute('aria-hidden')==='false'`),{label:'Interface disclosure open'});
