@@ -9768,10 +9768,18 @@ body{font-size:16px}
     background: var(--line) !important;
     overflow: hidden !important;
   }
+  html body #resultModal .result-stats span:not(#__none__) {
+    font-size: clamp(7.5px, 2.05vw, 10px) !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
   html body #resultModal .result-stats > div {
     border-radius: 0 !important;
     background: var(--paper) !important;
-    padding: 12px 7px !important;
+    padding: 12px 3px !important;
+    min-width: 0 !important;
     margin: 0 !important;
   }
 
