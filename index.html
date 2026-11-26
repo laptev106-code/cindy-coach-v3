@@ -9728,6 +9728,53 @@ body{font-size:16px}
     background: var(--panel) !important;
   }
 
+  /* Symmetric steppers across Plan, Progress & Result Modal (minus & plus equal edge distance) */
+  html body .setting-stepper,
+  html body #programs .setting-stepper,
+  html body #progress .setting-stepper,
+  html body #resultModal .setting-stepper {
+    display: grid !important;
+    grid-template-columns: 44px minmax(0, 1fr) 44px !important;
+    align-items: center !important;
+    gap: 8px !important;
+    min-height: 56px !important;
+    padding: 5px !important;
+    border-radius: 16px !important;
+    box-sizing: border-box !important;
+  }
+  html body .setting-stepper .stepper-button {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    justify-self: stretch !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 11px !important;
+  }
+  html body .setting-stepper .stepper-value {
+    text-align: center !important;
+    min-width: 0 !important;
+    padding: 0 4px !important;
+  }
+
+  /* Unify #resultModal .result-stats design with .result-exercise-totals (rectangular grid, no ovals) */
+  html body #resultModal .result-stats {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 1px !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 14px !important;
+    background: var(--line) !important;
+    overflow: hidden !important;
+  }
+  html body #resultModal .result-stats > div {
+    border-radius: 0 !important;
+    background: var(--paper) !important;
+    padding: 12px 7px !important;
+    margin: 0 !important;
+  }
+
   /* Onboarding 3-slide bottom sheet */
   .onboarding-sheet {
     width: min(100%, 490px) !important;
@@ -9985,30 +10032,30 @@ body{font-size:16px}
         <button class="onboarding-skip" id="onboardingSkip" type="button">ПРОПУСТИТЬ</button>
       </div>
       <div class="onboarding-slide" data-onboarding-step="0">
-        <h2 id="onboardingTitle">Максимум кругов за 20 минут</h2>
-        <p class="onboarding-lead">Это тренировка по методике Cindy (AMRAP): выполняйте три базовых упражнения подряд, круг за кругом, отдыхая только по самочувствию.</p>
+        <h2 id="onboardingTitle">Силовые тренировки со своим весом</h2>
+        <p class="onboarding-lead">Программа для дома, турника и зала с минимумом инвентаря. За основу взят классический воркаут-комплекс из 3 базовых движений, доработанный умным тренером под ваш уровень и усталость.</p>
         <div class="onboarding-loop" aria-label="Состав одного круга">
           <div class="onboarding-loop-item"><b>5</b><span>Подтягиваний</span></div>
           <div class="onboarding-loop-item"><b>10</b><span>Отжиманий</span></div>
           <div class="onboarding-loop-item"><b>15</b><span>Приседаний</span></div>
         </div>
-        <p class="onboarding-lead">Главная цель: запомнить или записать, сколько полных кругов вы успели закрыть до финального сигнала.</p>
+        <p class="onboarding-lead">Классический формат: 20 минут подряд по кругу в своём темпе. Задача: закрыть максимум полных кругов.</p>
       </div>
       <div class="onboarding-slide hidden" data-onboarding-step="1">
-        <h2>Как не отвлекаться на телефон</h2>
-        <p class="onboarding-lead">Выберите способ, который не сбивает темп во время подхода:</p>
+        <h2>Как считать круги и темп</h2>
+        <p class="onboarding-lead">Отмечайте круги так, как удобно на тренировке:</p>
         <div class="onboarding-list">
           <div class="onboarding-row">
+            <span class="onboarding-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="4"></rect><path d="M9 12h6"></path></svg></span>
+            <div><b>Кнопка или голос «Круг» (точнее для тренера)</b><small>Нажимайте большую кнопку или говорите в микрофон. Тренер замерит время каждого круга, заметит падение темпа к концу и подстроит нагрузку.</small></div>
+          </div>
+          <div class="onboarding-row">
             <span class="onboarding-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2"></path><path d="M9 2h6"></path></svg></span>
-            <div><b>Ввести итог после финиша</b><small>Поставьте таймер и уберите телефон в сторону. Когда время закончится, укажите число кругов в окне результата.</small></div>
+            <div><b>Без телефона: ввод итога в конце</b><small>Если у турника неудобно отвлекаться, уберите телефон до сигнала и просто введите общее число кругов в окне финиша.</small></div>
           </div>
           <div class="onboarding-row">
             <span class="onboarding-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg></span>
-            <div><b>Голос без рук</b><small>После старта нажмите значок микрофона и говорите «Круг» или «Пауза» (в поддерживаемых браузерах).</small></div>
-          </div>
-          <div class="onboarding-row">
-            <span class="onboarding-row-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="4"></rect><path d="M9 12h6"></path></svg></span>
-            <div><b>Крупная кнопка на экране</b><small>Во время работы нижняя навигация скрывается, чтобы вы случайно не переключили вкладку.</small></div>
+            <div><b>Фокус без случайных нажатий</b><small>Пока таймер идёт, нижняя панель скрывается, чтобы вы случайно не переключили вкладку.</small></div>
           </div>
         </div>
       </div>
@@ -10381,12 +10428,12 @@ function renderAll(options={}){applyLanguage();stage2InitLayout();applyTheme();r
       if(n>0){
         const avgLap=Math.round(dur/n);
         set('resultAverage',time(avgLap));
-        set('resultBestLap',time(avgLap));
+        set('resultBestLap','—');
         const isPB=n>pendingManualTally.previousBest;
         const pr=$('recordCallout');
         pr.classList.remove('hidden');
         pr.textContent=isPB?`НОВЫЙ ЛИЧНЫЙ РЕКОРД · ${roundsText(n)}${pendingManualTally.previousBest?` · +${n-pendingManualTally.previousBest}`:''}`:`Личный рекорд: ${roundsText(pendingManualTally.previousBest)}`;
-        set('resultNote',`Указано вручную: ${roundsText(n)}. Нажмите «ОК», чтобы сохранить в журнал и передать тренеру.`);
+        set('resultNote',`Указано вручную: ${roundsText(n)}. Нажмите «ОК», чтобы сохранить. Для оценки темпа и усталости по кругам отмечайте их по ходу работы.`);
       }else{
         set('resultAverage','—');set('resultBestLap','—');
         const pr=$('recordCallout');pr.classList.toggle('hidden',!pendingManualTally.previousBest);
@@ -10401,7 +10448,7 @@ function renderAll(options={}){applyLanguage();stage2InitLayout();applyTheme();r
       if(!pendingManualTally||pendingManualTally.manualRounds<=0){pendingManualTally=null;return false}
       const tally=pendingManualTally,n=tally.manualRounds,base=tally.result,dur=Math.max(1,Number(base.duration)||0);
       pendingManualTally=null;
-      const laps=rebuildLaps(n,dur),exTotals=totalsFor(base.composition,n),legacy=legacyTotals(base.composition,n);
+      const laps=[],exTotals=totalsFor(base.composition,n),legacy=legacyTotals(base.composition,n);
       const completedAtDate=new Date(base.completedAt||Date.now()),completedAt=completedAtDate.toISOString(),timeMetadata=historyTimeMetadata(completedAtDate);
       const raw={id:`${completedAt}-${Math.random().toString(36).slice(2,8)}`,completedAt,...timeMetadata,rounds:n,duration:dur,mode:base.mode,plannedSeconds:base.plannedSeconds,target:base.target,endedBy:base.endedBy,laps,composition:cloneComposition(base.composition),exerciseTotals:exTotals,pull:legacy[0],push:legacy[1],squat:legacy[2],source:cloneSource(base.source)};
       const coachApi=window.CindyCoachIntegration;
