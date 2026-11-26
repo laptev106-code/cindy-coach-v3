@@ -121,11 +121,12 @@ function connectCdp(targetUrl){
     await click('#navProfile');
 
     await click('button[data-stage2-category="soundVoice"]');
+    await sleep(360);
     const soundBefore=await evaluate(`document.getElementById('soundEnabled').checked`);
-       await click('#soundEnabled');
+    await click('#soundEnabled');
     await waitFor(()=>evaluate(`document.getElementById('soundEnabled').checked!==${soundBefore}&&JSON.parse(localStorage.getItem('cindyCfg')||'{}').sound===document.getElementById('soundEnabled').checked`),{label:'sound setting persisted'});
     const soundAfter=await evaluate(`document.getElementById('soundEnabled').checked`);
-    await reload();await click('#navProfile');await click('button[data-stage2-category="soundVoice"]');
+    await reload();await click('#navProfile');await click('button[data-stage2-category="soundVoice"]');await sleep(360);
     assert.strictEqual(await evaluate(`document.getElementById('soundEnabled').checked`),soundAfter,'sound control remains visible and persists in Pro mode');
 
     // Profile fields remain intact and are grouped; exclusions are no longer duplicated there.
